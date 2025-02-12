@@ -1,69 +1,88 @@
-# Welcome to your Lovable project
+# SolarFluidity
 
-## Project info
+SolarFluidity es un Software as a Service (SaaS) diseñado para la gestión integral de proyectos solares, permitiendo a las empresas del sector administrar cotizaciones, inventarios, facturación, reportes y automatizaciones de manera eficiente y escalable.
 
-**URL**: https://lovable.dev/projects/15657a33-034b-489e-88ac-6881251f824b
+## Características Principales
 
-## How can I edit this code?
+- Gestión de cotizaciones y proyectos solares
+- Sistema de inventario integrado
+- Facturación electrónica (integración con Hacienda CR)
+- Reportes automatizados
+- Panel de administración intuitivo
+- Planes personalizados para empresas
 
-There are several ways of editing your application.
+## Tecnologías Utilizadas
 
-**Use Lovable**
+- Frontend: React + TypeScript + Vite
+- UI/UX: shadcn-ui + Tailwind CSS
+- Backend: Node.js
+- Base de Datos: PostgreSQL/Supabase
+- Automatizaciones: n8n/gum Loop
+- Pagos: PayPal, Stripe
+- Despliegue: AWS/GCP/Azure
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/15657a33-034b-489e-88ac-6881251f824b) and start prompting.
+## Configuración del Proyecto
 
-Changes made via Lovable will be committed automatically to this repo.
+### Requisitos Previos
 
-**Use your preferred IDE**
+- Node.js & npm - [instalar con nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Base de datos PostgreSQL
+- Cuenta de PayPal Business (para procesamiento de pagos)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Instalación
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Clonar el repositorio
+git clone <URL_DEL_REPOSITORIO>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navegar al directorio del proyecto
+cd proyectosolar
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Instalar dependencias
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Iniciar servidor de desarrollo
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Estructura del Proyecto
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```
+proyectosolar/
+├── src/
+│   ├── components/    # Componentes React reutilizables
+│   ├── pages/        # Páginas principales de la aplicación
+│   ├── services/     # Servicios y APIs
+│   ├── utils/        # Utilidades y helpers
+│   └── styles/       # Estilos y configuración de Tailwind
+├── public/           # Archivos estáticos
+└── docs/            # Documentación adicional
+```
 
-**Use GitHub Codespaces**
+## Documentación
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Para información detallada sobre la arquitectura, configuración y guías de desarrollo, consulta los siguientes documentos en la carpeta `docs/`:
 
-## What technologies are used for this project?
+- Manual de Identidad Visual
+- Guía de Experiencia de Usuario y Diseño de Interfaz
+- Arquitectura Técnica y Modelo de Base de Datos
+- Manual de Operaciones y Administración
+- Política de Privacidad y Términos de Uso
 
-This project is built with .
+## Contribución
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. Fork el repositorio
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
 
-## How can I deploy this project?
+## Licencia
 
-Simply open [Lovable](https://lovable.dev/projects/15657a33-034b-489e-88ac-6881251f824b) and click on Share -> Publish.
+Este proyecto está bajo la Licencia [Especificar tipo de licencia]. Ver el archivo `LICENSE` para más detalles.
 
-## I want to use a custom domain - is that possible?
+## Contacto
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Kevin Cordero Elizondo - [Información de contacto]
+
+Project Link: [https://github.com/KevinCElizondo/proyectosolar](https://github.com/KevinCElizondo/proyectosolar)

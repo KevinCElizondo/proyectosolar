@@ -1,48 +1,169 @@
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { ROUTES } from './config/constants';
+import MainLayout from './layouts/MainLayout';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import i18n from "./i18n/config";
-import "./App.css";
+// Pages
+import Login from './pages/auth/Login';
+import Register from './pages/auth/Register';
+import Dashboard from './pages/Dashboard';
+import Projects from './pages/projects/Projects';
+import ProjectDetail from './pages/projects/ProjectDetail';
+import Quotations from './pages/quotations/Quotations';
+import QuotationDetail from './pages/quotations/QuotationDetail';
+import Inventory from './pages/inventory/Inventory';
+import Invoices from './pages/invoices/Invoices';
+import InvoiceDetail from './pages/invoices/InvoiceDetail';
+import Settings from './pages/Settings';
+import Profile from './pages/Profile';
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  const toggleLanguage = () => {
-    const newLang = i18n.language === 'es' ? 'en' : 'es';
-    i18n.changeLanguage(newLang);
-  };
+function PrivateRoute({ children }: { children: React.ReactNode }) {
+    const { user, loading } = useAuth();
 
-  return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <div className="min-h-screen bg-dark">
-            <nav className="bg-dark-lighter border-b border-white/10">
-              <div className="container mx-auto px-4 py-3 flex justify-end">
-                <button
-                  onClick={toggleLanguage}
-                  className="px-4 py-2 bg-[#6F3AF2] text-white rounded-lg hover:bg-[#5B2FD9] transition-colors font-inter text-sm flex items-center gap-2"
-                >
-                  {i18n.language === 'es' ? 'EN' : 'ES'}
-                </button>
-              </div>
-            </nav>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </div>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  );
-};
+    if (loading) {
+        return <div>Cargando...</div>;
+    }
+
+    if (!user) {
+        return <Navigate to={ROUTES.LOGIN} />;
+    }
+
+    return <MainLayout>{children}</MainLayout>;
+}
+
+function PublicRoute({ children }: { children: React.ReactNode }) {
+    const { user, loading } = useAuth();
+
+    if (loading) {
+        return <div>Cargando...</div>;
+    }
+
+    if (user) {
+        return <Navigate to={ROUTES.DASHBOARD} />;
+    }
+
+    return <>{children}</>;
+}
+
+function App() {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+                <Router>
+                    <Routes>
+                        {/* Public Routes */}
+                        <Route
+                            path={ROUTES.LOGIN}
+                            element={
+                                <PublicRoute>
+                                    <Login />
+                                </PublicRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.REGISTER}
+                            element={
+                                <PublicRoute>
+                                    <Register />
+                                </PublicRoute>
+                            }
+                        />
+
+                        {/* Private Routes */}
+                        <Route
+                            path={ROUTES.DASHBOARD}
+                            element={
+                                <PrivateRoute>
+                                    <Dashboard />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.PROJECTS}
+                            element={
+                                <PrivateRoute>
+                                    <Projects />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.PROJECT_DETAIL}
+                            element={
+                                <PrivateRoute>
+                                    <ProjectDetail />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.QUOTATIONS}
+                            element={
+                                <PrivateRoute>
+                                    <Quotations />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.QUOTATION_DETAIL}
+                            element={
+                                <PrivateRoute>
+                                    <QuotationDetail />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.INVENTORY}
+                            element={
+                                <PrivateRoute>
+                                    <Inventory />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.INVOICES}
+                            element={
+                                <PrivateRoute>
+                                    <Invoices />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.INVOICE_DETAIL}
+                            element={
+                                <PrivateRoute>
+                                    <InvoiceDetail />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.SETTINGS}
+                            element={
+                                <PrivateRoute>
+                                    <Settings />
+                                </PrivateRoute>
+                            }
+                        />
+                        <Route
+                            path={ROUTES.PROFILE}
+                            element={
+                                <PrivateRoute>
+                                    <Profile />
+                                </PrivateRoute>
+                            }
+                        />
+
+                        {/* Default Route */}
+                        <Route
+                            path="/"
+                            element={<Navigate to={ROUTES.DASHBOARD} replace />}
+                        />
+                    </Routes>
+                </Router>
+            </AuthProvider>
+        </QueryClientProvider>
+    );
+}
 
 export default App;
