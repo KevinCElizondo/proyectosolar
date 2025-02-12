@@ -22,17 +22,23 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <button
-          onClick={toggleLanguage}
-          className="fixed top-4 right-4 z-50 px-4 py-2 bg-primary text-dark rounded-lg hover:bg-primary-hover transition-colors font-inter"
-        >
-          {i18n.language === 'es' ? 'EN' : 'ES'}
-        </button>
         <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="min-h-screen bg-dark">
+            <nav className="bg-dark-lighter border-b border-white/10">
+              <div className="container mx-auto px-4 py-3 flex justify-end">
+                <button
+                  onClick={toggleLanguage}
+                  className="px-4 py-2 bg-[#6F3AF2] text-white rounded-lg hover:bg-[#5B2FD9] transition-colors font-inter text-sm flex items-center gap-2"
+                >
+                  {i18n.language === 'es' ? 'EN' : 'ES'}
+                </button>
+              </div>
+            </nav>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </div>
         </BrowserRouter>
       </TooltipProvider>
     </QueryClientProvider>

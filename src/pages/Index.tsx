@@ -7,7 +7,7 @@ import Contact from "@/components/Contact";
 
 const Index = () => {
   return (
-    <main className="min-h-screen bg-dark">
+    <main className="bg-dark">
       <Hero />
       <Features />
       <Pricing />
