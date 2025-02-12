@@ -1,28 +1,31 @@
 
 import { motion } from "framer-motion";
 import { BoxesIcon, FileText, DollarSign, Headset } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Features = () => {
+  const { t } = useTranslation();
+
   const features = [
     {
       icon: <BoxesIcon className="w-8 h-8" />,
-      title: "Gestión de Inventario",
-      description: "Mantén un control total y en tiempo real de tus paneles y equipos solares. Automatiza el seguimiento de existencias y organiza tus productos de forma inteligente para evitar faltantes o excesos.",
+      title: t("features.inventory.title"),
+      description: t("features.inventory.description"),
     },
     {
       icon: <FileText className="w-8 h-8" />,
-      title: "Cotizaciones Profesionales",
-      description: "Elabora propuestas personalizadas y atractivas en minutos. Integra cálculos de costos y descuentos para generar cotizaciones precisas y seguir cada etapa de tus proyectos.",
+      title: t("features.quotes.title"),
+      description: t("features.quotes.description"),
     },
     {
       icon: <DollarSign className="w-8 h-8" />,
-      title: "Gestión Financiera",
-      description: "Controla todas tus transacciones y pagos desde un solo lugar. Integrado con pasarelas de pago y sistemas de facturación para mantener tus finanzas en orden.",
+      title: t("features.financial.title"),
+      description: t("features.financial.description"),
     },
     {
       icon: <Headset className="w-8 h-8" />,
-      title: "Soporte Premium",
-      description: "Obtén asistencia especializada y dedicada. Nuestro equipo te acompaña en cada paso, asegurando que tu negocio opere sin contratiempos.",
+      title: t("features.support.title"),
+      description: t("features.support.description"),
     },
   ];
 
@@ -36,7 +39,7 @@ const Features = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-white font-rajdhani mb-6">
-            Características Principales de SolarFluidity
+            {t("features.title")}
           </h2>
         </motion.div>
 

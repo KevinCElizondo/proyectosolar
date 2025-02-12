@@ -1,8 +1,45 @@
 
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Pricing = () => {
+  const { t } = useTranslation();
+
+  const plans = [
+    {
+      name: t("pricing.basic.title"),
+      price: "99",
+      features: [
+        t("pricing.basic.features.1"),
+        t("pricing.basic.features.2"),
+        t("pricing.basic.features.3"),
+        t("pricing.basic.features.4"),
+      ],
+    },
+    {
+      name: t("pricing.pro.title"),
+      price: "199",
+      features: [
+        t("pricing.pro.features.1"),
+        t("pricing.pro.features.2"),
+        t("pricing.pro.features.3"),
+        t("pricing.pro.features.4"),
+      ],
+      highlighted: true,
+    },
+    {
+      name: t("pricing.enterprise.title"),
+      price: t("pricing.custom"),
+      features: [
+        t("pricing.enterprise.features.1"),
+        t("pricing.enterprise.features.2"),
+        t("pricing.enterprise.features.3"),
+        t("pricing.enterprise.features.4"),
+      ],
+    },
+  ];
+
   return (
     <section className="py-20 px-4 bg-dark">
       <div className="container mx-auto">
@@ -13,44 +50,12 @@ const Pricing = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl font-bold text-white font-rajdhani mb-6">
-            Planes y Precios
+            {t("pricing.title")}
           </h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              name: "Básico",
-              price: "99",
-              features: [
-                "Gestión de inventario básico",
-                "Cotizaciones ilimitadas",
-                "Soporte por email",
-                "1 usuario",
-              ],
-            },
-            {
-              name: "Profesional",
-              price: "199",
-              features: [
-                "Inventario avanzado",
-                "Cotizaciones personalizadas",
-                "Soporte prioritario",
-                "5 usuarios",
-              ],
-              highlighted: true,
-            },
-            {
-              name: "Empresarial",
-              price: "Personalizado",
-              features: [
-                "Características personalizadas",
-                "Integración con su ERP",
-                "Soporte 24/7",
-                "Usuarios ilimitados",
-              ],
-            },
-          ].map((plan, index) => (
+          {plans.map((plan, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
@@ -68,9 +73,9 @@ const Pricing = () => {
                   {plan.name}
                 </h3>
                 <div className="text-4xl font-bold text-primary mb-6 font-rajdhani">
-                  {typeof plan.price === "number" ? `$${plan.price}` : plan.price}
-                  {typeof plan.price === "number" && (
-                    <span className="text-lg text-gray-400">/mes</span>
+                  {plan.price === t("pricing.custom") ? plan.price : `$${plan.price}`}
+                  {plan.price !== t("pricing.custom") && (
+                    <span className="text-lg text-gray-400">{t("pricing.month")}</span>
                   )}
                 </div>
                 <ul className="space-y-4 mb-8">
@@ -82,7 +87,7 @@ const Pricing = () => {
                   ))}
                 </ul>
                 <button className="w-full px-6 py-3 bg-primary hover:bg-primary-hover text-dark font-semibold rounded-lg transition-colors font-inter">
-                  Seleccionar Plan
+                  {t("pricing.select")}
                 </button>
               </div>
             </motion.div>
