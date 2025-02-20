@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Box, BarChart, Shield, Headphones } from 'lucide-react';
 import { ROUTES } from '@/config/constants';
 import ParticleBackground from '@/components/ParticleBackground';
+import Logo from '@/components/Logo';
 
 export default function Index() {
     return (
@@ -21,8 +22,10 @@ export default function Index() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
+                        <div className="flex justify-center mb-8">
+                            <Logo />
+                        </div>
                         <h2 className="text-lg text-primary mb-2">Revoluciona tu Empresa Solar</h2>
-                        <h1 className="text-4xl md:text-6xl font-bold mb-4">SolarFluidity</h1>
                         <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8">
                             Gestión integral para proyectos solares. Simplifica tus cotizaciones, 
                             inventario y facturación en una sola plataforma.
