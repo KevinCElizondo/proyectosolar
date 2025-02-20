@@ -57,3 +57,44 @@ export interface Invoice {
     createdAt: Date;
     updatedAt: Date;
 }
+
+// New types for the expanded system
+export interface Certificate {
+    id: string;
+    name: string;
+    file: Uint8Array;
+    createdAt: Date;
+}
+
+export interface Payment {
+    id: string;
+    invoiceId: string;
+    amount: number;
+    paymentMethod: 'paypal' | 'credit_card' | 'bank_transfer';
+    status: 'pending' | 'completed' | 'failed';
+    paidAt: Date;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export interface InvoiceDetails {
+    key: string;
+    signedXml: string;
+    status: 'pending' | 'accepted' | 'rejected';
+    userId: string;
+    issuedAt: Date;
+}
+
+export interface ApiResponse<T> {
+    success: boolean;
+    data?: T;
+    error?: string;
+}
+
+export interface TreasuryIntegrationConfig {
+    certificateId: string;
+    branch: string;
+    terminal: string;
+    documentType: string;
+    situation: string;
+}
