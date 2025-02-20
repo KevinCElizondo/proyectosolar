@@ -19,6 +19,22 @@ export const SUPPORTED_CERTIFICATE_TYPES = ['.p12'];
 export const DEFAULT_CURRENCY = 'USD';
 export const DEFAULT_LOCALE = 'es-CR';
 
+// Routes
+export const ROUTES = {
+    LOGIN: '/login',
+    REGISTER: '/register',
+    DASHBOARD: '/dashboard',
+    PROJECTS: '/projects',
+    PROJECT_DETAIL: '/projects/:id',
+    QUOTATIONS: '/quotations',
+    QUOTATION_DETAIL: '/quotations/:id',
+    INVENTORY: '/inventory',
+    INVOICES: '/invoices',
+    INVOICE_DETAIL: '/invoices/:id',
+    SETTINGS: '/settings',
+    PROFILE: '/profile'
+};
+
 // Cache Duration
 export const CACHE_DURATION = {
     CERTIFICATES: 60 * 60 * 1000, // 1 hour
