@@ -1,90 +1,92 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User } from '../types';
+
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import type { User } from '@/types';
 
 interface AuthContextType {
     user: User | null;
     loading: boolean;
     login: (email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
-    register: (userData: Partial<User> & { password: string }) => Promise<void>;
+    register: (email: string, password: string, name: string) => Promise<void>;
+    logout: () => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType>({
+    user: null,
+    loading: true,
+    login: async () => {},
+    register: async () => {},
+    logout: () => {},
+});
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Verificar token almacenado y cargar usuario
-        checkAuth();
-    }, []);
-
-    const checkAuth = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            if (!token) {
-                setLoading(false);
-                return;
-            }
-
-            // Implementar llamada a API para verificar token
-            // const response = await api.get('/auth/me');
-            // setUser(response.data);
-        } catch (error) {
-            console.error('Error checking auth:', error);
-            localStorage.removeItem('token');
-        } finally {
-            setLoading(false);
+        // Check if user is logged in
+        const token = localStorage.getItem('token');
+        if (token) {
+            // TODO: Validate token and get user data
+            setUser({
+                id: '1',
+                email: 'demo@example.com',
+                fullName: 'Demo User',
+                role: 'user',
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            });
         }
-    };
+        setLoading(false);
+    }, []);
 
     const login = async (email: string, password: string) => {
         try {
-            // Implementar llamada a API para login
-            // const response = await api.post('/auth/login', { email, password });
-            // localStorage.setItem('token', response.data.token);
-            // setUser(response.data.user);
+            // TODO: Implement actual login logic
+            const mockUser = {
+                id: '1',
+                email,
+                fullName: 'Demo User',
+                role: 'user' as const,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            };
+            setUser(mockUser);
+            localStorage.setItem('token', 'mock-token');
         } catch (error) {
-            console.error('Error logging in:', error);
+            console.error('Login error:', error);
             throw error;
         }
     };
 
-    const logout = async () => {
+    const register = async (email: string, password: string, name: string) => {
         try {
-            // Implementar llamada a API para logout si es necesario
-            localStorage.removeItem('token');
-            setUser(null);
+            // TODO: Implement actual registration logic
+            const mockUser = {
+                id: '1',
+                email,
+                fullName: name,
+                role: 'user' as const,
+                createdAt: new Date(),
+                updatedAt: new Date(),
+            };
+            setUser(mockUser);
+            localStorage.setItem('token', 'mock-token');
         } catch (error) {
-            console.error('Error logging out:', error);
+            console.error('Registration error:', error);
             throw error;
         }
     };
 
-    const register = async (userData: Partial<User> & { password: string }) => {
-        try {
-            // Implementar llamada a API para registro
-            // const response = await api.post('/auth/register', userData);
-            // localStorage.setItem('token', response.data.token);
-            // setUser(response.data.user);
-        } catch (error) {
-            console.error('Error registering:', error);
-            throw error;
-        }
+    const logout = () => {
+        setUser(null);
+        localStorage.removeItem('token');
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout, register }}>
+        <AuthContext.Provider value={{ user, loading, login, register, logout }}>
             {children}
         </AuthContext.Provider>
     );
-}
-
-export function useAuth() {
-    const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
-    }
-    return context;
-}
+};
