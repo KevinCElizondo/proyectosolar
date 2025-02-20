@@ -20,6 +20,10 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        dark: {
+          DEFAULT: "#0F172A",
+          lighter: "#1E293B",
+        },
         primary: {
           DEFAULT: "#39FF14",
           hover: "#32E512",
@@ -27,10 +31,6 @@ export default {
         secondary: {
           DEFAULT: "#0EA5E9",
           hover: "#0284C7",
-        },
-        dark: {
-          DEFAULT: "#0F172A",
-          lighter: "#1E293B",
         },
       },
       fontFamily: {
