@@ -21,6 +21,7 @@ export const DEFAULT_LOCALE = 'es-CR';
 
 // Routes
 export const ROUTES = {
+    HOME: '/',
     LOGIN: '/login',
     REGISTER: '/register',
     DASHBOARD: '/dashboard',
