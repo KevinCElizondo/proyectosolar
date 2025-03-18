@@ -5,6 +5,7 @@ import { ROUTES } from './config/constants';
 import MainLayout from './layouts/MainLayout';
 
 // Pages
+import Index from './pages/Index';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
@@ -154,11 +155,11 @@ function App() {
                             }
                         />
 
-                        {/* Default Route */}
-                        <Route
-                            path="/"
-                            element={<Navigate to={ROUTES.DASHBOARD} replace />}
-                        />
+                        {/* Landing Page - Public */}
+                        <Route path={ROUTES.HOME} element={<Index />} />
+                        
+                        {/* Redirect any unknown routes to home */}
+                        <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
                     </Routes>
                 </Router>
             </AuthProvider>
