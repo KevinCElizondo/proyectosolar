@@ -1,4 +1,4 @@
-# Manual de Identidad Visual de SolarFluidity
+# Manual de Identidad Visual de Solar Fluidity
 
 ## Paleta de Colores
 
@@ -6,6 +6,8 @@
 - **Solar Blue**: #1E88E5 - Color principal que representa confianza y tecnología
 - **Energy Yellow**: #FDD835 - Color secundario que representa la energía solar
 - **Eco Green**: #43A047 - Color que representa sostenibilidad
+- **Invoice Purple**: #8E24AA - Color que representa facturación electrónica
+- **Automation Orange**: #F57C00 - Color que representa automatizaciones
 
 ### Colores Secundarios
 - **Cloud White**: #FFFFFF - Fondo principal
@@ -54,15 +56,29 @@
 
 ### Web
 - Navbar con fondo blanco y logo principal
+- Menú lateral navegable por módulos (facturación, proyectos, automatizaciones)
 - Footer con fondo Night Blue y logo invertido
 - Cards con sombras suaves y bordes redondeados
+- Iconografía especializada para cada módulo funcional
+
+### Documentos Fiscales
+- Facturas electrónicas con elementos de marca corporativa
+- Códigos QR y elementos de seguridad visual
+- Uso controlado del Invoice Purple para elementos clave
+
+### Dashboards de Proyectos
+- Gráficas con paleta consistente
+- Indicadores de estado con código de colores intuitivo
+- Visualizaciones de flujos de trabajo con Automation Orange
 
 ### Email
 - Encabezado con logo centrado
 - Cuerpo con fondo blanco
 - Footer con información de contacto
+- Plantillas específicas para notificaciones fiscales
 
 ### Documentación
 - Títulos en Solar Blue
 - Enlaces en Energy Yellow
 - Bloques de código con fondo gris claro
+- Diagramas de flujo para procesos de facturación y automatizaciones
