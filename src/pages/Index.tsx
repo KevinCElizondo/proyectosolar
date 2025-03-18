@@ -9,36 +9,92 @@ import { FileText, Zap, ShieldCheck, LineChart, Building2, Bolt, Cpu, FileOutput
 import { ROUTES } from '@/config/constants';
 import ParticleBackground from '@/components/ParticleBackground';
 import Logo from '@/components/Logo';
+import { useRef } from 'react';
 
 export default function Index() {
+    // Referencia al contenedor de la sección hero
+    const heroSectionRef = useRef<HTMLDivElement>(null);
+    
     return (
         <div className="min-h-screen bg-dark text-white">
             {/* Hero Section */}
-            <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-                <ParticleBackground />
+            <section 
+                ref={heroSectionRef}
+                className="relative min-h-screen flex items-center justify-center overflow-hidden"
+                style={{ position: 'relative' }}
+            >
+                {/* Implementación mejorada del fondo de partículas */}
+                <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
+                    <ParticleBackground 
+                        particleCount={200} 
+                        backgroundColor="bg-dark" 
+                        containerRef={heroSectionRef} 
+                    />
+                </div>
+                
                 <div className="container mx-auto px-4 text-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
+                        className="flex flex-col items-center justify-center"
                     >
+                        {/* Logo animado */}
                         <div className="flex justify-center mb-8">
                             <Logo />
                         </div>
-                        <h1 className="text-4xl md:text-5xl font-bold mb-4">Solar Fluidity</h1>
-                        <h2 className="text-xl text-primary mb-2">Gestiona tus Proyectos y Facturas Electrónicas Offline en un Solo Lugar</h2>
-                        <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+                        
+                        {/* Contenido principal centrado */}
+                        <motion.h1 
+                            className="text-4xl md:text-6xl font-bold mb-6"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.2, duration: 0.5 }}
+                        >
+                            Solar Fluidity
+                        </motion.h1>
+                        
+                        <motion.h2 
+                            className="text-xl md:text-2xl text-primary mb-6"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.4, duration: 0.5 }}
+                        >
+                            Gestiona tus Proyectos y Facturas Electrónicas Offline en un Solo Lugar
+                        </motion.h2>
+                        
+                        <motion.p 
+                            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.6, duration: 0.5 }}
+                        >
                             Plataforma especializada para empresas de proyectos solares y servicios electromecánicos. 
                             Facturación electrónica offline, automatizaciones inteligentes y gestión completa de proyectos.
-                        </p>
-                        <div className="flex gap-4 justify-center">
-                            <Button size="lg" className="bg-primary hover:bg-primary/90">
+                        </motion.p>
+                        
+                        {/* Botones de llamada a la acción */}
+                        <motion.div 
+                            className="flex flex-col sm:flex-row gap-4 justify-center w-full max-w-lg mx-auto"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.8, duration: 0.5 }}
+                        >
+                            <Button 
+                                size="lg" 
+                                className="bg-primary hover:bg-primary/90 w-full sm:w-auto px-8 text-base font-semibold shadow-lg shadow-primary/20 transition-all duration-300 hover:scale-105"
+                            >
                                 Inicia tu Prueba
                             </Button>
-                            <Button size="lg" variant="outline">
-                                Ver Planes
+                            
+                            <Button 
+                                size="lg" 
+                                variant="outline" 
+                                className="w-full sm:w-auto px-8 text-base border-gray-500 hover:bg-gray-800 transition-all duration-300"
+                            >
+                                Descubre más funcionalidades
                             </Button>
-                        </div>
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
@@ -145,76 +201,80 @@ export default function Index() {
                 <div className="container mx-auto px-4">
                     <h2 className="text-3xl font-bold text-center mb-12">Planes y Precios</h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <Card className="p-8 bg-dark border-gray-800">
-                            <h3 className="text-xl font-bold mb-4">Plan Básico</h3>
-                            <div className="text-3xl font-bold text-primary mb-6">$99<span className="text-lg text-gray-400">/mes</span></div>
+                        <Card className="p-8 bg-dark border-gray-800 transition-transform hover:translate-y-[-10px]">
+                            <h3 className="text-xl font-bold mb-2">Plan Gratuito</h3>
+                            <p className="text-sm text-gray-400 mb-4">Para quienes comienzan el camino hacia la digitalización</p>
+                            <div className="text-3xl font-bold text-primary mb-6">$0<span className="text-lg text-gray-400">/mes</span></div>
                             <ul className="space-y-4 mb-8">
                                 <li className="flex items-center gap-2">
                                     <span className="text-green-500">✓</span>
-                                    Hasta 50 facturas mensuales
+                                    Hasta 10 facturas electrónicas mensuales
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <span className="text-green-500">✓</span>
-                                    5 proyectos activos
+                                    Gestión de hasta 2 proyectos activos
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <span className="text-green-500">✓</span>
-                                    Reportes básicos
+                                    Acceso a reportes básicos
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <span className="text-green-500">✓</span>
                                     1 usuario
                                 </li>
                             </ul>
-                            <Button className="w-full">Seleccionar Plan</Button>
+                            <Button className="w-full">Comenzar Gratis</Button>
                         </Card>
                         
-                        <Card className="p-8 bg-dark border-gray-800 transform scale-105 shadow-xl">
-                            <h3 className="text-xl font-bold mb-4">Plan Profesional</h3>
-                            <div className="text-3xl font-bold text-primary mb-6">$199<span className="text-lg text-gray-400">/mes</span></div>
+                        <Card className="p-8 bg-dark border-gray-800 transition-transform hover:translate-y-[-10px]">
+                            <h3 className="text-xl font-bold mb-2">Plan Básico</h3>
+                            <p className="text-sm text-gray-400 mb-4">Ideal para contratistas independientes y pequeñas empresas</p>
+                            <div className="text-3xl font-bold text-primary mb-6">$20<span className="text-lg text-gray-400">/mes</span></div>
                             <ul className="space-y-4 mb-8">
                                 <li className="flex items-center gap-2">
                                     <span className="text-green-500">✓</span>
-                                    Facturas ilimitadas
+                                    Hasta 100 facturas electrónicas mensuales
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <span className="text-green-500">✓</span>
-                                    20 proyectos activos
+                                    Gestión de hasta 10 proyectos activos
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <span className="text-green-500">✓</span>
-                                    Automatizaciones avanzadas
+                                    Acceso a reportes básicos
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="text-green-500">✓</span>
+                                    Hasta 2 usuarios
+                                </li>
+                            </ul>
+                            <Button className="w-full">Contratar Plan Básico</Button>
+                        </Card>
+
+                        <Card className="p-8 bg-dark border-gray-800 transform scale-105 shadow-xl relative transition-transform hover:translate-y-[-10px]">
+                            <div className="absolute top-0 right-0 bg-primary text-white px-4 py-1 rounded-bl-md font-semibold">Más Popular</div>
+                            <h3 className="text-xl font-bold mb-2">Plan Profesional</h3>
+                            <p className="text-sm text-gray-400 mb-4">Para empresas en crecimiento con múltiples proyectos</p>
+                            <div className="text-3xl font-bold text-primary mb-6">$40<span className="text-lg text-gray-400">/mes</span></div>
+                            <ul className="space-y-4 mb-8">
+                                <li className="flex items-center gap-2">
+                                    <span className="text-green-500">✓</span>
+                                    Facturación electrónica ilimitada
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="text-green-500">✓</span>
+                                    Gestión de proyectos ilimitados
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="text-green-500">✓</span>
+                                    Acceso a automatizaciones avanzadas y reportes detallados
                                 </li>
                                 <li className="flex items-center gap-2">
                                     <span className="text-green-500">✓</span>
                                     Hasta 5 usuarios
                                 </li>
                             </ul>
-                            <Button className="w-full bg-primary hover:bg-primary/90">Seleccionar Plan</Button>
-                        </Card>
-
-                        <Card className="p-8 bg-dark border-gray-800">
-                            <h3 className="text-xl font-bold mb-4">Plan Empresarial</h3>
-                            <div className="text-3xl font-bold text-primary mb-6">Personalizado</div>
-                            <ul className="space-y-4 mb-8">
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Módulos especializados
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Proyectos ilimitados
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Soporte prioritario
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Usuarios ilimitados
-                                </li>
-                            </ul>
-                            <Button className="w-full">Contactar</Button>
+                            <Button className="w-full bg-primary hover:bg-primary/90">Obtener Plan Profesional</Button>
                         </Card>
                     </div>
                 </div>
