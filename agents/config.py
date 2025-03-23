@@ -16,7 +16,7 @@ class Config(BaseModel):
     AIRTABLE_TABLE_NAME: str
     
     # OpenAI
-    OPENAI_API_KEY: str
+    OPENAI_API_KEY: str = "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"
     
     # GitHub
     GITHUB_TOKEN: str
