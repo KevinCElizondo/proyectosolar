@@ -1,17 +1,83 @@
-
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { FileText, Zap, ShieldCheck, LineChart, Building2, Bolt, Cpu, FileOutput } from 'lucide-react';
+import { FileText, Zap, LineChart, Building2 } from 'lucide-react';
 import { ROUTES } from '@/config/constants';
-import ParticleBackground from '@/components/ParticleBackground';
+import OptimizedBackground from '@/components/OptimizedBackground';
 import Logo from '@/components/Logo';
-import { useRef } from 'react';
+import { useRef, memo } from 'react';
+import LazySection from '@/components/lazy-section';
+import { OptimizedImage } from '@/components/ui/optimized-image';
+import AmazonAffiliateSection from '@/components/AmazonAffiliateSection';
 
-export default function Index() {
+// Sección de características memoizada para mejorar el rendimiento
+const MemoizedFeatureSection = memo(() => (
+    <section className="py-20 bg-dark-lighter">
+        <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold text-center mb-12">
+                Características Principales de Solar Fluidity
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <Card className="p-6 bg-dark border-gray-800">
+                    <div className="flex gap-4">
+                        <FileText className="w-12 h-12 text-primary" />
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2">Facturación Electrónica Offline</h3>
+                            <p className="text-gray-400">
+                                Genera facturas electrónicas XML/PDF válidas sin necesidad de conexión directa 
+                                con la autoridad tributaria. Mantén el control total de tu proceso fiscal.
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+                <Card className="p-6 bg-dark border-gray-800">
+                    <div className="flex gap-4">
+                        <Building2 className="w-12 h-12 text-primary" />
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2">Gestión de Proyectos Especializada</h3>
+                            <p className="text-gray-400">
+                                Planificación y seguimiento de proyectos solares y electromecánicos. Control de costos, 
+                                hitos y calendario de actividades en una interfaz intuitiva.
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+                <Card className="p-6 bg-dark border-gray-800">
+                    <div className="flex gap-4">
+                        <Zap className="w-12 h-12 text-primary" />
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2">Automatizaciones Inteligentes</h3>
+                            <p className="text-gray-400">
+                                Flujos de trabajo automatizados con n8n para recordatorios de pago, reportes 
+                                y notificaciones. Ahorra tiempo y mantén todo bajo control.
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+                <Card className="p-6 bg-dark border-gray-800">
+                    <div className="flex gap-4">
+                        <LineChart className="w-12 h-12 text-primary" />
+                        <div>
+                            <h3 className="text-xl font-semibold mb-2">Reportes Financieros</h3>
+                            <p className="text-gray-400">
+                                Análisis detallados de ingresos, facturas pendientes de cobro y 
+                                rentabilidad por proyecto. Toma decisiones basadas en datos reales.
+                            </p>
+                        </div>
+                    </div>
+                </Card>
+            </div>
+        </div>
+    </section>
+));
+
+MemoizedFeatureSection.displayName = 'MemoizedFeatureSection';
+
+// Función principal memoizada para evitar re-renders innecesarios
+function Index() {
     // Referencia al contenedor de la sección hero
     const heroSectionRef = useRef<HTMLDivElement>(null);
     
@@ -23,10 +89,9 @@ export default function Index() {
                 className="relative min-h-screen flex items-center justify-center overflow-hidden"
                 style={{ position: 'relative' }}
             >
-                {/* Implementación mejorada del fondo de partículas */}
+                {/* Fondo optimizado con elementos estáticos */}
                 <div className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
-                    <ParticleBackground 
-                        particleCount={200} 
+                    <OptimizedBackground 
                         backgroundColor="bg-dark" 
                         containerRef={heroSectionRef} 
                     />
@@ -99,269 +164,239 @@ export default function Index() {
                 </div>
             </section>
 
-            {/* Features Section */}
-            <section className="py-20 bg-dark-lighter">
-                <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-center mb-12">
-                        Características Principales de Solar Fluidity
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <Card className="p-6 bg-dark border-gray-800">
-                            <div className="flex gap-4">
-                                <FileText className="w-12 h-12 text-primary" />
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-2">Facturación Electrónica Offline</h3>
-                                    <p className="text-gray-400">
-                                        Genera facturas electrónicas XML/PDF válidas sin necesidad de conexión directa 
-                                        con la autoridad tributaria. Mantén el control total de tu proceso fiscal.
-                                    </p>
-                                </div>
-                            </div>
-                        </Card>
-                        <Card className="p-6 bg-dark border-gray-800">
-                            <div className="flex gap-4">
-                                <Building2 className="w-12 h-12 text-primary" />
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-2">Gestión de Proyectos Especializada</h3>
-                                    <p className="text-gray-400">
-                                        Planificación y seguimiento de proyectos solares y electromecánicos. Control de costos, 
-                                        hitos y calendario de actividades en una interfaz intuitiva.
-                                    </p>
-                                </div>
-                            </div>
-                        </Card>
-                        <Card className="p-6 bg-dark border-gray-800">
-                            <div className="flex gap-4">
-                                <Zap className="w-12 h-12 text-primary" />
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-2">Automatizaciones Inteligentes</h3>
-                                    <p className="text-gray-400">
-                                        Flujos de trabajo automatizados con n8n para recordatorios de pago, reportes 
-                                        y notificaciones. Ahorra tiempo y mantén todo bajo control.
-                                    </p>
-                                </div>
-                            </div>
-                        </Card>
-                        <Card className="p-6 bg-dark border-gray-800">
-                            <div className="flex gap-4">
-                                <LineChart className="w-12 h-12 text-primary" />
-                                <div>
-                                    <h3 className="text-xl font-semibold mb-2">Reportes Financieros</h3>
-                                    <p className="text-gray-400">
-                                        Análisis detallados de ingresos, facturas pendientes de cobro y 
-                                        rentabilidad por proyecto. Toma decisiones basadas en datos reales.
-                                    </p>
-                                </div>
-                            </div>
-                        </Card>
-                    </div>
-                </div>
-            </section>
+            {/* Features Section - Lazy Loaded */}
+            <LazySection delay={0.2} className="w-full">
+                <MemoizedFeatureSection />
+            </LazySection>
             
-            {/* How It Works */}
-            <section className="py-20">
-                <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-center mb-12">Cómo Funciona la Facturación Offline</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                        <Card className="p-6 bg-dark border-gray-800 relative overflow-hidden">
-                            <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-xl font-bold">1</div>
-                            <h3 className="text-xl font-semibold mb-4 mt-4">Crea tu Factura</h3>
-                            <p className="text-gray-400">
-                                Completa los datos del cliente, servicios o productos, impuestos y totales en la
-                                interfaz intuitiva.
-                            </p>
-                        </Card>
-                        <Card className="p-6 bg-dark border-gray-800 relative overflow-hidden">
-                            <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-xl font-bold">2</div>
-                            <h3 className="text-xl font-semibold mb-4 mt-4">Genera XML/PDF</h3>
-                            <p className="text-gray-400">
-                                Solar Fluidity valida y genera los documentos fiscales de acuerdo a la normativa
-                                vigente, sin conexión directa con Hacienda.
-                            </p>
-                        </Card>
-                        <Card className="p-6 bg-dark border-gray-800 relative overflow-hidden">
-                            <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-xl font-bold">3</div>
-                            <h3 className="text-xl font-semibold mb-4 mt-4">Descarga y Envía</h3>
-                            <p className="text-gray-400">
-                                Descarga los archivos generados y envíalos a la autoridad tributaria usando
-                                tu método preferido. Mantén el control de tu proceso fiscal.
-                            </p>
-                        </Card>
-                    </div>
-                    <div className="text-center">
-                        <Button size="lg" className="bg-primary hover:bg-primary/90">
-                            Ver Demostración
-                        </Button>
-                    </div>
-                </div>
-            </section>
-
-            {/* Pricing Section */}
-            <section className="py-20 bg-dark-lighter">
-                <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-center mb-12">Planes y Precios</h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <Card className="p-8 bg-dark border-gray-800 transition-transform hover:translate-y-[-10px]">
-                            <h3 className="text-xl font-bold mb-2">Plan Gratuito</h3>
-                            <p className="text-sm text-gray-400 mb-4">Para quienes comienzan el camino hacia la digitalización</p>
-                            <div className="text-3xl font-bold text-primary mb-6">$0<span className="text-lg text-gray-400">/mes</span></div>
-                            <ul className="space-y-4 mb-8">
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Hasta 10 facturas electrónicas mensuales
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Gestión de hasta 2 proyectos activos
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Acceso a reportes básicos
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    1 usuario
-                                </li>
-                            </ul>
-                            <Button className="w-full">Comenzar Gratis</Button>
-                        </Card>
-                        
-                        <Card className="p-8 bg-dark border-gray-800 transition-transform hover:translate-y-[-10px]">
-                            <h3 className="text-xl font-bold mb-2">Plan Básico</h3>
-                            <p className="text-sm text-gray-400 mb-4">Ideal para contratistas independientes y pequeñas empresas</p>
-                            <div className="text-3xl font-bold text-primary mb-6">$20<span className="text-lg text-gray-400">/mes</span></div>
-                            <ul className="space-y-4 mb-8">
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Hasta 100 facturas electrónicas mensuales
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Gestión de hasta 10 proyectos activos
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Acceso a reportes básicos
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Hasta 2 usuarios
-                                </li>
-                            </ul>
-                            <Button className="w-full">Contratar Plan Básico</Button>
-                        </Card>
-
-                        <Card className="p-8 bg-dark border-gray-800 transform scale-105 shadow-xl relative transition-transform hover:translate-y-[-10px]">
-                            <div className="absolute top-0 right-0 bg-primary text-white px-4 py-1 rounded-bl-md font-semibold">Más Popular</div>
-                            <h3 className="text-xl font-bold mb-2">Plan Profesional</h3>
-                            <p className="text-sm text-gray-400 mb-4">Para empresas en crecimiento con múltiples proyectos</p>
-                            <div className="text-3xl font-bold text-primary mb-6">$40<span className="text-lg text-gray-400">/mes</span></div>
-                            <ul className="space-y-4 mb-8">
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Facturación electrónica ilimitada
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Gestión de proyectos ilimitados
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Acceso a automatizaciones avanzadas y reportes detallados
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span>
-                                    Hasta 5 usuarios
-                                </li>
-                            </ul>
-                            <Button className="w-full bg-primary hover:bg-primary/90">Obtener Plan Profesional</Button>
-                        </Card>
-                    </div>
-                </div>
-            </section>
-
-            {/* Resources Section */}
-            <section className="py-20">
-                <div className="container mx-auto px-4">
-                    <h2 className="text-3xl font-bold text-center mb-4">Recursos y Artículos</h2>
-                    <p className="text-center text-gray-400 mb-12">
-                        Información útil sobre facturación electrónica offline y gestión de proyectos
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <Card className="bg-dark border-gray-800">
-                            <div className="p-6">
-                                <h3 className="text-xl font-semibold mb-4">Facturación Electrónica en Costa Rica</h3>
-                                <p className="text-gray-400 mb-4">
-                                    Todo lo que necesitas saber sobre normativa fiscal y obligaciones tributarias.
+            {/* How It Works - Lazy Loaded */}
+            <LazySection delay={0.2} className="w-full">
+                <section className="py-20">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-3xl font-bold text-center mb-12">Cómo Funciona la Facturación Offline</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                            <Card className="p-6 bg-dark border-gray-800 relative overflow-hidden">
+                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-xl font-bold">1</div>
+                                <h3 className="text-xl font-semibold mb-4 mt-4">Crea tu Factura</h3>
+                                <p className="text-gray-400">
+                                    Completa los datos del cliente, servicios o productos, impuestos y totales en la
+                                    interfaz intuitiva.
                                 </p>
-                                <Link to={ROUTES.HOME} className="text-primary hover:underline">
-                                    Leer más
-                                </Link>
-                            </div>
-                        </Card>
-                        <Card className="bg-dark border-gray-800">
-                            <div className="p-6">
-                                <h3 className="text-xl font-semibold mb-4">Automatizaciones con n8n</h3>
-                                <p className="text-gray-400 mb-4">
-                                    Cómo aprovechar la potencia de los flujos de trabajo automatizados para tu negocio.
+                            </Card>
+                            <Card className="p-6 bg-dark border-gray-800 relative overflow-hidden">
+                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-xl font-bold">2</div>
+                                <h3 className="text-xl font-semibold mb-4 mt-4">Genera XML/PDF</h3>
+                                <p className="text-gray-400">
+                                    La plataforma genera automáticamente los documentos electrónicos en formato XML y PDF
+                                    sin necesidad de conexión a internet.
                                 </p>
-                                <Link to={ROUTES.HOME} className="text-primary hover:underline">
-                                    Leer más
-                                </Link>
-                            </div>
-                        </Card>
-                        <Card className="bg-dark border-gray-800">
-                            <div className="p-6">
-                                <h3 className="text-xl font-semibold mb-4">Proyectos Solares y Electromecánicos</h3>
-                                <p className="text-gray-400 mb-4">
-                                    Mejores prácticas para la gestión eficiente de proyectos técnicos.
+                            </Card>
+                            <Card className="p-6 bg-dark border-gray-800 relative overflow-hidden">
+                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-xl font-bold">3</div>
+                                <h3 className="text-xl font-semibold mb-4 mt-4">Envía cuando quieras</h3>
+                                <p className="text-gray-400">
+                                    Cuando dispongas de conexión, envía los documentos previamente generados a Hacienda y
+                                    a tus clientes con un solo clic.
                                 </p>
-                                <Link to={ROUTES.HOME} className="text-primary hover:underline">
-                                    Leer más
-                                </Link>
-                            </div>
+                            </Card>
+                        </div>
+                    </div>
+                </section>
+            </LazySection>
+
+            {/* Pricing Section - Lazy Loaded */}
+            <LazySection delay={0.2} className="w-full">
+                <section className="py-20 bg-dark-lighter">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-3xl font-bold text-center mb-12">Planes y Precios</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <Card className="p-8 bg-dark border-gray-800 transition-transform hover:translate-y-[-10px]">
+                                <h3 className="text-xl font-bold mb-2">Plan Gratuito</h3>
+                                <p className="text-sm text-gray-400 mb-4">Para pequeños emprendedores y profesionales</p>
+                                <div className="text-3xl font-bold text-primary mb-6">$0<span className="text-lg text-gray-400">/mes</span></div>
+                                <ul className="space-y-3 mb-8">
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> 10 facturas electrónicas/mes
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> 1 proyecto activo
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> Reportes básicos
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-red-500">✗</span> Automatizaciones
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-red-500">✗</span> Soporte prioritario
+                                    </li>
+                                </ul>
+                                <Button variant="outline" className="w-full hover:bg-primary hover:text-white">Empezar Ahora</Button>
+                            </Card>
+                            <Card className="p-8 bg-dark border-gray-800 transform scale-105 shadow-xl relative transition-transform hover:translate-y-[-10px]">
+                                <div className="absolute top-0 right-0 bg-primary text-white px-4 py-1 rounded-bl-md font-semibold">Más Popular</div>
+                                <h3 className="text-xl font-bold mb-2">Plan Profesional</h3>
+                                <p className="text-sm text-gray-400 mb-4">Para empresas en crecimiento con múltiples proyectos</p>
+                                <div className="text-3xl font-bold text-primary mb-6">$40<span className="text-lg text-gray-400">/mes</span></div>
+                                <ul className="space-y-3 mb-8">
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> 100 facturas electrónicas/mes
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> 5 proyectos activos
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> Reportes avanzados
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> 10 automatizaciones
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> Soporte prioritario 24/7
+                                    </li>
+                                </ul>
+                                <Button className="w-full bg-primary hover:bg-primary/90">Contratar Ahora</Button>
+                            </Card>
+                            <Card className="p-8 bg-dark border-gray-800 transition-transform hover:translate-y-[-10px]">
+                                <h3 className="text-xl font-bold mb-2">Plan Empresarial</h3>
+                                <p className="text-sm text-gray-400 mb-4">Para empresas establecidas con alta demanda</p>
+                                <div className="text-3xl font-bold text-primary mb-6">$90<span className="text-lg text-gray-400">/mes</span></div>
+                                <ul className="space-y-3 mb-8">
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> Facturas ilimitadas
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> Proyectos ilimitados
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> Reportes personalizados
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> Automatizaciones ilimitadas
+                                    </li>
+                                    <li className="flex items-center text-gray-300">
+                                        <span className="mr-2 text-green-500">✓</span> Soporte VIP 24/7 + Capacitación
+                                    </li>
+                                </ul>
+                                <Button variant="outline" className="w-full hover:bg-primary hover:text-white">Contactar Ventas</Button>
+                            </Card>
+                        </div>
+                    </div>
+                </section>
+            </LazySection>
+
+            {/* Resources Section - Lazy Loaded */}
+            <LazySection delay={0.3} className="w-full">
+                <section className="py-20">
+                    <div className="container mx-auto px-4">
+                        <h2 className="text-3xl font-bold text-center mb-12">Recursos y Artículos</h2>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <Card className="bg-dark border-gray-800 overflow-hidden hover:shadow-lg transition-shadow">
+                                <div className="h-48 overflow-hidden">
+                                    <OptimizedImage
+                                        src="/images/article-invoicing.jpg"
+                                        alt="Facturación Electrónica"
+                                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
+                                        width={400}
+                                        height={225}
+                                    />
+                                </div>
+                                <div className="p-6">
+                                    <h3 className="text-xl font-semibold mb-2">Guía Completa de Facturación Electrónica en Costa Rica</h3>
+                                    <p className="text-gray-400 mb-4">
+                                        Todo lo que necesitas saber sobre requisitos, procesos y mejores prácticas para cumplir con las normas
+                                        tributarias.
+                                    </p>
+                                    <Button variant="link" className="text-primary p-0">Leer artículo →</Button>
+                                </div>
+                            </Card>
+                            <Card className="bg-dark border-gray-800 overflow-hidden hover:shadow-lg transition-shadow">
+                                <div className="h-48 overflow-hidden">
+                                    <OptimizedImage
+                                        src="/images/article-solar.jpg"
+                                        alt="Proyectos Solares"
+                                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
+                                        width={400}
+                                        height={225}
+                                    />
+                                </div>
+                                <div className="p-6">
+                                    <h3 className="text-xl font-semibold mb-2">5 Claves para Gestionar Proyectos Solares Exitosos</h3>
+                                    <p className="text-gray-400 mb-4">
+                                        Estrategias y herramientas para optimizar la planificación, ejecución y seguimiento de proyectos
+                                        solares.
+                                    </p>
+                                    <Button variant="link" className="text-primary p-0">Leer artículo →</Button>
+                                </div>
+                            </Card>
+                            <Card className="bg-dark border-gray-800 overflow-hidden hover:shadow-lg transition-shadow">
+                                <div className="h-48 overflow-hidden">
+                                    <OptimizedImage
+                                        src="/images/article-automation.jpg"
+                                        alt="Automatización"
+                                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
+                                        width={400}
+                                        height={225}
+                                    />
+                                </div>
+                                <div className="p-6">
+                                    <h3 className="text-xl font-semibold mb-2">Automatización de Procesos con n8n para Empresas</h3>
+                                    <p className="text-gray-400 mb-4">
+                                        Cómo implementar flujos de trabajo automatizados para optimizar operaciones y reducir tareas
+                                        manuales.
+                                    </p>
+                                    <Button variant="link" className="text-primary p-0">Leer artículo →</Button>
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+                </section>
+            </LazySection>
+
+            {/* Contact Section - Lazy Loaded */}
+            <LazySection delay={0.4} className="w-full">
+                <section className="py-20 bg-dark-lighter">
+                    <div className="container mx-auto px-4 max-w-xl">
+                        <Card className="p-8 bg-dark border-gray-800">
+                            <h2 className="text-3xl font-bold text-center mb-8">Contacto</h2>
+                            <form className="space-y-6">
+                                <div>
+                                    <label htmlFor="name" className="block text-sm font-medium mb-2">
+                                        Nombre
+                                    </label>
+                                    <Input id="name" type="text" className="bg-dark-lighter" />
+                                </div>
+                                <div>
+                                    <label htmlFor="email" className="block text-sm font-medium mb-2">
+                                        Correo Electrónico
+                                    </label>
+                                    <Input id="email" type="email" className="bg-dark-lighter" />
+                                </div>
+                                <div>
+                                    <label htmlFor="company" className="block text-sm font-medium mb-2">
+                                        Empresa
+                                    </label>
+                                    <Input id="company" type="text" className="bg-dark-lighter" />
+                                </div>
+                                <div>
+                                    <label htmlFor="message" className="block text-sm font-medium mb-2">
+                                        Mensaje
+                                    </label>
+                                    <Textarea id="message" className="bg-dark-lighter" rows={4} />
+                                </div>
+                                <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
+                                    Enviar Mensaje
+                                </Button>
+                            </form>
                         </Card>
                     </div>
-                </div>
-            </section>
-
-            {/* Contact Section */}
-            <section className="py-20 bg-dark-lighter">
-                <div className="container mx-auto px-4 max-w-xl">
-                    <Card className="p-8 bg-dark border-gray-800">
-                        <h2 className="text-3xl font-bold text-center mb-8">Contacto</h2>
-                        <form className="space-y-6">
-                            <div>
-                                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                                    Nombre
-                                </label>
-                                <Input id="name" type="text" className="bg-dark-lighter" />
-                            </div>
-                            <div>
-                                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                                    Email
-                                </label>
-                                <Input id="email" type="email" className="bg-dark-lighter" />
-                            </div>
-                            <div>
-                                <label htmlFor="company" className="block text-sm font-medium mb-2">
-                                    Empresa
-                                </label>
-                                <Input id="company" type="text" className="bg-dark-lighter" />
-                            </div>
-                            <div>
-                                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                                    Mensaje
-                                </label>
-                                <Textarea id="message" className="bg-dark-lighter" rows={4} />
-                            </div>
-                            <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                                Enviar Mensaje
-                            </Button>
-                        </form>
-                    </Card>
-                </div>
-            </section>
+                </section>
+            </LazySection>
+            
+            {/* Amazon Affiliate Section - Lazy loaded */}
+            <LazySection delay={0.3} className="w-full">
+                <AmazonAffiliateSection />
+            </LazySection>
 
             {/* Footer */}
             <footer className="py-12 bg-dark text-center">
@@ -402,3 +437,6 @@ export default function Index() {
         </div>
     );
 }
+
+// Exportamos el componente memoizado para evitar re-renders innecesarios
+export default memo(Index);
