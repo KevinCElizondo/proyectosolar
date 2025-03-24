@@ -211,74 +211,80 @@ function Index() {
                         <h2 className="text-3xl font-bold text-center mb-12">Planes y Precios</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <Card className="p-8 bg-dark border-gray-800 transition-transform hover:translate-y-[-10px]">
-                                <h3 className="text-xl font-bold mb-2">Plan Gratuito</h3>
-                                <p className="text-sm text-gray-400 mb-4">Para pequeños emprendedores y profesionales</p>
+                                <div className="absolute top-0 right-0 bg-green-500 text-dark px-4 py-1 rounded-bl-md font-semibold text-sm">
+                                    Gratuito
+                                </div>
+                                <h3 className="text-xl font-bold mb-2">Plan Freemium</h3>
+                                <p className="text-sm text-gray-400 mb-4">Para emprendedores o técnicos independientes</p>
                                 <div className="text-3xl font-bold text-primary mb-6">$0<span className="text-lg text-gray-400">/mes</span></div>
                                 <ul className="space-y-3 mb-8">
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> 10 facturas electrónicas/mes
+                                        <span className="mr-2 text-green-500">✓</span> 15 facturas electrónicas/mes (XML/PDF)
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> 1 proyecto activo
+                                        <span className="mr-2 text-green-500">✓</span> 3 proyectos activos
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> Reportes básicos
+                                        <span className="mr-2 text-green-500">✓</span> 1 usuario + soporte por correo (48h)
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-red-500">✗</span> Automatizaciones
+                                        <span className="mr-2 text-green-500">✓</span> Reportes básicos (solo PDF)
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-red-500">✗</span> Soporte prioritario
+                                        <span className="mr-2 text-red-500">✗</span> API para integraciones
                                     </li>
                                 </ul>
-                                <Button variant="outline" className="w-full hover:bg-primary hover:text-white">Empezar Ahora</Button>
+                                <Button variant="outline" className="w-full hover:bg-primary hover:text-white">Comenzar Gratis</Button>
                             </Card>
                             <Card className="p-8 bg-dark border-gray-800 transform scale-105 shadow-xl relative transition-transform hover:translate-y-[-10px]">
-                                <div className="absolute top-0 right-0 bg-primary text-white px-4 py-1 rounded-bl-md font-semibold">Más Popular</div>
+                                <div className="absolute top-0 right-0 bg-blue-500 text-dark px-4 py-1 rounded-bl-md font-semibold">Más Popular</div>
                                 <h3 className="text-xl font-bold mb-2">Plan Profesional</h3>
-                                <p className="text-sm text-gray-400 mb-4">Para empresas en crecimiento con múltiples proyectos</p>
-                                <div className="text-3xl font-bold text-primary mb-6">$40<span className="text-lg text-gray-400">/mes</span></div>
+                                <p className="text-sm text-gray-400 mb-4">Para empresas con proyectos industriales o contratos gubernamentales</p>
+                                <div className="text-3xl font-bold text-primary mb-6">$89<span className="text-lg text-gray-400">/mes</span></div>
                                 <ul className="space-y-3 mb-8">
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> 100 facturas electrónicas/mes
+                                        <span className="mr-2 text-green-500">✓</span> Facturas y proyectos ilimitados
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> 5 proyectos activos
+                                        <span className="mr-2 text-green-500">✓</span> API premium (20 llamadas/minuto + webhooks)
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> Reportes avanzados
+                                        <span className="mr-2 text-green-500">✓</span> 10 usuarios + permisos jerárquicos
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> 10 automatizaciones
+                                        <span className="mr-2 text-green-500">✓</span> Automatizaciones avanzadas
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> Soporte prioritario 24/7
+                                        <span className="mr-2 text-green-500">✓</span> Soporte 24/7 con técnicos especializados
                                     </li>
                                 </ul>
-                                <Button className="w-full bg-primary hover:bg-primary/90">Contratar Ahora</Button>
+                                <Button className="w-full bg-primary hover:bg-primary/90">Agendar Demo + Mes Gratis</Button>
                             </Card>
-                            <Card className="p-8 bg-dark border-gray-800 transition-transform hover:translate-y-[-10px]">
-                                <h3 className="text-xl font-bold mb-2">Plan Empresarial</h3>
-                                <p className="text-sm text-gray-400 mb-4">Para empresas establecidas con alta demanda</p>
-                                <div className="text-3xl font-bold text-primary mb-6">$90<span className="text-lg text-gray-400">/mes</span></div>
+                            <Card className="p-8 bg-dark border-gray-800 transition-transform hover:translate-y-[-10px] relative">
+                                <div className="absolute top-0 right-0 bg-orange-500 text-dark px-4 py-1 rounded-bl-md font-semibold text-sm">
+                                    Ahorro
+                                </div>
+                                <h3 className="text-xl font-bold mb-2">Plan Básico</h3>
+                                <p className="text-sm text-gray-400 mb-4">Para PYMES con proyectos comerciales</p>
+                                <div className="text-3xl font-bold text-primary mb-6">$39<span className="text-lg text-gray-400">/mes</span></div>
                                 <ul className="space-y-3 mb-8">
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> Facturas ilimitadas
+                                        <span className="mr-2 text-green-500">✓</span> 50 facturas/mes (+$0.30 por adicional)
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> Proyectos ilimitados
+                                        <span className="mr-2 text-green-500">✓</span> 10 proyectos activos
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> Reportes personalizados
+                                        <span className="mr-2 text-green-500">✓</span> 3 usuarios + roles básicos
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> Automatizaciones ilimitadas
+                                        <span className="mr-2 text-green-500">✓</span> API básica (integración con software local)
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> Soporte VIP 24/7 + Capacitación
+                                        <span className="mr-2 text-green-500">✓</span> Automatizaciones internas
                                     </li>
                                 </ul>
-                                <Button variant="outline" className="w-full hover:bg-primary hover:text-white">Contactar Ventas</Button>
+                                <Button variant="outline" className="w-full hover:bg-primary hover:text-white">Prueba 7 Días Gratis</Button>
                             </Card>
                         </div>
                     </div>
