@@ -1,18 +1,19 @@
-# Escenarios de Prueba: Integración de n8n con MCP para Solar Fluidity
+# Escenarios de Automatización: Sistema de Agentes Especializados para Solar Fluidity
 
-**Versión 1.0 | Marzo 2025**
+**Versión 2.0 | Junio 2025**
 
 ## Índice
 
 1. [Introducción](#1-introducción)
-2. [Configuración del Entorno](#2-configuración-del-entorno)
-3. [Escenarios de Prueba](#3-escenarios-de-prueba)
+2. [Arquitectura de Agentes Especializados](#2-arquitectura-de-agentes-especializados)
+3. [Escenarios de Automatización](#3-escenarios-de-automatización)
    - [Escenario 1: Facturación Electrónica Automatizada](#escenario-1-facturación-electrónica-automatizada)
-   - [Escenario 2: Asistente Virtual para Consultas de Clientes](#escenario-2-asistente-virtual-para-consultas-de-clientes)
+   - [Escenario 2: Asistente Virtual para Consultas Internas](#escenario-2-asistente-virtual-para-consultas-internas)
    - [Escenario 3: Planificación de Proyectos Solares](#escenario-3-planificación-de-proyectos-solares)
    - [Escenario 4: Monitoreo y Mantenimiento Predictivo](#escenario-4-monitoreo-y-mantenimiento-predictivo)
    - [Escenario 5: Generación de Reportes de Sostenibilidad](#escenario-5-generación-de-reportes-de-sostenibilidad)
-4. [Metodología de Pruebas](#4-metodología-de-pruebas)
+   - [Escenario 6: Automatización de Comunicaciones por Correo](#escenario-6-automatización-de-comunicaciones-por-correo)
+4. [Implementación y Monitoreo](#4-implementación-y-monitoreo)
 5. [Métricas y KPIs](#5-métricas-y-kpis)
 6. [Resolución de Problemas](#6-resolución-de-problemas)
 7. [Referencias](#7-referencias)
@@ -21,82 +22,94 @@
 
 ## 1. Introducción
 
-Este documento detalla la metodología de pruebas para integrar el Model Context Protocol (MCP) con n8n en el proyecto Solar Fluidity. La integración permitirá automatizar procesos críticos del negocio utilizando inteligencia artificial contextual, específicamente enfocada en la gestión de facturación electrónica en Costa Rica y la administración de proyectos solares.
+Este documento define la arquitectura de automatización interna de Solar Fluidity basada en un sistema de agentes especializados de IA. Este enfoque permite optimizar procesos críticos del negocio mediante automatizaciones inteligentes, específicamente enfocadas en la gestión de facturación electrónica en Costa Rica, la administración de proyectos solares y la comunicación con clientes.
 
 ### 1.1 Propósito
 
-El propósito de este documento es establecer un marco de trabajo para implementar, probar y optimizar escenarios de automatización que combinen n8n (para la orquestación de flujos de trabajo) con MCP (para la ejecución de acciones contextuales basadas en IA).
+El propósito de este documento es establecer un marco de trabajo para implementar, monitorear y optimizar un sistema de agentes especializados que trabajan en paralelo para resolver problemas complejos con mayor precisión y eficiencia que un único agente general.
 
 ### 1.2 Alcance
 
 Este documento cubre:
-- Configuración del entorno de desarrollo y pruebas
-- Definición detallada de escenarios de prueba
-- Criterios de aceptación para cada escenario
-- Metodología de pruebas progresivas
-- Indicadores de rendimiento y éxito
+- Arquitectura de agentes especializados y su integración
+- Definición detallada de escenarios de automatización
+- Configuración de flujos de comunicación por correo electrónico
+- Criterios de éxito para cada escenario de automatización
+- Métricas de rendimiento y metodología de mejora continua
 
 ### 1.3 Relación con otros componentes
 
-Esta integración se relaciona directamente con:
+Esta arquitectura se integra con:
 - La API de OpenAI (configurada en `config.py`)
-- El sistema de automatización n8n
-- La infraestructura Convex como servidor MCP
+- El sistema de automatización interno
+- La infraestructura Convex como servidor de mensajería
 - La base de datos Supabase de Solar Fluidity
 - Los sistemas externos de facturación electrónica
+- Sistema de gestión de correos electrónicos
 
 ---
 
-## 2. Configuración del Entorno
+## 2. Arquitectura de Agentes Especializados
 
-### 2.1 Requisitos Previos
+### 2.1 Fundamentos de la Arquitectura Paralela de Agentes
 
-Antes de comenzar con las pruebas, asegúrate de tener configurado:
+Nuestra arquitectura se basa en el principio de que los problemas complejos producen mejores resultados cuando son abordados por un equipo con especializaciones diferentes. Con agentes de IA funciona exactamente igual: la experiencia individual combinada crea soluciones exponencialmente mejores.
 
-1. **Entorno MacOS**:
-   - macOS Monterey o superior
-   - Mínimo 8GB de RAM
-   - Al menos 20GB de espacio libre en disco
+Beneficios principales:
+- Mayor precisión en tareas específicas
+- Reducción de alucinaciones y errores
+- Mejor rendimiento general del sistema
+- Capacidad para manejar tareas complejas sin sobrecargar un único modelo
 
-2. **Software necesario**:
-   - Node.js v18.x o superior
-   - npm/pnpm como gestor de paquetes
-   - Git para control de versiones
-   - Docker Desktop para contenedores
-   - WindSurf IDE (opcional pero recomendado)
+### 2.2 Componentes de la Arquitectura
 
-3. **Cuentas y credenciales**:
-   - Cuenta en Convex (para servidor MCP)
-   - Cuenta de OpenAI con clave API configurada
-   - Credenciales de Supabase
-   - Acceso al repositorio GitHub del proyecto
+1. **Agente de Recolección de Información**:
+   - Propósito: Obtener datos iniciales necesarios para el procesamiento
+   - Herramientas: Acceso a bases de datos, formularios, sistemas externos
+   - Modelo: GPT-4/Claude optimizado para extracción y validación de datos
 
-### 2.2 Instalación de n8n
+2. **Agentes Especializados** (ejecutados en paralelo):
+   - **Agente de Facturación**:
+     - Enfoque: Generación y validación de facturas electrónicas
+     - Herramientas: XML validator, generador PDF, APIs tributarias
 
-```bash
-# Usando Docker (recomendado para entorno de pruebas)
-docker pull n8nio/n8n
-docker run -it --rm \
-  --name n8n \
-  -p 5678:5678 \
-  -v ~/.n8n:/home/node/.n8n \
-  n8nio/n8n
+   - **Agente de Proyectos**:
+     - Enfoque: Planificación y seguimiento de proyectos solares
+     - Herramientas: Calendarios, asignación de recursos, KPIs
 
-# Alternativamente, usando npm
-npm install n8n -g
-n8n start
+   - **Agente de Comunicaciones**:
+     - Enfoque: Automatización de correos según plantillas y condiciones
+     - Herramientas: Email API, plantillas personalizadas
+
+   - **Agente de Análisis Predictivo**:
+     - Enfoque: Mantenimiento predictivo y análisis de datos
+     - Herramientas: Herramientas estadísticas, algoritmos de predicción
+
+3. **Agente Sintetizador/Agregador**:
+   - Propósito: Combinar los resultados de los agentes especializados
+   - Responsabilidad: Generar respuestas coherentes y unificadas
+   - Características: Capacidad para reconciliar información contradictoria
+
+### 2.3 Flujo de Trabajo de los Agentes
+
+```
+Usuario/Sistema -> Agente de Recolección de Información
+                  |
+                  v
+[Ejecución Paralela] -> Agente Especializado 1
+                       -> Agente Especializado 2
+                       -> Agente Especializado 3
+                  |
+                  v
+Agente Sintetizador -> Resultado Final/Acción
 ```
 
-### 2.3 Configuración de MCP con Convex
+### 2.4 Implementación Técnica
 
-Sigue estos pasos para configurar Convex como servidor MCP:
-
-1. **Crea un proyecto en Convex**:
-   ```bash
-   npx create-convex-app@latest mcp-solarfluidity --template typescript
-   cd mcp-solarfluidity
-   npx convex dev
-   ```
+- **Frameworks utilizados**: Pantic AI, Lang Graph
+- **Gestión de estado**: Manejo de información a través de los diferentes agentes
+- **Manejo de dependencias**: Configuración de APIs, modelos y herramientas
+- **Estrategia de procesamiento**: Ejecución verdaderamente paralela para optimizar tiempos de respuesta
 
 2. **Define el schema para los modelos de datos**:
    ```typescript
@@ -160,28 +173,50 @@ Sigue estos pasos para configurar Convex como servidor MCP:
 
 ---
 
-## 3. Escenarios de Prueba
+## 3. Escenarios de Automatización
 
-A continuación se detallan los escenarios de prueba específicos que implementaremos para validar la integración entre n8n y MCP. Cada escenario incluye:
-- Objetivo funcional
-- Configuración específica en n8n
-- Reglas MCP a implementar
-- Criterios de éxito
-- Instrucciones paso a paso para la configuración
+A continuación se detallan los escenarios de automatización que serán implementados con nuestro sistema de agentes especializados. Estos flujos son exclusivamente para uso interno y no serán expuestos a los clientes finales. Cada escenario incluye:
+
+- Objetivo y casos de uso
+- Agentes involucrados y sus responsabilidades
+- Flujo de automatización interno
+- Criterios de éxito y métricas de rendimiento
+- Configuración de comunicaciones por correo (cuando aplique)
 
 ### Escenario 1: Facturación Electrónica Automatizada
 
-**Objetivo**: Automatizar la generación, validación y envío de facturas electrónicas conforme a las regulaciones costarricenses.
+**Objetivo**: Automatizar la generación, validación y envío de facturas electrónicas offline conforme a las regulaciones costarricenses, sin requerir conexión directa con la autoridad tributaria.
 
-#### Configuración del Flujo en n8n
+#### Agentes Involucrados
 
-1. **Trigger**: Nuevo registro en tabla `invoices` de Supabase
-2. **Nodos de procesamiento**:
-   - Nodo de extracción de datos del cliente
-   - Nodo de generación de XML según formato del Ministerio de Hacienda
-   - Nodo MCP para validación inteligente del documento
-   - Nodo para firma digital y envío (si está en modo online)
-   - Nodo para almacenamiento local (si está en modo offline)
+1. **Agente de Recolección de Datos**:
+   - Responsabilidad: Extraer información del cliente y detalles de facturación
+   - Herramientas: Acceso a Supabase, validación de campos requeridos
+
+2. **Agente de Facturación**:
+   - Responsabilidad: Generar XML y PDF válidos según normativa costarricense
+   - Herramientas: Esquemas XML, validadores, generador de códigos QR
+
+3. **Agente Sintetizador**:
+   - Responsabilidad: Validar la coherencia de documentos y preparar para almacenamiento
+   - Herramientas: Verificadores de integridad, sistema de alertas
+
+#### Flujo de Automatización
+
+1. **Trigger**: Nuevo registro en tabla `invoices` de Supabase o solicitud manual
+2. **Procesamiento Paralelo**:
+   - Extracción y validación de datos del cliente
+   - Generación de XML según formato oficial
+   - Generación de representación gráfica en PDF
+3. **Acciones Finales**:
+   - Almacenamiento seguro de documentos en sistema local
+   - Notificación por correo electrónico
+
+#### Configuración de Correos
+
+- **Remitente**: facturacion@solarfluidity.com
+- **Caso de uso**: Envío de facturas generadas a clientes
+- **Plantilla**: Notificación formal con facturas adjuntas (XML y PDF)
 
 #### Reglas MCP para este escenario
 
@@ -207,23 +242,22 @@ A continuación se detallan los escenarios de prueba específicos que implementa
         - version: "4.3"
 ```
 
-#### Instrucciones de Implementación
+#### Criterios de Éxito
 
-1. **Crear el workflow en n8n**:
-   - Nombre: "Facturación Electrónica Automatizada"
-   - Descripción: "Procesa facturas electrónicas con validación MCP y regulaciones CR"
+1. **Funcionales**:
+   - Generación correcta de documentos XML con todos los campos requeridos
+   - Validación completa según esquema oficial de Hacienda
+   - Generación de PDF con representación gráfica correcta
 
-2. **Configurar el trigger**:
-   - Tipo: Webhook o Supabase
-   - Evento: Nuevo registro en tabla de facturas
-   - Filtro: Status = "pendiente"
+2. **Técnicos**:
+   - Tiempo de procesamiento < 5 segundos por factura
+   - Tasa de éxito > 99.5% en validación XML
+   - Almacenamiento exitoso en sistema de archivos local
 
-3. **Configurar el nodo MCP**:
-   - Seleccionar servidor MCP: Convex
-   - Cargar reglas desde `rules.yaml`
-   - Configurar timeouts y reintentos
-
-4. **Probar con casos de prueba**:
+3. **Correos**:
+   - Envío exitoso de correos al emisor y receptor
+   - Adjuntos correctamente formateados
+   - Tasa de entrega > 99%
    - Factura válida simple (2 líneas, sin descuentos)
    - Factura con múltiples líneas y descuentos
    - Factura con impuestos especiales
@@ -237,316 +271,156 @@ A continuación se detallan los escenarios de prueba específicos que implementa
 - Funcionamiento correcto en modo offline
 - Sincronización exitosa al restaurar conectividad
 
-### Escenario 2: Asistente Virtual para Consultas de Clientes
+### Escenario 2: Asistente Virtual para Consultas Internas
 
-**Objetivo**: Implementar un asistente virtual que responda consultas de clientes sobre facturación electrónica y proyectos solares con información contextual y precisa.
+**Objetivo**: Implementar un asistente virtual para uso interno que apoye al equipo en consultas sobre facturación electrónica, gestión de proyectos y procedimientos operativos.
 
-#### Configuración del Flujo en n8n
+#### Agentes Involucrados
 
-1. **Trigger**: Mensaje recibido en chat o email
-2. **Nodos de procesamiento**:
-   - Extracción de la consulta
-   - Búsqueda de contexto relevante en base de datos
-   - Consulta a MCP para generar respuesta
-   - Envío de respuesta al cliente
-   - Registro de la interacción para aprendizaje
+1. **Agente de Recolección de Información**:
+   - Responsabilidad: Capturar y clasificar consultas internas
+   - Herramientas: Integración con Slack, correo y sistemas internos
 
-#### Reglas MCP para este escenario
+2. **Agente de Conocimiento**:
+   - Responsabilidad: Buscar información relevante en bases de datos y documentación
+   - Herramientas: Supabase, documentación interna, normativas oficiales
 
-```yaml
-# rules.yaml para Asistente Virtual
-- type: content_policy
-  name: "asistente_solar_fluidity"
-  rules:
-    - restrict: 
-        - "tax_advice_specific"
-        - "legal_guarantees"
-        - "specific_financial_forecasts"
-    - only_reference: 
-        - "official_mh_regulations"
-        - "company_documentation"
-    - always_mention: 
-        - "this_is_informational_only"
-        - "consult_professional_for_specific_advice"
-    - tone_requirements:
-        - helpful: true
-        - professional: true
-        - concise: true
-```
+3. **Agente de Respuesta**:
+   - Responsabilidad: Generar respuestas claras y precisas
+   - Herramientas: Plantillas preconfiguradas, validación de exactitud
 
-#### Instrucciones de Implementación
+#### Flujo de Automatización
 
-1. **Crear el workflow en n8n**:
-   - Nombre: "Asistente Virtual Solar Fluidity"
-   - Descripción: "Procesa consultas de clientes usando MCP"
-
-2. **Configurar el trigger**:
-   - Tipo: Webhook o Email
-   - Evento: Nuevo mensaje recibido
-   - Filtro: Categoría = "soporte"
-
-3. **Configurar el nodo de contexto**:
-   - Conexión a Supabase para extraer información del cliente
-   - Búsqueda de documentación relevante
-   - Formateo del prompt con contexto
-
-4. **Configurar el nodo MCP**:
-   - Seleccionar servidor MCP: Convex
-   - Cargar reglas desde `rules.yaml`
-   - Configurar parámetros de respuesta (max_tokens, temperature)
-
-5. **Probar con casos de prueba**:
-   - Consulta sobre proceso de facturación
-   - Consulta sobre tiempo de instalación de paneles solares
-   - Consulta que solicite asesoría fiscal específica (debe incluir disclaimer)
-   - Consulta sobre financiamiento (debe ser informativo sin compromisos)
+1. **Trigger**: Consulta recibida en canal de Slack o correo designado
+2. **Procesamiento**:
+   - Extracción de la intención principal y entidades clave
+   - Búsqueda de contexto relevante en conocimiento interno
+   - Generación de respuesta basada en fuentes verificadas
+3. **Acciones**:
+   - Respuesta en el mismo canal que se recibió la consulta
+   - Almacenamiento de la interacción para mejora continua
 
 #### Criterios de Éxito
 
-- Precisión de respuestas > 90% (evaluación manual)
-- Tiempo de respuesta < 5 segundos
-- 100% de inclusión de disclaimers cuando sea necesario
-- 0% de respuestas que violen políticas regulatorias
+1. **Funcionales**:
+   - Identificación correcta de la intención de consulta > 95%
+   - Precisioón en respuestas sobre procedimientos internos > 90%
+   - Capacidad para redireccionar consultas complejas al especialista adecuado
 
-### Escenario 3: Planificación de Proyectos Solares
+2. **Técnicos**:
+   - Tiempo de respuesta < 3 segundos
+   - Disponibilidad del servicio 24/7
+   - Capacidad para aprender de nuevas interacciones
 
-**Objetivo**: Automatizar la planificación de proyectos solares utilizando IA contextual para optimizar recursos, tiempos y presupuestos según las características específicas del cliente y ubicación.
+#### Configuración de Correos
 
-#### Configuración del Flujo en n8n
+- **Remitente**: soporte@solarfluidity.com
+- **Caso de uso**: Respuestas a consultas complejas que requieren documentación adjunta
+- **Plantilla**: Formato simple con identificación clara del origen de los datos
 
-1. **Trigger**: Creación de nuevo proyecto solar en Supabase
-2. **Nodos de procesamiento**:
-   - Extracción de datos del proyecto y cliente
-   - Consulta de bases de datos históricas para proyectos similares
-   - Análisis geoespacial para determinar condiciones solares
-   - Nodo MCP para generación de plan optimizado
-   - Creación de tareas en sistema de gestión de proyectos
-   - Notificación a equipo técnico
 
-#### Reglas MCP para este escenario
+### Escenario 6: Automatización de Comunicaciones por Correo
 
-```yaml
-# rules.yaml para Planificación de Proyectos
-- type: planning_optimization
-  name: "planificador_solar"
-  rules:
-    - consider_factors:
-        - location_solar_radiation
-        - seasonal_variations
-        - construction_restrictions
-        - budget_constraints
-        - local_regulations
-    - optimize_for:
-        - energy_production
-        - roi
-        - installation_time
-    - risk_assessment:
-        - identify_critical_path
-        - suggest_contingencies
-        - highlight_regulatory_requirements
-    - output_format:
-        - structured_timeline
-        - resource_allocation
-        - budget_breakdown
-```
+**Objetivo**: Implementar un sistema de comunicación automatizada por correo electrónico para diversos flujos de trabajo, garantizando el uso del remitente apropiado y plantillas consistentes para cada tipo de comunicación.
 
-#### Instrucciones de Implementación
+#### Agentes Involucrados
 
-1. **Crear el workflow en n8n**:
-   - Nombre: "Planificador Inteligente de Proyectos Solares"
-   - Descripción: "Genera planes detallados para proyectos solares con optimización IA"
+1. **Agente de Clasificación**:
+   - Responsabilidad: Determinar el tipo de comunicación y seleccionar el flujo adecuado
+   - Herramientas: Analizador de eventos, categorización automática
 
-2. **Configurar el trigger**:
-   - Tipo: Supabase
-   - Evento: Nuevo registro en tabla de proyectos
-   - Filtro: Status = "pre-planificación"
+2. **Agente de Contenido**:
+   - Responsabilidad: Personalizar las plantillas con datos relevantes
+   - Herramientas: Sistema de plantillas dinámicas, acceso a datos contextuales
 
-3. **Configurar el nodo de datos contextuales**:
-   - Conexión a base de datos histórica
-   - API de datos geoespaciales y meteorológicos
-   - Consulta de regulaciones por ubicación
+3. **Agente de Entrega**:
+   - Responsabilidad: Gestionar el envío y verificar recepción
+   - Herramientas: API de correo, sistema de seguimiento de envío
 
-4. **Configurar el nodo MCP**:
-   - Seleccionar servidor MCP: Convex
-   - Cargar reglas desde `rules.yaml`
-   - Configurar parámetros de optimización
+#### Flujo de Automatización
 
-5. **Probar con casos de prueba**:
-   - Proyecto residencial pequeño (<10kW)
-   - Proyecto comercial mediano (10-100kW)
-   - Proyecto con restricciones regulatorias especiales
-   - Proyecto en zona con condiciones meteorológicas variables
+1. **Trigger**: Evento del sistema que requiere comunicación (onboarding, facturación, alerta, etc.)
+2. **Procesamiento**:
+   - Identificación del tipo de comunicación y audiencia
+   - Selección de la plantilla y remitente adecuados
+   - Personalización de contenido con datos relevantes
+3. **Acciones**:
+   - Envío del correo desde la dirección adecuada
+   - Registro de la comunicación en la base de datos
+   - Seguimiento de lectura y respuesta (opcional)
 
-#### Criterios de Éxito
+#### Configuración de Correos por Tipo
 
-- Precisión en estimación de tiempo: ±15% del tiempo real
-- Precisión en presupuesto: ±10% del costo final
-- Optimización de recursos: 15% mejor que planificación manual
-- Identificación del 95% de restricciones regulatorias relevantes
-- Tiempo de generación de plan < 5 minutos
+1. **Onboarding de Cliente**
+   - **Remitente**: no-reply@solarfluidity.com
+   - **Asunto**: "Bienvenido/a a Solar Fluidity - Primeros pasos"
+   - **Contenido**: Instructivo de inicio, credenciales iniciales, recursos de ayuda
 
-### Escenario 4: Monitoreo y Mantenimiento Predictivo
+2. **Facturación Mensual**
+   - **Remitente**: facturacion@solarfluidity.com
+   - **Asunto**: "Factura [MM-YYYY] - Solar Fluidity"
+   - **Contenido**: Resumen de factura, documento XML/PDF adjunto, opciones de pago
 
-**Objetivo**: Implementar un sistema de monitoreo continuo de instalaciones solares que utilice IA para predecir fallos, programar mantenimientos preventivos y maximizar el rendimiento energético.
+3. **Alertas de Mantenimiento**
+   - **Remitente**: mantenimiento@solarfluidity.com
+   - **Asunto**: "Alerta de Mantenimiento - [Sistema/Proyecto]"
+   - **Contenido**: Descripción del problema, acciones recomendadas, contacto de soporte
 
-#### Configuración del Flujo en n8n
+4. **Respuesta a Formularios**
+   - **Remitente interno**: ventas@solarfluidity.com o corporativo@solarfluidity.com
+   - **Asunto interno**: "Nuevo formulario de contacto - [Tipo]"
+   - **Contenido**: Datos del formulario, acciones sugeridas
 
-1. **Trigger**: Datos periódicos de sensores o fecha programada de revisión
-2. **Nodos de procesamiento**:
-   - Recopilación de datos de rendimiento
-   - Normalización y preprocesamiento
-   - Análisis de tendencias y detección de anomalías
-   - Nodo MCP para diagnóstico predictivo
-   - Programación automática de mantenimiento (si es necesario)
-   - Generación de informe para cliente
+5. **Confirmaciones de Pago**
+   - **Remitente**: facturacion@solarfluidity.com
+   - **Asunto**: "Confirmación de pago - [ID de factura]"
+   - **Contenido**: Detalles del pago, estado de la cuenta
 
-#### Reglas MCP para este escenario
+6. **Alertas de Inventario**
+   - **Remitente interno**: administracion@solarfluidity.com
+   - **Asunto interno**: "Alerta de inventario - [Producto/Categoría]"
+   - **Contenido**: Estado actual, umbral alcanzado, acciones recomendadas
 
-```yaml
-# rules.yaml para Mantenimiento Predictivo
-- type: predictive_maintenance
-  name: "mantenimiento_solar_predictivo"
-  rules:
-    - analyze_patterns:
-        - performance_degradation
-        - error_codes
-        - weather_impact
-        - seasonal_variations
-    - detect_anomalies:
-        - threshold: "adaptive"
-        - sensitivity: 0.85
-        - false_positive_mitigation: true
-    - prioritize_issues:
-        - critical: ["inverter_failure", "connection_loss", "severe_underperformance"]
-        - high: ["gradual_degradation", "efficiency_loss"]
-        - medium: ["minor_fluctuations", "cosmetic_issues"]
-    - recommend_actions:
-        - include_urgency_level
-        - provide_specific_components
-        - estimate_impact_on_production
-```
-
-#### Instrucciones de Implementación
-
-1. **Crear el workflow en n8n**:
-   - Nombre: "Monitoreo Predictivo Solar"
-   - Descripción: "Sistema de mantenimiento predictivo con IA para instalaciones solares"
-
-2. **Configurar el trigger**:
-   - Tipo: Webhook (para datos de sensores) o Schedule (para revisiones programadas)
-   - Frecuencia: Diaria para análisis general, tiempo real para alertas críticas
-
-3. **Configurar el nodo de procesamiento de datos**:
-   - Normalización de lecturas de diferentes sensores
-   - Cálculo de métricas derivadas (eficiencia, ratio de conversión)
-   - Almacenamiento en serie temporal para análisis de tendencias
-
-4. **Configurar el nodo MCP**:
-   - Seleccionar servidor MCP: Convex
-   - Cargar reglas desde `rules.yaml`
-   - Configurar parámetros de sensibilidad según tipo de instalación
-
-5. **Probar con casos de prueba**:
-   - Simulación de degradación gradual de rendimiento
-   - Simulación de fallo inminente de inversor
-   - Datos normales con variaciones estacionales
-   - Situación de alerta meteorológica
+7. **Confirmación de Backup**
+   - **Remitente interno**: desarrollo@solarfluidity.com
+   - **Asunto interno**: "Backup completado - [Fecha]"
+   - **Contenido**: Resumen del backup, tamaño, ubicación, estado
 
 #### Criterios de Éxito
 
-- Detección de fallos con 48h de antelación: >85%
-- Falsos positivos: <5%
-- Reducción del tiempo de inactividad: >30%
-- Aumento de producción energética anual: >8%
-- Reducción de costos de mantenimiento: >20%
+1. **Funcionales**:
+   - Uso consistente del remitente correcto para cada tipo de comunicación
+   - Personalización efectiva de plantillas > 99%
+   - Mantenimiento de la identidad visual en todos los correos
 
-### Escenario 5: Generación de Reportes de Sostenibilidad
+2. **Técnicos**:
+   - Tasa de entrega > 99.5%
+   - Tiempo de procesamiento y envío < 30 segundos
+   - Capacidad para manejar picos de envío (hasta 1000 correos/hora)
+   - Almacenamiento seguro de historial de comunicaciones
+## 4. Conclusiones y Siguientes Pasos
 
-**Objetivo**: Automatizar la creación de informes personalizados de sostenibilidad para clientes, calculando el impacto ambiental de sus instalaciones solares con datos precisos y contextualizados.
+La implementación de estos escenarios de automatización utilizando una arquitectura de agentes especializados representa un avance significativo para Solar Fluidity, alineando nuestros procesos internos con los tres pilares fundamentales de nuestra plataforma:
 
-#### Configuración del Flujo en n8n
+1. **Facturación electrónica offline**: Los agentes especializados permiten generar documentos XML/PDF válidos sin necesidad de conexión directa con la autoridad tributaria, mejorando la confiabilidad y eficiencia del servicio.
 
-1. **Trigger**: Solicitud de cliente o programación mensual/trimestral
-2. **Nodos de procesamiento**:
-   - Recopilación de datos de producción energética
-   - Cálculo de métricas ambientales (CO2 evitado, equivalencias)
-   - Comparativa con períodos anteriores
-   - Nodo MCP para generación de narrativa personalizada
-   - Creación de documento (PDF/HTML) con visualizaciones
-   - Envío al cliente por email o notificación
+2. **Gestión de proyectos solares y electromecánicos**: La automatización facilita el seguimiento de proyectos, optimiza la asignación de recursos y mejora la comunicación interna.
 
-#### Reglas MCP para este escenario
+3. **Capacidades avanzadas de automatización**: La arquitectura propuesta aprovecha al máximo las posibilidades de n8n y otras herramientas para crear flujos de trabajo inteligentes y adaptables.
 
-```yaml
-# rules.yaml para Reportes de Sostenibilidad
-- type: report_generation
-  name: "reporte_sostenibilidad_solar"
-  rules:
-    - data_processing:
-        - validate_energy_production
-        - calculate_emissions_avoided
-        - compare_with_benchmarks
-    - narrative_style:
-        - tone: "professional_positive"
-        - highlight_achievements
-        - provide_context
-        - suggest_improvements
-    - visualization_requirements:
-        - include_trends
-        - use_company_colors
-        - adapt_to_audience_technical_level
-    - compliance:
-        - costa_rica_environmental_standards
-        - carbon_neutrality_reporting
-        - sdg_alignment
-```
+### Próximos Pasos
 
-#### Instrucciones de Implementación
+1. **Desarrollo de prototipos**: Implementar versiones iniciales de cada agente especializado para validar la arquitectura.
 
-1. **Crear el workflow en n8n**:
-   - Nombre: "Generador de Reportes de Sostenibilidad"
-   - Descripción: "Genera informes personalizados de impacto ambiental para clientes"
+2. **Integración con sistemas existentes**: Conectar los agentes con Supabase, APIs externas y sistemas de comunicación.
 
-2. **Configurar el trigger**:
-   - Tipo: Webhook (solicitud manual) o Schedule (informe periódico)
-   - Parámetros: ID de cliente, período de informe, tipo de reporte
+3. **Configuración de correos**: Establecer las cuentas de correo mencionadas en el documento y preparar las plantillas para cada tipo de comunicación.
 
-3. **Configurar el nodo de procesamiento de datos**:
-   - Conexión a base de datos de producción energética
-   - API de factores de emisión actualizados
-   - Biblioteca de equivalencias de CO2
+4. **Pruebas de rendimiento**: Validar que la arquitectura paralela de agentes cumple con los criterios técnicos de éxito establecidos.
 
-4. **Configurar el nodo MCP**:
-   - Seleccionar servidor MCP: Convex
-   - Cargar reglas desde `rules.yaml`
-   - Configurar preferencias de estilo según cliente
+5. **Documentación técnica**: Crear documentación detallada para cada agente y sus componentes, facilitando el mantenimiento futuro.
 
-5. **Configurar el nodo de generación de documento**:
-   - Plantillas HTML/PDF con marca de la empresa
-   - Integración de gráficos generados dinámicamente
-   - Opciones de personalización por cliente
-
-6. **Probar con casos de prueba**:
-   - Cliente residencial con 1 año de datos
-   - Cliente comercial con múltiples instalaciones
-   - Reporte trimestral vs. anual
-   - Cliente con objetivos específicos de sostenibilidad
-
-#### Criterios de Éxito
-
-- Precisión de cálculos: 100%
-- Tiempo de generación < 3 minutos
-- Satisfacción del cliente con claridad del informe: >90%
-- Tasa de apertura de emails con informes: >65%
-- Aumento en contratación de servicios adicionales tras informes: >15%
-
----
-
-## 4. Metodología de Pruebas
-
-### 4.1 Enfoque Iterativo
-
-La implementación y prueba de los escenarios seguirá un enfoque iterativo con las siguientes fases para cada escenario:
+La transición hacia esta arquitectura basada en agentes especializados no solo mejorará la eficiencia de nuestros procesos internos, sino que también sentará las bases para futuras capacidades de automatización que podrán implementarse a medida que evolucionen las necesidades del negocio.
 
 1. **Fase de Desarrollo Inicial**:
    - Implementación básica del flujo en n8n
