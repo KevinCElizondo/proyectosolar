@@ -65,7 +65,7 @@ const InvoiceDetailPage: React.FC = () => {
                 total: 90.00
               },
               {
-                description: 'Configuración de automatizaciones con n8n',
+                description: 'Configuración de automatizaciones personalizadas',
                 quantity: 1,
                 unitPrice: 10.75,
                 total: 10.75

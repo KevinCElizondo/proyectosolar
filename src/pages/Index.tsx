@@ -51,8 +51,8 @@ const MemoizedFeatureSection = memo(() => (
                         <div>
                             <h3 className="text-xl font-semibold mb-2">Automatizaciones Inteligentes</h3>
                             <p className="text-gray-400">
-                                Flujos de trabajo automatizados con n8n para recordatorios de pago, reportes 
-                                y notificaciones. Ahorra tiempo y mantén todo bajo control.
+                                Flujos de trabajo automatizados para recordatorios de pago, generación de reportes 
+                                y notificaciones programadas. Ahorra tiempo y mantén todo bajo control.
                             </p>
                         </div>
                     </div>
@@ -340,10 +340,10 @@ function Index() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-semibold mb-2">Automatización de Procesos con n8n para Empresas</h3>
+                                    <h3 className="text-xl font-semibold mb-2">API de Solar Fluidity: Integra Tus Sistemas</h3>
                                     <p className="text-gray-400 mb-4">
-                                        Cómo implementar flujos de trabajo automatizados para optimizar operaciones y reducir tareas
-                                        manuales.
+                                        Guía completa para conectar tus sistemas empresariales con nuestra API y acceder
+                                        a datos de facturación y proyectos en tiempo real.
                                     </p>
                                     <Button variant="link" className="text-primary p-0">Leer artículo →</Button>
                                 </div>

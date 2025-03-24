@@ -5,40 +5,53 @@ import { useNavigate } from 'react-router-dom';
 // Planes disponibles para el componente de facturación de Solar Fluidity
 const SUBSCRIPTION_PLANS = [
   {
+    id: 'freemium',
+    name: 'Plan Freemium',
+    price: 0,
+    features: [
+      '15 facturas electrónicas/mes (XML/PDF)',
+      '3 proyectos activos',
+      '1 usuario + soporte por correo (48h)',
+      'Reportes básicos (solo PDF)'
+    ],
+    description: 'Para emprendedores o técnicos independientes (mantenimiento de paneles solares residenciales).',
+    recommended: false,
+    tag: 'Gratuito',
+    color: 'green'
+  },
+  {
     id: 'basic',
     name: 'Plan Básico',
-    price: 25,
+    price: 39,
     features: [
-      'Facturación electrónica offline (50 facturas/mes)',
-      'Gestión de proyectos solares (2 proyectos)',
-      'Automatizaciones básicas con n8n'
+      '50 facturas/mes (+$0.30 por adicional)',
+      '10 proyectos activos',
+      '3 usuarios + roles básicos',
+      'API básica (integración con software local)',
+      'Automatizaciones internas'
     ],
-    recommended: false
+    description: 'Para PYMES con proyectos comerciales (ej: hoteles pequeños, retail).',
+    recommended: false,
+    tag: 'Ahorro',
+    color: 'orange',
+    trialDays: 7
   },
   {
     id: 'professional',
     name: 'Plan Profesional',
-    price: 50,
+    price: 89,
     features: [
-      'Facturación electrónica offline (150 facturas/mes)',
-      'Gestión de proyectos solares (10 proyectos)',
-      'Automatizaciones avanzadas con n8n',
-      'Soporte prioritario'
+      'Facturas y proyectos ilimitados',
+      'API premium (20 llamadas/minuto + webhooks)',
+      '10 usuarios + permisos jerárquicos',
+      'Automatizaciones avanzadas',
+      'Soporte 24/7 con técnicos especializados'
     ],
-    recommended: true
-  },
-  {
-    id: 'enterprise',
-    name: 'Plan Empresarial',
-    price: 100,
-    features: [
-      'Facturación electrónica offline (ilimitada)',
-      'Gestión de proyectos solares (ilimitados)',
-      'Automatizaciones con n8n personalizadas',
-      'Soporte 24/7',
-      'API access'
-    ],
-    recommended: false
+    description: 'Para empresas con proyectos industriales o contratos gubernamentales (ej: plantas solares, hospitales).',
+    recommended: true,
+    tag: 'Más Popular',
+    color: 'blue',
+    popularity: 'El 68% de las empresas medianas en Costa Rica prefieren este plan para cumplir con normativas Hacienda y manejar licitaciones públicas.'
   }
 ];
 

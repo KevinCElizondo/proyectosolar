@@ -8,46 +8,53 @@ const Pricing = () => {
 
   const plans = [
     {
-      name: "Plan Gratuito",
-      description: "Para pequeños emprendedores y profesionales",
+      name: "Plan Freemium",
+      description: "Para emprendedores o técnicos independientes",
       price: "0",
       features: [
-        "10 facturas electrónicas/mes",
-        "1 proyecto activo",
-        "Reportes básicos"
+        "15 facturas electrónicas/mes (XML/PDF)",
+        "3 proyectos activos",
+        "1 usuario + soporte por correo (48h)",
+        "Reportes básicos (solo PDF)"
       ],
       negativeFeatures: [
-        "Automatizaciones",
-        "Soporte prioritario"
+        "API para integraciones",
+        "Automatizaciones"
       ],
-      cta: "Empezar Ahora"
+      tag: "Gratuito",
+      color: "green",
+      cta: "Comenzar Gratis"
+    },
+    {
+      name: "Plan Básico",
+      description: "Para PYMES con proyectos comerciales",
+      price: "39",
+      features: [
+        "50 facturas/mes (+$0.30 por adicional)",
+        "10 proyectos activos",
+        "3 usuarios + roles básicos",
+        "API básica (integración con software local)",
+        "Automatizaciones internas"
+      ],
+      tag: "Ahorro",
+      color: "orange",
+      cta: "Prueba 7 Días Gratis"
     },
     {
       name: "Plan Profesional",
-      description: "Para empresas en crecimiento con múltiples proyectos",
-      price: "40",
+      description: "Para empresas con proyectos industriales o contratos gubernamentales",
+      price: "89",
       features: [
-        "100 facturas electrónicas/mes",
-        "5 proyectos activos",
-        "Reportes avanzados",
-        "10 automatizaciones",
-        "Soporte prioritario 24/7"
+        "Facturas y proyectos ilimitados",
+        "API premium (20 llamadas/minuto + webhooks)",
+        "10 usuarios + permisos jerárquicos",
+        "Automatizaciones avanzadas",
+        "Soporte 24/7 con técnicos especializados"
       ],
       highlighted: true,
-      cta: "Contratar Ahora"
-    },
-    {
-      name: "Plan Empresarial",
-      description: "Para empresas establecidas con alta demanda",
-      price: "90",
-      features: [
-        "Facturas ilimitadas",
-        "Proyectos ilimitados",
-        "Reportes personalizados",
-        "Automatizaciones ilimitadas",
-        "Soporte VIP 24/7 + Capacitación"
-      ],
-      cta: "Contactar Ventas"
+      tag: "Más Popular",
+      color: "blue",
+      cta: "Agendar Demo + Mes Gratis"
     },
   ];
 
@@ -82,9 +89,9 @@ const Pricing = () => {
                   : "border-white/20 hover:translate-y-[-10px]"
               }`}
             >
-              {plan.highlighted && (
-                <div className="absolute top-0 right-0 bg-primary text-dark px-4 py-1 rounded-bl-md font-semibold text-sm">
-                  Más Popular
+              {(plan.tag || plan.highlighted) && (
+                <div className={`absolute top-0 right-0 ${plan.color ? `bg-${plan.color}-500` : 'bg-primary'} text-dark px-4 py-1 rounded-bl-md font-semibold text-sm`}>
+                  {plan.tag || 'Más Popular'}
                 </div>
               )}
               <div className="text-center">
