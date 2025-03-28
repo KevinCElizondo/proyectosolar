@@ -22,6 +22,7 @@ Solar Fluidity es una plataforma SaaS diseñada para empresas del sector de proy
 - **Almacenamiento**: AWS S3 (documentos XML/PDF)
 - **Pagos**: PayPal (procesamiento de suscripciones)
 - **Seguridad**: Autenticación Supabase, Row Level Security (RLS), HTTPS/SSL
+- **Integración con servicios externos**: Model Context Protocol (MCP) para Gmail, Google Calendar y Airtable
 
 ### 2.2 Diagrama de Arquitectura
 
@@ -77,6 +78,26 @@ Solar Fluidity es una plataforma SaaS diseñada para empresas del sector de proy
 - Análisis de rentabilidad por proyecto
 - Exportación a formatos estándar (Excel, PDF)
 
+### 3.5 Integración con Servicios Externos (MCPs)
+
+#### 3.5.1 Gmail MCP
+- Envío automático de facturas electrónicas a clientes
+- Notificaciones de estado de proyectos
+- Seguimiento de comunicaciones con clientes
+- Alertas de vencimiento de facturas
+
+#### 3.5.2 Google Calendar MCP
+- Programación de instalaciones y mantenimientos
+- Calendarización de hitos de proyectos
+- Recordatorios automáticos para equipo técnico
+- Gestión de disponibilidad de recursos
+
+#### 3.5.3 Airtable MCP
+- Almacenamiento estructurado de datos de clientes y proyectos
+- Gestión de inventario de equipos solares
+- Plantillas para cotizaciones y facturas
+- Reportes personalizados por proyecto
+
 ## 4. Configuración del Proyecto
 
 ### 4.1 Requisitos Previos
@@ -86,6 +107,9 @@ Solar Fluidity es una plataforma SaaS diseñada para empresas del sector de proy
 - Cuenta en n8n (autohosting o cloud)
 - Cuenta AWS (para S3) o servicio de almacenamiento alternativo
 - Cuenta de PayPal Business (para procesamiento de pagos)
+- Cuenta de Google con API habilitadas para Gmail y Google Calendar
+- Cuenta en Airtable para bases de datos complementarias
+- Configuración de MCPs (Model Context Protocol) para integraciones con servicios externos
 
 ### 4.2 Instalación
 
@@ -98,6 +122,78 @@ cd proyectosolar
 
 # Instalar dependencias
 npm install
+```
+
+### 4.3 Configuración de MCPs
+
+Para habilitar las integraciones con servicios externos, es necesario configurar los Model Context Protocol servers (MCPs):
+
+#### 4.3.1 Gmail MCP
+
+```sh
+# Crear directorio para credenciales de Gmail
+mkdir -p ~/.gmail-mcp
+
+# Copiar archivo de credenciales OAuth de Google
+mv /ruta/del/archivo/gcp-oauth.keys.json ~/.gmail-mcp/
+
+# Ejecutar autenticación
+npx @gongrzhe/server-gmail-autoauth-mcp auth
+```
+
+#### 4.3.2 Google Calendar MCP
+
+```sh
+# Instalar el MCP de Google Calendar
+npx @takumi0706/mcp-google-calendar
+```
+
+#### 4.3.3 Airtable MCP
+
+Configurar la variable de entorno con la API key de Airtable en el archivo de configuración de MCPs.
+
+#### 4.3.4 Archivo mcp_config.json
+
+```json
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "tu_token_personal_de_github"
+      }
+    },
+    "gmail": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@gongrzhe/server-gmail-autoauth-mcp"
+      ]
+    },
+    "google-calendar": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@takumi0706/mcp-google-calendar"
+      ]
+    },
+    "airtable": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@felores/airtable-mcp-server"
+      ],
+      "env": {
+        "AIRTABLE_API_KEY": "tu_api_key_de_airtable"
+      }
+    }
+  }
+}
+```
 
 # Configurar variables de entorno (copiar y editar el archivo de ejemplo)
 cp .env.example .env
