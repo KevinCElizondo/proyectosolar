@@ -12,6 +12,7 @@ import { useRef, memo } from 'react';
 import LazySection from '@/components/lazy-section';
 import { OptimizedImage } from '@/components/ui/optimized-image';
 import AmazonAffiliateSection from '@/components/AmazonAffiliateSection';
+import AutomationSection from '@/components/AutomationSection';
 
 // Sección de características memoizada para mejorar el rendimiento
 const MemoizedFeatureSection = memo(() => (
@@ -125,7 +126,7 @@ function Index() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.4, duration: 0.5 }}
                         >
-                            Gestiona tus Proyectos y Facturas Electrónicas Offline en un Solo Lugar
+                            Facturación Electrónica Offline | Gestión de Proyectos | Automatizaciones con n8n
                         </motion.h2>
                         
                         <motion.p 
@@ -134,8 +135,9 @@ function Index() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.6, duration: 0.5 }}
                         >
-                            Plataforma especializada para empresas de proyectos solares y servicios electromecánicos. 
-                            Facturación electrónica offline, automatizaciones inteligentes y gestión completa de proyectos.
+                            Plataforma especializada para empresas costarricenses de proyectos solares y servicios electromecánicos. 
+                            Genera facturas electrónicas válidas sin conexión directa con Hacienda, 
+                            gestiona tus proyectos con herramientas especializadas y automatiza procesos con n8n.
                         </motion.p>
                         
                         {/* Botones de llamada a la acción */}
@@ -169,11 +171,23 @@ function Index() {
                 <MemoizedFeatureSection />
             </LazySection>
             
+            {/* Sección de Automatizaciones con n8n - Lazy Loaded */}
+            <LazySection delay={0.3} className="w-full">
+                <AutomationSection />
+            </LazySection>
+            
             {/* How It Works - Lazy Loaded */}
             <LazySection delay={0.2} className="w-full">
                 <section className="py-20">
                     <div className="container mx-auto px-4">
-                        <h2 className="text-3xl font-bold text-center mb-12">Cómo Funciona la Facturación Offline</h2>
+                        <h2 className="text-3xl font-bold text-center mb-12">Cómo Funciona Solar Fluidity</h2>
+                        <div className="flex justify-center mb-8">
+                            <div className="flex space-x-4">
+                                <Button variant="ghost" className="border-b-2 border-primary px-6 py-2">Facturación Electrónica</Button>
+                                <Button variant="ghost" className="hover:border-b-2 hover:border-primary px-6 py-2">Gestión de Proyectos</Button>
+                                <Button variant="ghost" className="hover:border-b-2 hover:border-primary px-6 py-2">Automatizaciones</Button>
+                            </div>
+                        </div>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
                             <Card className="p-6 bg-dark border-gray-800 relative overflow-hidden">
                                 <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-primary flex items-center justify-center text-xl font-bold">1</div>

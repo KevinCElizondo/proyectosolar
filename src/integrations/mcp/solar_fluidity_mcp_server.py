@@ -61,8 +61,8 @@ mcp = FastMCP(
 # RECURSOS (RESOURCES)
 # ========================
 
-@mcp.resource("invoices://list")
-def get_invoices(ctx: Context) -> str:
+@mcp.resource("invoices/list")
+async def get_invoices(ctx: Context) -> str:
     """Obtener lista de facturas electrónicas."""
     if not ctx.request_context.lifespan_context["client"]:
         return "Error: No hay conexión a Supabase. Verifique las credenciales."
@@ -91,8 +91,8 @@ def get_invoices(ctx: Context) -> str:
     except Exception as e:
         return f"Error al obtener facturas: {str(e)}"
 
-@mcp.resource("invoices://{invoice_id}")
-def get_invoice_details(invoice_id: str, ctx: Context) -> str:
+@mcp.resource("invoices/{invoice_id}")
+async def get_invoice_details(invoice_id: str, ctx: Context) -> str:
     """Obtener detalles de una factura específica por ID."""
     if not ctx.request_context.lifespan_context["client"]:
         return "Error: No hay conexión a Supabase. Verifique las credenciales."
@@ -139,8 +139,8 @@ def get_invoice_details(invoice_id: str, ctx: Context) -> str:
     except Exception as e:
         return f"Error al obtener detalles de factura: {str(e)}"
 
-@mcp.resource("projects://list")
-def get_projects(ctx: Context) -> str:
+@mcp.resource("projects/list")
+async def get_projects(ctx: Context) -> str:
     """Obtener lista de proyectos solares/electromecánicos."""
     if not ctx.request_context.lifespan_context["client"]:
         return "Error: No hay conexión a Supabase. Verifique las credenciales."
@@ -175,7 +175,7 @@ def get_projects(ctx: Context) -> str:
 # ========================
 
 @mcp.tool()
-def create_invoice(
+async def create_invoice(
     cliente_nombre: str,
     cliente_cedula: str,
     lineas: List[Dict[str, Any]],
@@ -251,7 +251,7 @@ def create_invoice(
         return f"Error al crear factura: {str(e)}"
 
 @mcp.tool()
-def create_project(
+async def create_project(
     nombre: str,
     cliente_nombre: str,
     cliente_cedula: str,
@@ -321,7 +321,7 @@ def create_project(
         return f"Error al crear proyecto: {str(e)}"
 
 @mcp.tool()
-def generate_invoice_xml(
+async def generate_invoice_xml(
     invoice_id: str,
     ctx: Context
 ) -> str:
@@ -428,7 +428,7 @@ def generate_invoice_xml(
         return f"Error al generar XML: {str(e)}"
 
 @mcp.tool()
-def update_project_status(
+async def update_project_status(
     project_id: str,
     new_status: str,
     ctx: Context
