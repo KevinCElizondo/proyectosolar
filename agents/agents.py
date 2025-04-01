@@ -23,6 +23,7 @@ class SolarFluidityAgents:
         self.slack = WebClient(token=config.SLACK_BOT_TOKEN)
         self.airtable = Airtable(config.AIRTABLE_BASE_ID, config.AIRTABLE_TABLE_NAME, config.AIRTABLE_API_KEY)
         self.supabase = supabase.create_client(config.SUPABASE_URL, config.SUPABASE_KEY)
+        self.zapier_channel = "your-channel"  # Replace with actual channel
         
         # Initialize the agent graph
         self.graph = self._create_agent_graph()
@@ -128,6 +129,25 @@ class SolarFluidityAgents:
             print(f"Notification error: {str(e)}")
             return state
 
+    async def send_direct_message(self, user: str, message: str):
+        """Send a direct message using Zapier's send_direct_message tool"""
+        try:
+            response = await self.zapier.send_direct_message(
+                channel=user,
+                text=message,
+                send_multi="false",
+                as_bot="true",
+                add_edit_link="false",
+                image_url="",
+                unfurl="false",
+                link_names="false",
+                post_at=""
+            )
+            if not response["ok"]:
+                print(f"Failed to send direct message: {response['error']}")
+        except Exception as e:
+            print(f"Zapier direct message error: {str(e)}")
+
     def should_continue_monitoring(self, state: ProjectState) -> bool:
         """Determine if monitoring should continue"""
         # Add logic to determine if monitoring should continue
@@ -200,10 +220,12 @@ class SolarFluidityAgents:
     def send_slack_alert(self, alert: str):
         """Send alert to appropriate Slack channel"""
         try:
-            self.slack.chat_postMessage(
+            response = self.slack.chat_postMessage(
                 channel=self.config.MONITORING_CHANNELS["alerts"],
                 text=alert
             )
+            if not response["ok"]:
+                print(f"Failed to send alert: {response['error']}")
         except Exception as e:
             print(f"Slack alert error: {str(e)}")
 
@@ -213,9 +235,11 @@ class SolarFluidityAgents:
             status_message = "Project Status Update:\n" + \
                 "\n".join([f"{k}: {v}" for k, v in status.items()])
             
-            self.slack.chat_postMessage(
+            response = self.slack.chat_postMessage(
                 channel=self.config.MONITORING_CHANNELS["development"],
                 text=status_message
             )
+            if not response["ok"]:
+                print(f"Failed to update status: {response['error']}")
         except Exception as e:
             print(f"Slack status update error: {str(e)}")
