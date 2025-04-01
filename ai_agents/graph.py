@@ -13,6 +13,7 @@ from .agents.facturacion_agent import run_facturacion_agent
 from .agents.proyecto_agent import run_proyecto_agent
 from .agents.comunicacion_agent import run_comunicacion_agent
 from .agents.synthesizer_agent import run_synthesizer_agent
+from .agents.automatizacion import AutomatizacionAgent
 
 # Definición del estado del grafo
 class SolarFluidityState(TypedDict):
@@ -28,6 +29,7 @@ class SolarFluidityState(TypedDict):
     facturacion_results: Optional[Dict[str, Any]]
     proyecto_results: Optional[Dict[str, Any]]
     comunicacion_results: Optional[Dict[str, Any]]
+    automatizacion_results: Optional[Dict[str, Any]]
     
     # Resultado final
     final_synthesis: Optional[str]

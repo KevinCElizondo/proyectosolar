@@ -2,11 +2,11 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Zap, LayoutList, Workflow, Database, Clock, Mail } from 'lucide-react';
+import { Zap, LayoutList, Workflow, Database, Clock, Mail, Brain, Bot, Cpu } from 'lucide-react';
 
 /**
- * Componente que muestra la sección de automatización con n8n
- * Destaca las capacidades de automatización de Solar Fluidity
+ * Componente que muestra la sección de automatización con agentes IA
+ * Destaca las capacidades de automatización inteligente de Solar Fluidity
  */
 const AutomationSection: React.FC = () => {
   return (
@@ -19,10 +19,10 @@ const AutomationSection: React.FC = () => {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <h2 className="text-3xl font-bold mb-6">Automatizaciones Poderosas con n8n</h2>
+          <h2 className="text-3xl font-bold mb-6">Automatizaciones Inteligentes con Agentes IA</h2>
           <p className="text-lg text-gray-300 max-w-3xl mx-auto">
-            Conecta Solar Fluidity con más de 200 servicios y automatiza tus procesos 
-            de negocio con flujos de trabajo personalizados.
+            Optimiza tus procesos de negocio con agentes de inteligencia artificial basados en
+            LangGraph y Pydantic, capaces de entender y ejecutar instrucciones en lenguaje natural.
           </p>
         </motion.div>
 
@@ -31,9 +31,9 @@ const AutomationSection: React.FC = () => {
             <div className="flex gap-4">
               <LayoutList className="w-12 h-12 text-primary" />
               <div>
-                <h3 className="text-xl font-semibold mb-2">Plantillas Predefinidas</h3>
+                <h3 className="text-xl font-semibold mb-2">Agentes Especializados</h3>
                 <p className="text-gray-400 mb-4">
-                  Comienza rápidamente con nuestras plantillas predefinidas para los casos de uso más comunes en empresas solares.
+                  Nuestros agentes de IA especializados entienden las necesidades específicas del sector solar y electromecánico para automatizar tareas complejas.
                 </p>
                 <ul className="text-gray-400 list-disc list-inside">
                   <li>Notificaciones automáticas de facturas</li>
@@ -49,15 +49,15 @@ const AutomationSection: React.FC = () => {
             <div className="flex gap-4">
               <Workflow className="w-12 h-12 text-primary" />
               <div>
-                <h3 className="text-xl font-semibold mb-2">Constructor Visual de Flujos</h3>
+                <h3 className="text-xl font-semibold mb-2">Procesamiento de Lenguaje Natural</h3>
                 <p className="text-gray-400 mb-4">
-                  Crea tus propios flujos de trabajo sin escribir código, con una interfaz visual fácil de usar.
+                  Interactúa con el sistema mediante instrucciones en lenguaje conversacional, sin necesidad de interfaces complejas.
                 </p>
                 <ul className="text-gray-400 list-disc list-inside">
-                  <li>Interfaz drag-and-drop</li>
-                  <li>Lógica condicional avanzada</li>
-                  <li>Transformadores de datos</li>
-                  <li>Pruebas en tiempo real</li>
+                  <li>Comprensión contextual de peticiones</li>
+                  <li>Ejecución de acciones complejas</li>
+                  <li>Aprendizaje continuo</li>
+                  <li>Procesamiento de datos estructurados</li>
                 </ul>
               </div>
             </div>
@@ -67,15 +67,15 @@ const AutomationSection: React.FC = () => {
             <div className="flex gap-4">
               <Database className="w-12 h-12 text-primary" />
               <div>
-                <h3 className="text-xl font-semibold mb-2">Integraciones Ilimitadas</h3>
+                <h3 className="text-xl font-semibold mb-2">Integraciones MCP</h3>
                 <p className="text-gray-400 mb-4">
-                  Conecta Solar Fluidity con tus herramientas y servicios favoritos.
+                  Conexión estandarizada con servicios externos mediante Model Context Protocol (MCP).
                 </p>
                 <ul className="text-gray-400 list-disc list-inside">
                   <li>Google Workspace (Gmail, Calendar, Drive)</li>
                   <li>CRMs (HubSpot, Salesforce)</li>
-                  <li>Servicios financieros</li>
-                  <li>Plataformas de comunicación</li>
+                  <li>Validación de datos con Pydantic</li>
+                  <li>Comunicación bidireccional segura</li>
                 </ul>
               </div>
             </div>
@@ -83,17 +83,17 @@ const AutomationSection: React.FC = () => {
 
           <Card className="p-6 bg-dark border-gray-800">
             <div className="flex gap-4">
-              <Mail className="w-12 h-12 text-primary" />
+              <Cpu className="w-12 h-12 text-primary" />
               <div>
-                <h3 className="text-xl font-semibold mb-2">Notificaciones Inteligentes</h3>
+                <h3 className="text-xl font-semibold mb-2">Ejecución Paralela</h3>
                 <p className="text-gray-400 mb-4">
-                  Mantén a todos informados con notificaciones contextuales automáticas.
+                  Procesamiento simultáneo de tareas mediante grafos de agentes que colaboran entre sí.
                 </p>
                 <ul className="text-gray-400 list-disc list-inside">
-                  <li>Alertas por correo electrónico</li>
-                  <li>Notificaciones por SMS</li>
-                  <li>Actualizaciones de estado</li>
-                  <li>Recordatorios programados</li>
+                  <li>Grafos de agentes con LangGraph</li>
+                  <li>Sincronización automática entre agentes</li>
+                  <li>Escalabilidad con cargas variables</li>
+                  <li>Manejo inteligente de errores</li>
                 </ul>
               </div>
             </div>
@@ -103,16 +103,16 @@ const AutomationSection: React.FC = () => {
         <div className="bg-gradient-to-r from-primary/20 to-blue-900/20 rounded-lg p-8 mb-12">
           <div className="flex flex-col md:flex-row items-center gap-6">
             <div className="flex-1">
-              <h3 className="text-2xl font-bold mb-4">Caso de Uso: Automatización de Servicio Post-Instalación</h3>
+              <h3 className="text-2xl font-bold mb-4">Caso de Uso: Automatización Inteligente Post-Instalación</h3>
               <p className="text-gray-300 mb-4">
-                Después de completar una instalación solar, nuestro flujo de trabajo automatizado:
+                Después de completar una instalación solar, nuestros agentes IA colaborativos:
               </p>
               <ol className="text-gray-300 list-decimal list-inside space-y-2">
-                <li>Genera la factura electrónica final</li>
-                <li>Envía un correo de agradecimiento al cliente</li>
-                <li>Programa una visita de seguimiento a los 30 días</li>
-                <li>Crea recordatorios de mantenimiento periódicos</li>
-                <li>Activa un flujo de referidos con descuentos</li>
+                <li>Generan la factura electrónica validada con Pydantic</li>
+                <li>Componen un correo personalizado según perfil del cliente</li>
+                <li>Analizan la mejor fecha para seguimiento basado en patrones históricos</li>
+                <li>Crean un plan de mantenimiento adaptativo según condiciones climáticas</li>
+                <li>Elaboran propuestas personalizadas para referidos usando análisis contextual</li>
               </ol>
             </div>
             <div className="flex-shrink-0">
@@ -123,8 +123,8 @@ const AutomationSection: React.FC = () => {
 
         <div className="text-center">
           <Button className="bg-primary hover:bg-primary/90 px-8 py-6 text-lg font-semibold">
-            <Zap className="mr-2 h-5 w-5" />
-            Descubre Todas las Posibilidades
+            <Brain className="mr-2 h-5 w-5" />
+            Descubre los Agentes IA
           </Button>
         </div>
       </div>

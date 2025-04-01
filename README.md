@@ -1,106 +1,202 @@
-# Solar Fluidity - Gestión de Proyectos y Facturación Electrónica Offline
+# Solar Fluidity - Plataforma Integral SaaS para Empresas Solares y Electromecánicas
 
-## 1. Visión General
+<p align="center">
+  <img src="public/logo-full.png" alt="Solar Fluidity Logo" width="400"/>
+</p>
 
-Solar Fluidity es una plataforma SaaS diseñada para empresas del sector de proyectos solares y servicios electromecánicos, ofreciendo una solución integral para la gestión de proyectos y facturación electrónica offline. A diferencia de otras soluciones, Solar Fluidity permite generar documentos fiscales válidos (XML/PDF) sin requerir conexión directa con la autoridad tributaria, otorgando mayor autonomía al usuario mientras cumple con la normativa fiscal.
+<p align="center">
+  <strong>Facturación Electrónica Offline | Gestión de Proyectos | Automatizaciones con Agentes IA</strong>
+</p>
 
-### Principales Diferenciadores
+<p align="center">
+  <a href="#facturación-electrónica">Facturación</a> •
+  <a href="#gestión-de-proyectos">Proyectos</a> •
+  <a href="#automatización-con-agentes-ia">Automatización</a> •
+  <a href="#guías-de-uso">Guías</a> •
+  <a href="#desarrollo">Desarrollo</a> •
+  <a href="#licencia">Licencia</a>
+</p>
 
-- **Facturación Electrónica Offline**: Genera XML/PDF válidos según la normativa fiscal sin envío automático a la autoridad tributaria.
-- **Gestión de Proyectos Especializada**: Funcionalidades adaptadas a los sectores solar y electromecánico.
-- **Automatización con n8n**: Flujos de trabajo automatizados para validación de facturas, recordatorios de pago y reportes financieros.
-- **Enfoque en Autonomía**: El usuario mantiene el control completo de su proceso fiscal.
+## 📋 Visión General
 
-## 2. Arquitectura Tecnológica
+Solar Fluidity es una plataforma SaaS diseñada específicamente para empresas costarricenses del sector de proyectos solares y servicios electromecánicos, ofreciendo tres pilares principales:
 
-### 2.1 Stack Técnico
+1. **Facturación Electrónica Offline**: Genera XML/PDF válidos según la normativa fiscal de Costa Rica sin requerir conexión directa con Hacienda, otorgando mayor autonomía al usuario.
 
-- **Frontend**: React + TypeScript + Vite
-- **UI/UX**: Tailwind CSS + shadcn/ui
+2. **Gestión de Proyectos Especializada**: Funcionalidades adaptadas a los sectores solar y electromecánico, incluyendo seguimiento de instalaciones, mantenimientos y cotizaciones.
+
+3. **Automatización con Agentes IA**: Sistema avanzado de agentes de inteligencia artificial basados en LangGraph y Pydantic que automatizan validación de facturas, recordatorios de pago, reportes financieros y seguimiento de proyectos.
+
+### ✨ Principales Diferenciadores
+
+- **Control Total del Proceso Fiscal**: Genere documentos fiscales válidos sin depender de conexión a servicios externos.
+- **Interfaz Adaptada al Sector**: Diseñada específicamente para proyectos solares y electromecánicos en Costa Rica.
+- **Agentes IA Especializados**: Implementación de IA para automatizar tareas complejas de facturación y gestión.
+- **Integraciones MCP**: Conexión con Gmail, Google Calendar, Airtable y otras herramientas mediante Model Context Protocol.
+
+## 🏗️ Arquitectura Tecnológica
+
+### Stack Técnico
+
+- **Frontend**: React 18 + TypeScript + Vite
+- **UI/UX**: Tailwind CSS + shadcn/ui + Framer Motion
 - **Backend y Base de Datos**: Supabase (PostgreSQL)
 - **Automatizaciones**: n8n
+- **IA & Agentes**: LangGraph + Pydantic + FastAPI
 - **Almacenamiento**: AWS S3 (documentos XML/PDF)
-- **Pagos**: PayPal (procesamiento de suscripciones)
+- **Pagos**: PayPal + Stripe (procesamiento de suscripciones)
 - **Seguridad**: Autenticación Supabase, Row Level Security (RLS), HTTPS/SSL
-- **Integración con servicios externos**: Model Context Protocol (MCP) para Gmail, Google Calendar y Airtable
+- **Integraciones**: Model Context Protocol (MCP) para Gmail, Google Calendar, Airtable, GitHub
 
-### 2.2 Diagrama de Arquitectura
+### Diagrama de Arquitectura
 
+```mermaid
+graph TD
+    A[Cliente Web/Móvil] -->|HTTPS| B[Frontend React]
+    B -->|API| C[Supabase]
+    C -->|SQL| D[PostgreSQL]
+    B -->|HTTPS| E[n8n Workflows]
+    E -->|API| F[Servicios Externos]
+    F -->|SMTP| G[Notificaciones Email]
+    F -->|Calendar API| H[Google Calendar]
+    F -->|HTTPS| I[Airtable]
+    B -->|WebSocket| J[Agentes IA]
+    J -->|API| C
+    C -->|Events| E
+    E -->|S3 API| K[AWS S3]
+    L[MCP Hub] -.->|Protocol| J
+    L -.->|Protocol| E
+
+    classDef primary fill:#4f46e5,stroke:#312e81,color:white;
+    classDef secondary fill:#0ea5e9,stroke:#0369a1,color:white;
+    classDef storage fill:#10b981,stroke:#047857,color:white;
+    classDef external fill:#f59e0b,stroke:#b45309,color:white;
+
+    class A,B primary;
+    class C,D,E,J secondary;
+    class K storage;
+    class F,G,H,I,L external;
 ```
-┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
-│                 │      │                 │      │                 │
-│  Frontend React │<────>│ Supabase APIs   │<────>│  PostgreSQL DB  │
-│                 │      │                 │      │                 │
-└────────┬────────┘      └─────────────────┘      └─────────────────┘
-         │                        ↑                        ↑
-         │                        │                        │
-         │                ┌───────┴────────┐      ┌───────┴────────┐
-         │                │                │      │                │
-         └───────────────>│      n8n       │<────>│     AWS S3     │
-                          │                │      │                │
-                          └───────┬────────┘      └────────────────┘
-                                  │
-                                  ↓
-                          ┌───────────────┐
-                          │   Servicios   │
-                          │   Externos    │
-                          │  (PayPal, etc)│
-                          └───────────────┘
-```
 
-## 3. Funcionalidades Clave
+### Integraciones Principales
 
-### 3.1 Gestión de Proyectos
+| Servicio | Propósito | Método de Integración |
+|----------|-----------|------------------------|
+| Gmail | Comunicaciones automatizadas | MCP / API REST |
+| Google Calendar | Programación de actividades | MCP / API REST |
+| Airtable | Gestión de datos estructurados | MCP / API REST |
+| GitHub | Seguimiento de proyectos | MCP / API REST |
+| PayPal | Procesamiento de pagos | API REST |
+| AWS S3 | Almacenamiento de documentos | API REST |
 
-- Planificación de proyectos solares y electromecánicos
-- Seguimiento de costos e hitos
-- Calendario de actividades
-- Gestión de recursos y personal
+## ✅ Funcionalidades Clave
 
-### 3.2 Facturación Electrónica Offline
+### Facturación Electrónica
 
-- Generación de XML según estándares fiscales locales
-- Creación de PDF con representación gráfica validada
-- Almacenamiento seguro de documentos fiscales
-- Control de estados de facturas (generada, enviada, aceptada)
+Sistema completo para generar facturas electrónicas válidas sin depender de conexión a internet:
 
-### 3.3 Automatizaciones con n8n
+- **Generación de XML**: Cumple con los estándares UBL 2.1 establecidos por Hacienda en Costa Rica
+- **Representación Gráfica**: PDFs profesionales con todos los elementos requeridos por la ley
+- **Firma Digital**: Integración con firma digital del BCCR
+- **Gestión de Estados**: Seguimiento del ciclo completo (borrador → emitida → aceptada/rechazada)
+- **Validación Offline**: Verificación de estructura y contenido sin necesidad de conexión
+- **Almacenamiento Seguro**: Respaldo cifrado de todos los documentos fiscales
 
-- Validación de datos en facturas
-- Recordatorios de pago para facturas pendientes
-- Generación y distribución de reportes financieros
-- Gestión de suscripciones y cobros recurrentes
+### Gestión de Proyectos
 
-### 3.4 Reportes Financieros
+Herramientas especializadas para proyectos solares y electromecánicos:
 
-- Resumen de ingresos y pagos pendientes
-- Proyección de facturación
-- Análisis de rentabilidad por proyecto
-- Exportación a formatos estándar (Excel, PDF)
+- **Planificación**: Diseño de proyectos con estimación de capacidad, equipos y costos
+- **Seguimiento**: Control de avance con hitos y etapas predefinidas para el sector
+- **Calendario Integrado**: Programación de instalaciones, visitas y mantenimientos
+- **Gestión de Recursos**: Asignación de personal técnico y equipos
+- **Cotizaciones**: Generación de propuestas comerciales con plantillas profesionales
+- **Documentación Técnica**: Repositorio de planos, permisos y especificaciones
 
-### 3.5 Integración con Servicios Externos (MCPs)
+### Automatización con Agentes IA
 
-#### 3.5.1 Gmail MCP
-- Envío automático de facturas electrónicas a clientes
-- Notificaciones de estado de proyectos
-- Seguimiento de comunicaciones con clientes
-- Alertas de vencimiento de facturas
+Sistema de inteligencia artificial basado en LangGraph y Pydantic para automatizar procesos complejos:
 
-#### 3.5.2 Google Calendar MCP
-- Programación de instalaciones y mantenimientos
-- Calendarización de hitos de proyectos
-- Recordatorios automáticos para equipo técnico
-- Gestión de disponibilidad de recursos
+- **Agentes Especializados**: IAs dedicadas para facturación, proyectos y comunicaciones
+- **Procesamiento de Lenguaje Natural**: Instrucciones en lenguaje conversacional para automatizar tareas
+- **Validación Inteligente**: Verificación avanzada de la integridad de datos mediante modelos Pydantic
+- **Flujos Cognitivos**: Generación y distribución automática de reportes con análisis contextual
+- **Integraciones MCP**: Conexión nativa con servicios externos mediante Model Context Protocol
+- **Ejecución Paralela**: Procesamiento simultáneo de tareas mediante grafos de agentes LangGraph
 
-#### 3.5.3 Airtable MCP
-- Almacenamiento estructurado de datos de clientes y proyectos
-- Gestión de inventario de equipos solares
-- Plantillas para cotizaciones y facturas
-- Reportes personalizados por proyecto
+### Reportes y Análisis
 
-## 4. Configuración del Proyecto
+Dashboards y reportes detallados para la toma de decisiones:
 
-### 4.1 Requisitos Previos
+- **Panel Financiero**: Resumen de ingresos, gastos y rentabilidad por proyecto
+- **Proyecciones**: Estimaciones de facturación y flujo de caja
+- **Análisis de Eficiencia**: Métricas de rendimiento de proyectos y equipos
+- **Exportación**: Descarga en Excel, PDF y otros formatos estándar
+- **Reportes Personalizados**: Crea tus propios informes según tus necesidades
+- **Visualizaciones**: Gráficos interactivos para entender tendencias
+
+## 🔌 Integraciones con Model Context Protocol (MCP)
+
+Solar Fluidity utiliza el protocolo MCP para conectarse con servicios externos de manera flexible y potente:
+
+### Gmail MCP
+
+Gestión completa de comunicaciones por correo electrónico:
+
+- **Envío Automático**: Distribución programada de facturas, cotizaciones y reportes
+- **Plantillas Personalizables**: Mensajes profesionales con tu imagen corporativa
+- **Seguimiento**: Monitoreo de apertura y respuesta de correos importantes
+- **Notificaciones**: Alertas sobre eventos críticos del proyecto o facturación
+- **Flujos de Comunicación**: Secuencias de emails para diferentes etapas del proyecto
+- **Archivo Digital**: Respaldo centralizado de todas las comunicaciones con clientes
+
+### Google Calendar MCP
+
+Programación y seguimiento temporal de todas las actividades:
+
+- **Agenda Compartida**: Calendarios para equipo técnico y administrativo
+- **Programación Inteligente**: Optimización de rutas para visitas técnicas
+- **Recordatorios**: Notificaciones automáticas para hitos y entregas
+- **Disponibilidad**: Control de recursos técnicos y equipamiento
+- **Sincronización**: Mantén actualizados todos los calendarios automáticamente
+- **Confirmaciones**: Gestión de asistencia para citas y reuniones
+
+### Airtable MCP
+
+Base de datos flexible para gestión de información estructurada:
+
+- **Catálogo de Productos**: Gestión de equipos, precios y especificaciones
+- **Directorio de Clientes**: Información completa y actualizada de tu cartera
+- **Inventario**: Control de existencias y ubicación de equipos
+- **Plantillas de Proyectos**: Bases predefinidas para diferentes tipos de instalaciones
+- **Formularios**: Captura de datos en campo para técnicos e instaladores
+- **Vistas Personalizadas**: Paneles adaptados a diferentes roles y necesidades
+
+### GitHub MCP
+
+Seguimiento de proyectos con metodologías ágiles:
+
+- **Issues Automáticos**: Creación de tareas basadas en hitos del proyecto
+- **Seguimiento**: Estado actualizado de cada componente del proyecto
+- **Colaboración**: Trabajo coordinado entre equipos técnicos y administrativos
+- **Documentación**: Repositorio centralizado de información técnica
+- **Integraciones**: Conexión con herramientas de CI/CD para implementaciones
+- **Historico**: Registro completo de cambios y decisiones en cada proyecto
+
+### Browserbase Stagehand MCP
+
+Automatización de navegación web para tareas repetitivas:
+
+- **Extracción de Datos**: Obtención automática de información de portales gubernamentales
+- **Verificación de Estados**: Consulta automática del estado de facturas en Hacienda
+- **Llenado de Formularios**: Automatización de presentaciones y trámites online
+- **Monitoreo**: Seguimiento automático de plataformas de clientes y proveedores
+- **Captura de Recibos**: Obtención y archivo de comprobantes digitales
+- **Validaciones**: Verificación de datos en sistemas externos
+
+## 🛠 Configuración del Proyecto
+
+### Requisitos Previos
 
 - Node.js (v16+) y npm/yarn
 - Cuenta en Supabase
@@ -111,7 +207,7 @@ Solar Fluidity es una plataforma SaaS diseñada para empresas del sector de proy
 - Cuenta en Airtable para bases de datos complementarias
 - Configuración de MCPs (Model Context Protocol) para integraciones con servicios externos
 
-### 4.2 Instalación
+### Instalación
 
 ```sh
 # Clonar el repositorio
@@ -122,11 +218,78 @@ cd proyectosolar
 
 # Instalar dependencias
 npm install
+
+# Configurar variables de entorno
+cp .env.example .env
+# Edita el archivo .env con tus credenciales
+
+# Iniciar el servidor de desarrollo
+npm run dev
 ```
 
-### 4.3 Configuración de MCPs
+### Configuración de Supabase
 
-Para habilitar las integraciones con servicios externos, es necesario configurar los Model Context Protocol servers (MCPs):
+La aplicación utiliza Supabase como backend. Sigue estos pasos para configurar la base de datos:
+
+1. Crea una cuenta en [Supabase](https://supabase.com)
+2. Crea un nuevo proyecto
+3. Obtiene la URL y la clave anónima de tu proyecto
+4. Añade estas credenciales a tu archivo `.env`:
+   ```
+   NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-clave-anonima
+   ```
+5. Ejecuta el script de creación de tablas:
+   ```bash
+   cd src/integrations/mcp
+   python create_supabase_tables.py
+   ```
+   
+   Si el script falla, puedes crear las tablas manualmente en el Editor SQL de Supabase:
+   
+   ```sql
+   -- Tabla para facturas
+   CREATE TABLE IF NOT EXISTS facturas (
+       id SERIAL PRIMARY KEY,
+       fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       cliente_nombre TEXT NOT NULL,
+       cliente_cedula TEXT NOT NULL,
+       subtotal DECIMAL(10, 2) NOT NULL,
+       impuesto DECIMAL(10, 2) NOT NULL,
+       monto_total DECIMAL(10, 2) NOT NULL,
+       estado TEXT DEFAULT 'Pendiente de firma',
+       xml_generado BOOLEAN DEFAULT FALSE
+   );
+
+   -- Tabla para líneas de factura
+   CREATE TABLE IF NOT EXISTS factura_lineas (
+       id SERIAL PRIMARY KEY,
+       factura_id INTEGER REFERENCES facturas(id),
+       descripcion TEXT NOT NULL,
+       cantidad INTEGER NOT NULL,
+       precio_unitario DECIMAL(10, 2) NOT NULL,
+       subtotal DECIMAL(10, 2) NOT NULL
+   );
+
+   -- Tabla para proyectos
+   CREATE TABLE IF NOT EXISTS proyectos (
+       id SERIAL PRIMARY KEY,
+       nombre TEXT NOT NULL,
+       cliente_nombre TEXT NOT NULL,
+       cliente_cedula TEXT NOT NULL,
+       tipo TEXT CHECK (tipo IN ('Solar', 'Electromecánico', 'Híbrido')),
+       descripcion TEXT,
+       fecha_inicio DATE,
+       fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+       estado TEXT DEFAULT 'Nuevo' CHECK (estado IN ('Nuevo', 'En progreso', 'Finalizado', 'Cancelado'))
+   );
+   ```
+
+### Configuración de MCPs
+
+El sistema utiliza Model Context Protocol (MCP) para integrar servicios externos. Este protocolo permite una comunicación estandarizada y segura con diferentes APIs y servicios.
+
+Para configurar el MCP Hub y las integraciones, sigue estos pasos:
 
 #### 4.3.1 Gmail MCP
 
@@ -195,12 +358,77 @@ Configurar la variable de entorno con la API key de Airtable en el archivo de co
 }
 ```
 
-# Configurar variables de entorno (copiar y editar el archivo de ejemplo)
-cp .env.example .env
+## 🤖 Agentes IA y Automatizaciones
 
-# Iniciar servidor de desarrollo
-npm run dev
+Solar Fluidity implementa un sistema avanzado de agentes de IA paralelos que reemplaza soluciones tradicionales de automatización. Estos agentes, construidos con LangGraph y Pydantic, procesan consultas en lenguaje natural y ejecutan acciones complejas de manera autónoma.
+
+### Arquitectura de Agentes
+
+```mermaid
+graph TD
+    A[Usuario] -->|Consulta| B[Agente Recopilador de Información]
+    B -->|Datos Estructurados| C[Distribución Paralela]
+    C -->|Facturas| D[Agente de Facturación]
+    C -->|Proyectos| E[Agente de Proyectos]
+    C -->|Comunicaciones| F[Agente de Comunicación]
+    C -->|Automatizaciones| G[Agente de Automatización]
+    D -->|Resultado| H[Agente Sintetizador]
+    E -->|Resultado| H
+    F -->|Resultado| H
+    G -->|Resultado| H
+    H -->|Respuesta Final| A
+    
+    classDef primary fill:#4f46e5,stroke:#312e81,color:white;
+    classDef user fill:#f97316,stroke:#c2410c,color:white;
+    classDef agents fill:#10b981,stroke:#047857,color:white;
+    
+    class A user;
+    class B,H primary;
+    class C,D,E,F,G agents;
 ```
+
+### Configuración de Agentes IA
+
+```bash
+# Navegar al directorio de agentes IA
+cd ai_agents
+
+# Instalar dependencias de Python
+pip install -r requirements.txt
+
+# Configurar variables de entorno
+cp .env.example .env
+# Editar con tu clave de API de OpenAI
+
+# Iniciar el servidor de agentes
+python main.py
+```
+
+### Prompts Especializados
+
+Cada agente utiliza prompts específicos para cumplir su función. Puedes encontrar estos prompts en el archivo `ai_agents/agents/prompts.py`. Algunos ejemplos son:
+
+#### Prompt para Facturación Electrónica
+
+```
+Tu especialidad es la creación y gestión de facturas electrónicas siguiendo la normativa fiscal de Costa Rica.
+
+DETALLES IMPORTANTES:
+- Documentos XML deben seguir el esquema UBL 2.1 establecido por el Ministerio de Hacienda
+- Es obligatorio incluir el detalle completo de impuestos (IVA del 13% general, con excepciones)
+- La factura debe incluir la identificación fiscal del emisor y receptor
+- Se debe especificar la condición de venta y el medio de pago
+```
+
+#### Prompt para Gestión de Proyectos
+
+```
+Tu especialidad es ayudar en la planificación, seguimiento y gestión de proyectos solares y electromecánicos.
+
+DATO CLAVE: En Costa Rica, 1 kWp produce aproximadamente 4-5 kWh/día
+```
+
+## 📘 Guías de Uso
 
 ### 4.3 Variables de Entorno
 
