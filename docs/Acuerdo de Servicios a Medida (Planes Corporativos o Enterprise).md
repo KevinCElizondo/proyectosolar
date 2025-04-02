@@ -3,7 +3,7 @@
 **Fecha de entrada en vigencia:** 18 de marzo de 2025
 
 ## **1. Introducción**
-Este documento establece los términos y condiciones aplicables a los planes personalizados de Solar Fluidity, definiendo los acuerdos de servicio, propiedad intelectual, licenciamiento y confidencialidad para clientes empresariales que requieran soluciones a medida en facturación electrónica offline, gestión de proyectos solares/electromecánicos y automatizaciones con n8n.
+Este documento establece los términos y condiciones aplicables a los planes personalizados de Solar Fluidity, definiendo los acuerdos de servicio, propiedad intelectual, licenciamiento y confidencialidad para clientes empresariales que requieran soluciones a medida en generación de estructura de facturación electrónica (XML), gestión de proyectos solares/electromecánicos y automatizaciones con Agentes IA / Python.
 
 ## **2. Alcance**
 Aplica exclusivamente a empresas o clientes que contraten planes personalizados con características específicas adaptadas a sus necesidades operativas y estratégicas.
@@ -14,7 +14,7 @@ Aplica exclusivamente a empresas o clientes que contraten planes personalizados 
 - Las adaptaciones pueden incluir:
   - Integraciones con sistemas propios o ERPs existentes
   - Personalización de interfaces y formatos de documentos electrónicos
-  - Configuraciones avanzadas de automatización con n8n
+  - Configuraciones avanzadas de automatización con Agentes IA / Python
   - Flujos de trabajo personalizados para gestión de proyectos solares y electromecánicos
   - Adaptaciones específicas para cumplimiento fiscal en Costa Rica
 - Toda solicitud de modificación debe ser formalizada a través de un contrato adicional o anexo al presente documento.

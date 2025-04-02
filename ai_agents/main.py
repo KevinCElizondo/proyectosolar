@@ -11,6 +11,21 @@ from typing import Dict, List, Any, Optional
 from datetime import datetime
 import json
 
+import logging
+
+# --- Logging Configuration ---
+log_file = 'ai_agents.log'
+logging.basicConfig(
+    level=logging.INFO,  # Log INFO level and above (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    format='%(asctime)s - %(levelname)s - %(name)s - %(message)s',
+    handlers=[
+        logging.FileHandler(log_file),  # Log to a file
+        logging.StreamHandler()         # Log to the console
+    ]
+)
+logger = logging.getLogger(__name__)
+logger.info("AI Agents API starting up...")
+# --- End Logging Configuration ---
 from .graph import run_solar_fluidity_graph
 
 # Inicializar FastAPI
@@ -65,6 +80,7 @@ async def chat_with_agent(user_message: UserMessage):
         Respuesta del agente
     """
     # Capturar la salida del grafo
+    logger.info(f"Received chat request for thread_id: {user_message.thread_id}")
     all_output = []
     thread_id = user_message.thread_id
     
@@ -76,6 +92,7 @@ async def chat_with_agent(user_message: UserMessage):
     collector = OutputCollector()
     
     # Ejecutar el grafo y recopilar la salida
+    logger.info(f"Running solar fluidity graph for message: '{user_message.message[:50]}...' thread_id: {thread_id}")
     async for _ in run_solar_fluidity_graph(
         user_message.message,
         thread_id=thread_id,
@@ -84,6 +101,7 @@ async def chat_with_agent(user_message: UserMessage):
     ):
         pass
     
+    logger.info(f"Graph execution finished for thread_id: {thread_id}. Response length: {len(full_response)}")
     # Construir la respuesta
     full_response = "\n".join(all_output)
     
@@ -107,17 +125,16 @@ async def stream_chat(websocket: WebSocket):
         websocket: Conexión WebSocket
     """
     await websocket.accept()
+    logger.info(f"WebSocket connection accepted from {websocket.client.host}:{websocket.client.port}")
     
     try:
         while True:
-            # Recibir mensaje del cliente
-            data = await websocket.receive_text()
-            message_data = json.loads(data)
-            
             # Crear el manejador de streaming
+            logger.info(f"Received WebSocket message for thread_id: {message_data.get('thread_id')}")
             writer = StreamingOutput(websocket)
             
             # Ejecutar el grafo con streaming
+            logger.info(f"Running solar fluidity graph (stream) for message: '{message_data['message'][:50]}...' thread_id: {message_data.get('thread_id')}")
             async for _ in run_solar_fluidity_graph(
                 message_data["message"],
                 thread_id=message_data.get("thread_id"),
@@ -128,11 +145,14 @@ async def stream_chat(websocket: WebSocket):
             
             # Enviar señal de fin
             await websocket.send_text("[DONE]")
+            logger.info(f"Graph execution finished (stream) for thread_id: {message_data.get('thread_id')}")
     
     except WebSocketDisconnect:
         print("Cliente desconectado")
+        logger.info(f"WebSocket client disconnected: {websocket.client.host}:{websocket.client.port}")
     except Exception as e:
         print(f"Error en WebSocket: {str(e)}")
+        logger.error(f"WebSocket error: {str(e)}", exc_info=True)
         if websocket.client_state.CONNECTED:
             await websocket.send_text(f"Error: {str(e)}")
             await websocket.close()
@@ -141,6 +161,7 @@ async def stream_chat(websocket: WebSocket):
 def start_api(host="0.0.0.0", port=8000):
     """Inicia la API de FastAPI."""
     uvicorn.run("ai_agents.main:app", host=host, port=port, reload=True)
+    logger.info(f"Starting Uvicorn server on {host}:{port}")
 
 # Punto de entrada principal
 if __name__ == "__main__":

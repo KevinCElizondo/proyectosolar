@@ -109,7 +109,10 @@ CREATE TABLE invoices (
 - Certificado Digital
 - Endpoints para envío y recepción de comprobantes
 
-### n8n/gum Loop
+### Amazon Affiliates
+- Integration with Amazon's affiliate program to generate additional revenue.
+- Tracking and reporting of affiliate links and conversions.
+### AI Agents / Python Workflows
 - Automatizaciones de flujos de trabajo
 - Webhooks para eventos
 - Integración con correo electrónico

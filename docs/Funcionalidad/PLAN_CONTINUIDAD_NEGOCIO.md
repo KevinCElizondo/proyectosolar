@@ -2,7 +2,7 @@
 
 ## Introducción
 
-Este documento detalla el Plan de Continuidad del Negocio (BCP) para Solar Fluidity, diseñado específicamente para garantizar que las funciones críticas de la plataforma —facturación electrónica offline, gestión de proyectos solares/electromecánicos y automatizaciones con n8n— puedan mantenerse operativas ante interrupciones de diversa índole. El plan establece protocolos, responsabilidades y medidas técnicas para minimizar el impacto de incidentes disruptivos y asegurar la continuidad operativa del servicio.
+Este documento detalla el Plan de Continuidad del Negocio (BCP) para Solar Fluidity, diseñado específicamente para garantizar que las funciones críticas de la plataforma —generación de estructura de facturación electrónica (XML), gestión de proyectos solares/electromecánicos y automatizaciones con Agentes IA / Python— puedan mantenerse operativas ante interrupciones de diversa índole. El plan establece protocolos, responsabilidades y medidas técnicas para minimizar el impacto de incidentes disruptivos y asegurar la continuidad operativa del servicio.
 
 ## Objetivos del Plan
 
@@ -18,8 +18,8 @@ Este documento detalla el Plan de Continuidad del Negocio (BCP) para Solar Fluid
 |---------|------------|-----|------|-----------|
 | Facturación Electrónica Offline | Capacidad para generar, firmar y almacenar documentos fiscales sin conexión | 1 hora | 0 (sin pérdida) | Crítica |
 | Gestión de Proyectos Solares | Acceso a información de proyectos, cálculos y documentación técnica | 4 horas | 1 hora | Alta |
-| Automatizaciones n8n (Fiscal) | Flujos de trabajo relacionados con procesos tributarios | 2 horas | 0 (sin pérdida) | Crítica |
-| Automatizaciones n8n (Proyectos) | Flujos de trabajo para gestión de proyectos solares | 8 horas | 4 horas | Media |
+| Automatizaciones IA/Python (Fiscal) | Flujos de trabajo relacionados con procesos tributarios | 2 horas | 0 (sin pérdida) | Crítica |
+| Automatizaciones IA/Python (Proyectos) | Flujos de trabajo para gestión de proyectos solares | 8 horas | 4 horas | Media |
 | Sincronización de Datos | Procesos de reconciliación entre datos locales y en la nube | 24 horas | 24 horas | Media |
 
 *RTO: Recovery Time Objective (tiempo objetivo de recuperación)
@@ -95,7 +95,7 @@ Este documento detalla el Plan de Continuidad del Negocio (BCP) para Solar Fluid
   - Encriptación adicional de claves privadas
   - Auditoría de uso de certificados
 
-### 4. Fallos en Sistemas de Automatización (n8n)
+### 4. Fallos en Sistemas de Automatización (Agentes IA / Python)
 
 #### Riesgos
 - Interrupción de flujos de trabajo automatizados
@@ -103,8 +103,8 @@ Este documento detalla el Plan de Continuidad del Negocio (BCP) para Solar Fluid
 - Problemas de consistencia en procesamiento de datos
 
 #### Estrategias de Mitigación
-- **Arquitectura Redundante para n8n**:
-  - Implementación en cluster con nodos redundantes
+- **Arquitectura Redundante para Agentes IA / Python**:
+  - Despliegue de múltiples instancias de los agentes con balanceo de carga
   - Balanceo de carga entre instancias
   - Monitoreo activo y failover automático
 

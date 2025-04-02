@@ -2,7 +2,7 @@
 
 ## Introducción
 
-La seguridad es un aspecto fundamental en Solar Fluidity, especialmente considerando la naturaleza crítica de las operaciones soportadas: **facturación electrónica offline**, **gestión de proyectos solares/electromecánicos** y **automatizaciones con n8n**. Este documento detalla las estrategias, tecnologías y procesos implementados para garantizar un alto nivel de seguridad en entornos con conectividad limitada o intermitente, protección de certificados digitales, y aseguramiento de datos técnicos de instalaciones solares.
+La seguridad es un aspecto fundamental en Solar Fluidity, especialmente considerando la naturaleza crítica de las operaciones soportadas: **generación de estructura de facturación electrónica (XML)**, **gestión de proyectos solares/electromecánicos** y **automatizaciones con Agentes IA / Python**. Este documento detalla las estrategias, tecnologías y procesos implementados para garantizar un alto nivel de seguridad en diversos entornos operativos, protección de certificados digitales, y aseguramiento de datos técnicos de instalaciones solares.
 
 ## Arquitectura de Seguridad
 
@@ -30,7 +30,7 @@ Solar Fluidity implementa un enfoque de seguridad en capas (Defense in Depth) qu
 
 ### 2.1 Autenticación con Soporte Offline
 
-Solar Fluidity emplea un sistema de autenticación híbrido diseñado para funcionar en entornos con conectividad limitada o intermitente, garantizando la continuidad operativa en modo offline:
+Solar Fluidity emplea un sistema de autenticación híbrido diseñado para funcionar en diversos entornos operativos, garantizando la continuidad operativa en modo offline:
 
 - **Sistema de Autenticación Dual**:
   - **Online**: Utiliza Supabase con JWT (JSON Web Tokens) para la gestión de sesiones
@@ -54,7 +54,7 @@ Solar Fluidity emplea un sistema de autenticación híbrido diseñado para funci
 
 ### 2.2 Autorización Especializada
 
-El control de acceso está diseñado para manejar los requisitos específicos de facturación electrónica offline y proyectos solares/electromecánicos:
+El control de acceso está diseñado para manejar los requisitos específicos de generación de estructura de facturación electrónica (XML) y proyectos solares/electromecánicos:
 
 - **RBAC Específico para la Industria Solar y Fiscal**:
   - **Roles Fiscales**: Emisor de Facturas, Administrador Tributario, Consultor Fiscal
@@ -171,9 +171,9 @@ Los certificados digitales utilizados para la firma de documentos electrónicos 
 - **Actualizaciones Programadas**: Proceso regular de actualización de bibliotecas
 - **Vendoring**: Control de versiones de dependencias críticas
 
-### 4.3 Seguridad Avanzada en Automatizaciones (n8n)
+### 4.3 Seguridad Avanzada en Automatizaciones (Agentes IA / Python)
 
-n8n es un componente crítico que administra flujos de trabajo sensibles relacionados con facturación electrónica y proyectos solares, por lo que cuenta con controles de seguridad especializados:
+Agentes IA / Python es un componente crítico que administra flujos de trabajo sensibles relacionados con facturación electrónica y proyectos solares, por lo que cuenta con controles de seguridad especializados:
 
 - **Arquitectura de Privilegios Mínimos**:
   - Cada flujo de trabajo opera con permisos específicos y limitados
@@ -181,7 +181,7 @@ n8n es un componente crítico que administra flujos de trabajo sensibles relacio
   - Uso de credenciales temporales cuando sea posible
 
 - **Protección de Credenciales y Certificados**:
-  - Las credenciales en n8n se almacenan encriptadas con AES-256
+  - Las credenciales en Agentes IA / Python se almacenan encriptadas con AES-256
   - Certificados fiscales accesibles solo para flujos autorizados mediante enclaves
   - Rotación automatizada de secretos y credenciales
 
@@ -372,14 +372,14 @@ services:
     volumes:
       - ./:/app
     depends_on:
-      - n8n
+      - Agentes IA / Python
 
-  n8n:
-    image: n8nio/n8n
+  Agentes IA / Python:
+    image: Agentes IA / Pythonio/Agentes IA / Python
     ports:
       - "5678:5678"
     volumes:
-      - ./n8n_data:/home/node/.n8n
+      - ./Agentes IA / Python_data:/home/node/.Agentes IA / Python
     environment:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=admin
@@ -487,7 +487,7 @@ Aunque Solar Fluidity está diseñado principalmente como solución SaaS, existe
   - CPU: 4+ cores
   - RAM: 16+ GB
   - Almacenamiento: 500+ GB SSD
-- **Servidor n8n**:
+- **Servidor Agentes IA / Python**:
   - CPU: 2+ cores
   - RAM: 4+ GB
   - Almacenamiento: 50+ GB SSD
@@ -507,7 +507,7 @@ Aunque Solar Fluidity está diseñado principalmente como solución SaaS, existe
   - 80/443: HTTP/HTTPS
   - 5432: PostgreSQL (interno)
   - 6379: Redis (interno)
-  - 5678: n8n (interno)
+  - 5678: Agentes IA / Python (interno)
 - **Balanceo de Carga**: Configuración para múltiples instancias
 - **SSL**: Certificados para comunicaciones internas y externas
 

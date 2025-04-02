@@ -9,7 +9,7 @@ Esta guía proporciona información sobre las integraciones externas utilizadas 
 SolarFluidity se integra con servicios externos para mejorar la automatización, procesamiento de pagos y facturación electrónica. Las principales integraciones incluyen:
 - **PayPal** para pagos en línea.
 - **Hacienda CR** para facturación electrónica en Costa Rica.
-- **n8n y gum Loop** para automatización de flujos de trabajo.
+- **Agentes IA / Python y otras plataformas** para automatización de flujos de trabajo.
 - **Google Analytics** para monitoreo del uso y mejora de la experiencia del usuario.
 
 ## **3. Integración con PayPal**
@@ -34,9 +34,9 @@ SolarFluidity se integra con servicios externos para mejorar la automatización,
 - Envío y validación de facturas con Hacienda CR.
 - Recepción de acuses de recibo y almacenamiento seguro.
 
-## **5. Integración con n8n y gum Loop**
+## **5. Integración con Agentes IA / Python y otras plataformas**
 ### 5.1. Configuración
-1. Crear una cuenta en n8n o gum Loop.
+1. Crear una cuenta en Agentes IA / Python o otras plataformas de automatización.
 2. Conectar SolarFluidity mediante webhooks o API.
 3. Configurar flujos de trabajo automatizados.
 

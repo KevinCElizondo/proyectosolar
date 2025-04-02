@@ -1,101 +1,91 @@
-# **Guía de Facturación Electrónica Offline para Costa Rica - Solar Fluidity**
+# Guía de Generación de Estructura de Factura Electrónica (XML) para Costa Rica - Solar Fluidity
 
-**Fecha de entrada en vigencia:** 18 de marzo de 2025
+**Fecha de entrada en vigencia:** 1 de Abril de 2025 (Versión Actual)
 
-## **1. Introducción**
-Esta guía describe el proceso de facturación electrónica offline en Costa Rica para los usuarios de Solar Fluidity, conforme a los requisitos de la Dirección General de Tributación (DGT) del Ministerio de Hacienda. La capacidad offline permite continuar operando cuando no hay conexión a internet o los servicios de Hacienda no están disponibles, asegurando la continuidad del negocio en todo momento.
+## 1. Introducción
 
-## **2. Requisitos Legales**
+Esta guía describe el proceso de generación de la estructura de factura electrónica (archivo XML) en Costa Rica para los usuarios de Solar Fluidity, conforme a los requisitos de la Dirección General de Tributación (DGT) del Ministerio de Hacienda (versión 4.3).
+
+**Alcance Importante:** Solar Fluidity **genera el archivo XML** con la estructura correcta. **El usuario es responsable de firmar digitalmente este archivo y enviarlo a Hacienda** a través de sus propios medios. Solar Fluidity no se conecta directamente con Hacienda para el envío ni realiza la firma digital en esta versión.
+
+## 2. Requisitos Legales Clave
+
 - La facturación electrónica es obligatoria para todas las empresas en Costa Rica.
-- Se debe utilizar un proveedor autorizado para generar, firmar y enviar facturas electrónicas en formato XML.
-- Las facturas deben cumplir con el esquema definido por Hacienda.
-- En caso de problemas de conectividad, la Resolución DGT-R-012-2018 permite la emisión de comprobantes electrónicos en contingencia, que deberán ser enviados a Hacienda cuando se restablezca la conexión.
+- Se debe generar un archivo XML que cumpla con el esquema y validaciones definidas por Hacienda.
+- El archivo XML debe ser firmado digitalmente con un certificado válido emitido a nombre del contribuyente.
+- El archivo XML firmado debe ser enviado a Hacienda para su validación.
+- El emisor debe gestionar los acuses de recibo (aceptación/rechazo) de Hacienda.
 
-## **3. Configuración de Facturación Electrónica en Solar Fluidity**
-1. **Registro ante Hacienda:**
-   - Obtener un certificado digital para firmar las facturas.
-   - Registrar la empresa en el portal de Hacienda.
-2. **Integración con Solar Fluidity:**
-   - Acceder a la configuración de facturación en el panel de administración.
-   - Ingresar los datos fiscales requeridos: cédula jurídica, dirección, actividad económica, etc.
-   - Subir el certificado digital emitido por Hacienda.
-   - Configurar preferencias de modo offline y vinculación con proyectos solares/electromecánicos.
-3. **Configuración de Automatizaciones con n8n:**
-   - Definir flujos de trabajo para la generación automática de facturas basadas en hitos de proyectos.
-   - Establecer procesos de recordatorios y seguimiento de pagos.
-   - Configurar alertas para sincronización cuando se restablezca la conexión.
+## 3. Configuración Inicial en Solar Fluidity
 
-## **4. Emisión de Facturas Electrónicas**
-### **4.1 Proceso Online (Conexión Disponible)**
-1. **Generación de la factura:**
-   - Ingresar los detalles de la transacción (cliente, montos, descripciones, impuestos aplicables).
-   - Opción de vincular la factura a proyectos solares/electromecánicos específicos.
-   - Solar Fluidity genera el archivo XML según el formato exigido.
-2. **Firma Digital:**
-   - El documento XML se firma con el certificado digital del emisor.
-3. **Envío a Hacienda:**
-   - La factura se envía automáticamente a la DGT para su validación.
-4. **Recepción del Acuse de Recibo:**
-   - Hacienda responde con un "acuse de recibo" que confirma la validez de la factura.
-   - Se almacena en el sistema y se envía una copia al cliente.
+1.  **Datos Fiscales:**
+    *   Acceder a "Configuración > Empresa".
+    *   Ingresar los datos fiscales requeridos: nombre o razón social, cédula física/jurídica, dirección, actividad económica principal, régimen tributario, etc. Asegúrate de que estos datos coincidan exactamente con tu registro en Hacienda.
+2.  **Numeración Consecutiva:**
+    *   Solar Fluidity gestiona automáticamente la numeración consecutiva de los documentos generados dentro de la plataforma. Verifica la configuración inicial en "Configuración > Facturación".
+3.  **(Futuro) Certificado Digital:**
+    *   La funcionalidad para cargar y utilizar el certificado de firma digital directamente en Solar Fluidity está planificada para futuras versiones. Actualmente, la firma debe realizarse fuera de la plataforma.
 
-### **4.2 Proceso Offline (Sin Conexión)**
-1. **Generación y Almacenamiento Local:**
-   - El sistema detecta automáticamente la falta de conexión con Hacienda.
-   - Se genera la factura en formato XML con indicación de contingencia.
-   - Se firma digitalmente usando el certificado almacenado localmente.
-   - Se almacena en la cola de envío pendiente.
-2. **Entrega al Cliente:**
-   - Se genera un PDF con marca de agua "Comprobante en Contingencia".
-   - Se entrega al cliente por correo electrónico o se imprime.
-3. **Sincronización Automática:**
-   - Cuando se restablece la conexión, el sistema envía automáticamente todas las facturas pendientes.
-   - Se notifica a usuarios y clientes cuando las facturas son aceptadas por Hacienda.
+## 4. Proceso de Generación del XML de la Factura
 
-## **5. Notificación y Almacenamiento**
-- Cada factura validada por Hacienda se envía al cliente vía correo electrónico.
-- Todas las facturas emitidas y sus acuses de recibo quedan almacenadas en SolarFluidity por un período mínimo de 5 años.
+1.  **Crear Nueva Factura:**
+    *   Ve a "Facturación > Emitir Factura".
+    *   Completa la información requerida:
+        *   **Cliente:** Selecciona un cliente existente o crea uno nuevo (asegúrate de incluir cédula/identificación y correo electrónico si deseas enviarle el XML/PDF).
+        *   **Condición de Venta:** Contado, Crédito, etc.
+        *   **Medio de Pago:** Efectivo, Transferencia, Tarjeta, etc.
+        *   **Líneas de Detalle:** Añade cada producto o servicio con descripción, cantidad, unidad de medida, precio unitario, descuentos (si aplica), y el código de impuesto correspondiente (IVA 13%, 4%, 2%, 1%, 0%, Exento). Solar Fluidity calculará los subtotales y el impuesto.
+        *   **Moneda:** Selecciona la moneda de la transacción.
+        *   **(Opcional) Vincular Proyecto:** Asocia la factura a un proyecto gestionado en la plataforma.
+        *   **(Opcional) Notas:** Añade cualquier observación relevante.
+2.  **Validación Preliminar:**
+    *   Solar Fluidity realiza validaciones básicas de formato y datos requeridos antes de generar el XML.
+3.  **Generar Estructura XML:**
+    *   Haz clic en "Generar XML".
+    *   La plataforma, con ayuda de los Agentes IA, construirá el archivo XML siguiendo la estructura v4.3 de Hacienda.
+4.  **Descargar XML:**
+    *   Una vez generado, podrás descargar el archivo XML a tu computadora. El estado de la factura cambiará a "XML Generado".
 
-## **6. Notas de Crédito y Débito**
-- **Notas de crédito:** Se emiten para corregir o anular facturas ya enviadas.
-- **Notas de débito:** Se utilizan para aumentar el monto de una factura original.
-- Ambas deben enviarse y validarse por Hacienda igual que las facturas electrónicas.
+## 5. Pasos Posteriores (Realizados por el Usuario fuera de Solar Fluidity)
 
-## **7. Resolución de Problemas Comunes**
-### Errores en la Firma Digital
-- Verificar que el certificado digital esté vigente.
-- Confirmar que la clave privada coincide con el certificado.
-- Comprobar que la instancia local tiene acceso al certificado almacenado.
+1.  **Firma Digital del XML:**
+    *   Utiliza tu software de firma digital preferido (ej. Firma Digital del BCCR, software de terceros) y tu certificado digital vigente para firmar el archivo XML descargado de Solar Fluidity.
+2.  **Envío a Hacienda:**
+    *   Envía el archivo XML **firmado** a Hacienda a través del medio que utilices (ATV, sistema de facturación conectado a Hacienda, etc.).
+3.  **Gestión de Acuses de Recibo:**
+    *   Monitorea la respuesta de Hacienda (aceptación o rechazo) a través del medio de envío que utilizaste.
+4.  **(Opcional) Envío al Cliente:**
+    *   Puedes enviar el XML firmado y su representación gráfica (PDF, que puedes generar tú mismo o con otras herramientas) a tu cliente por correo electrónico u otro medio.
 
-### Factura Rechazada por Hacienda
-- Revisar que los datos fiscales sean correctos.
-- Asegurar que los montos y códigos de impuestos sean los adecuados.
-- Verificar que se está utilizando la versión correcta del esquema XML.
+## 6. Generación de Notas de Crédito y Débito
 
-### Problemas de Sincronización Offline-Online
-- Verificar que las facturas pendientes no tengan conflictos de numeración.
-- Comprobar el estado de la cola de envío en el panel de administración.
-- Forzar sincronización manual si es necesario.
+- El proceso es similar al de la factura:
+    1.  Ve a "Facturación > Emitir Nota de Crédito/Débito".
+    2.  Selecciona la factura original a la que hace referencia la nota.
+    3.  Completa los detalles de la nota (motivo, montos a ajustar).
+    4.  Genera y descarga el XML de la nota.
+    5.  **Realiza los pasos de firma y envío a Hacienda fuera de Solar Fluidity.**
 
-### Problemas con Automatizaciones
-- Revisar los registros de ejecución de flujos de n8n.
-- Asegurar que las credenciales de API están actualizadas.
-- Verificar la configuración de triggers y eventos.
+## 7. Resolución de Problemas Comunes
 
-## **8. Integración con Gestión de Proyectos Solares/Electromecánicos**
-- **Vinculación de Facturas a Proyectos:** Cada factura puede asociarse a un proyecto específico para seguimiento financiero.
-- **Facturación por Hitos:** Configuración de facturación automática al completar etapas del proyecto.
-- **Reportes Financieros por Proyecto:** Generación de informes de ingresos, impuestos y rentabilidad por proyecto.
+### Error al Generar XML en Solar Fluidity
+- **Causa Posible:** Datos incompletos o incorrectos en la factura (ej. falta cédula del cliente, código de impuesto inválido).
+- **Solución:** Revisa cuidadosamente todos los campos de la factura en Solar Fluidity y corrige la información faltante o errónea antes de intentar generar el XML nuevamente. Consulta los mensajes de error proporcionados por la plataforma.
 
-## **9. Automatización con n8n**
-- **Notificaciones Automáticas:** Envío de alertas a clientes sobre facturas próximas y pagos pendientes.
-- **Integración con Bancos:** Conciliación automática de pagos recibidos con facturas emitidas.
-- **Flujos de Documentación:** Generación de contratos y documentos de proyecto basados en plantillas predefinidas.
+### XML Rechazado por Hacienda (Después de Firmar y Enviar)
+- **Causa Posible:** Inconsistencias entre los datos de la factura y tu registro en Hacienda, errores estructurales no detectados inicialmente, problemas con la firma digital.
+- **Solución:** Revisa el mensaje de rechazo de Hacienda. Verifica tus datos fiscales en Solar Fluidity y en Hacienda. Si el problema es estructural, reporta el error a soporte@solarfluidity.com con los detalles. Si es un problema de firma, verifica tu certificado y proceso de firma. Deberás generar una nota de crédito para anular el documento rechazado y emitir uno nuevo corregido.
 
-## **10. Contacto y Soporte**
-Para consultas sobre facturación electrónica offline y automatizaciones, contacta a:
-- **Email principal:** facturacion@solarfluidity.com
+## 8. Automatización con Agentes IA / Python
+
+- Los Agentes IA pueden asistir en la validación de datos antes de generar el XML.
+- Se pueden configurar flujos para generar borradores de facturas basados en hitos de proyectos completados (requieren revisión humana antes de generar el XML final).
+- Se pueden automatizar recordatorios internos o para clientes sobre facturas cuyo XML ha sido generado pero que podrían no haber sido enviadas/pagadas (basado en estados manuales o fechas).
+
+## 9. Contacto y Soporte
+
+Para consultas sobre la generación de la estructura XML de facturación electrónica, contacta a:
 - **Soporte Técnico:** soporte@solarfluidity.com
-- **Especialista en Automatizaciones:** automatizaciones@solarfluidity.com
+- **Chat en vivo** (dentro de la plataforma)
 
-**Última actualización:** 18 de marzo de 2025
+**Última actualización:** 1 de Abril de 2025

@@ -6,13 +6,13 @@ Solar Fluidity es una plataforma SaaS especializada diseñada para atender las n
 
 1. **Facturación Electrónica Offline**: Generación de documentos XML/PDF válidos sin necesidad de integración directa con la autoridad tributaria.
 2. **Gestión de Proyectos Especializados**: Herramientas adaptadas específicamente para proyectos solares y electromecánicos.
-3. **Automatización con n8n**: Flujos de trabajo personalizables para optimizar procesos comerciales y administrativos.
+3. **Automatización con Agentes IA / Python**: Flujos de trabajo personalizables para optimizar procesos comerciales y administrativos.
 
 ## Funcionalidades Principales
 
 ### 1. Facturación Electrónica Offline
 
-La facturación electrónica offline permite a las empresas generar documentos fiscales válidos (XML/PDF) sin requerir una conexión constante con la autoridad tributaria costarricense (Ministerio de Hacienda).
+La generación de estructura de facturación electrónica (XML para Hacienda CR) permite a las empresas generar documentos fiscales válidos (XML/PDF) sin requerir una conexión constante con la autoridad tributaria costarricense (Ministerio de Hacienda).
 
 #### Características clave:
 
@@ -35,7 +35,7 @@ Sistema de gestión de proyectos adaptado a las necesidades específicas de empr
 - **Gestión de Recursos**: Asignación y seguimiento de personal, materiales y equipos.
 - **Reportes de Avance**: Generación de informes detallados sobre el estado de cada proyecto.
 
-### 3. Automatizaciones con n8n
+### 3. Automatizaciones con Agentes IA / Python
 
 Implementación de flujos de trabajo automatizados para reducir tareas repetitivas y mejorar la eficiencia operativa.
 

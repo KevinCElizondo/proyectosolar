@@ -192,7 +192,7 @@ Solar Fluidity permite gestionar proyectos a través de todas sus fases:
 - **Seguimiento de Pagos**: Vinculación de pagos recibidos con facturas emitidas
 - **Reportes Combinados**: Análisis financiero que incluye facturación y costos
 
-### 9.2 Integración con Automatizaciones (n8n)
+### 9.2 Integración con Automatizaciones (Agentes IA / Python)
 
 - **Flujos Automatizados**: Activación de workflows basados en eventos del proyecto
 - **Notificaciones**: Alertas automáticas sobre cambios importantes

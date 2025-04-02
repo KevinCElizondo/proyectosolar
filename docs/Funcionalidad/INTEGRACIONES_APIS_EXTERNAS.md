@@ -2,7 +2,7 @@
 
 ## Introducción
 
-Este documento detalla las integraciones y APIs externas implementadas en Solar Fluidity para soportar sus funcionalidades principales: facturación electrónica offline, gestión de proyectos solares/electromecánicos y automatizaciones con n8n. Se incluyen las especificaciones técnicas, métodos de autenticación, estructuras de datos y consideraciones de seguridad para cada integración.
+Este documento detalla las integraciones y APIs externas implementadas en Solar Fluidity para soportar sus funcionalidades principales: generación de estructura de facturación electrónica (XML), gestión de proyectos solares/electromecánicos y automatizaciones con Agentes IA / Python. Se incluyen las especificaciones técnicas, métodos de autenticación, estructuras de datos y consideraciones de seguridad para cada integración.
 
 ## 1. Integraciones con Hacienda Costa Rica
 
@@ -84,14 +84,14 @@ Integraciones con fabricantes y distribuidores de equipos solares para acceso a 
 | BYD | Distributor API | Baterías, especificaciones, precios | Manual, actualización mensual |
 | Enphase | Cloud API | Microinversores, monitoreo, diagnósticos | Especificaciones básicas, 30 días |
 
-#### Implementación en n8n
+#### Implementación en Agentes IA / Python
 
 ```json
 {
   "name": "Sincronización de Catálogos",
   "nodes": [
     {
-      "type": "n8n-nodes-base.schedule",
+      "type": "Agentes IA / Python-nodes-base.schedule",
       "parameters": {
         "interval": [
           {
@@ -102,7 +102,7 @@ Integraciones con fabricantes y distribuidores de equipos solares para acceso a 
       }
     },
     {
-      "type": "n8n-nodes-base.function",
+      "type": "Agentes IA / Python-nodes-base.function",
       "parameters": {
         "functionCode": "// Código para sincronizar catálogos de múltiples proveedores\n// y almacenar localmente para acceso offline"
       }
@@ -169,20 +169,20 @@ Integración con entidades financieras que ofrecen productos específicos para p
 | BNCR (BN Soluciones Verdes) | Portal Integrado | Simulador básico offline |
 | Fundecooperación | Formularios API | Plantillas descargables |
 
-#### Flujo de Solicitud en n8n
+#### Flujo de Solicitud en Agentes IA / Python
 
 ```json
 {
   "name": "Solicitud Financiamiento Solar",
   "nodes": [
     {
-      "type": "n8n-nodes-base.webhook",
+      "type": "Agentes IA / Python-nodes-base.webhook",
       "parameters": {
         "path": "financiamiento/solicitud"
       }
     },
     {
-      "type": "n8n-nodes-base.switch",
+      "type": "Agentes IA / Python-nodes-base.switch",
       "parameters": {
         "conditions": [
           {
@@ -200,11 +200,11 @@ Integración con entidades financieras que ofrecen productos específicos para p
 }
 ```
 
-## 4. Integraciones para Automatizaciones con n8n
+## 4. Integraciones para Automatizaciones con Agentes IA / Python
 
 ### 4.1 Conectores Personalizados
 
-Solar Fluidity incluye nodos personalizados para n8n que facilitan la automatización de procesos específicos.
+Solar Fluidity incluye nodos personalizados para Agentes IA / Python que facilitan la automatización de procesos específicos.
 
 | Conector | Funcionalidad | Soporte Offline |
 |----------|---------------|----------------|
@@ -214,7 +214,7 @@ Solar Fluidity incluye nodos personalizados para n8n que facilitan la automatiza
 | Installation Tracker | Seguimiento de proyectos | Parcial |
 | Maintenance Scheduler | Programación de mantenimientos | Parcial |
 
-### 4.2 Integración entre n8n y Aplicación Principal
+### 4.2 Integración entre Agentes IA / Python y Aplicación Principal
 
 | Aspecto | Implementación | Resiliencia |
 |---------|---------------|-------------|
@@ -223,7 +223,7 @@ Solar Fluidity incluye nodos personalizados para n8n que facilitan la automatiza
 | Sincronización | Bidireccional con reconciliación | Registro de transacciones pendientes |
 
 ```javascript
-// Ejemplo de código para encolar tareas n8n cuando no hay conexión
+// Ejemplo de código para encolar tareas Agentes IA / Python cuando no hay conexión
 async function queueWorkflow(workflowId, payload) {
   if (navigator.onLine) {
     return await executeWorkflowDirectly(workflowId, payload);
@@ -403,7 +403,7 @@ async function calculateYield(
 | FE | Factura Electrónica |
 | NC | Nota de Crédito Electrónica |
 | ND | Nota de Débito Electrónica |
-| n8n | Plataforma de automatización de flujos de trabajo |
+| Agentes IA / Python | Plataforma de automatización de flujos de trabajo |
 | PWA | Progressive Web Application |
 
 ### 9.2 Referencias y Documentación Externa
@@ -412,4 +412,4 @@ async function calculateYield(
 |---------|-----|------------|
 | API Hacienda | https://www.hacienda.go.cr/ATV/ComprobanteElectronico/frmGInformacionComprobantes.aspx | Documentación oficial APIs |
 | PVWatts | https://developer.nrel.gov/docs/solar/pvwatts/v6/ | API de cálculo solar |
-| n8n Docs | https://docs.n8n.io/ | Documentación oficial n8n |
+| Agentes IA / Python Docs | https://docs.Agentes IA / Python.io/ | Documentación oficial Agentes IA / Python |

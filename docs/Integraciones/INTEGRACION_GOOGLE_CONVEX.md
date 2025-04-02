@@ -251,4 +251,4 @@ Combinando todas estas integraciones, Solar Fluidity puede ofrecer flujos de tra
 
 1. Implementar la actualización automática de tokens
 2. Completar la integración con Hacienda (pendiente de firma digital)
-3. Expandir las capacidades de automatización con n8n
+3. Expandir las capacidades de automatización con Agentes IA / Python

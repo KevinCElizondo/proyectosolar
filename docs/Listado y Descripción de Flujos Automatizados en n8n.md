@@ -3,7 +3,7 @@
 **Fecha de entrada en vigencia:** [Fecha de Publicación]
 
 ## **1. Introducción**
-Esta guía describe los flujos automatizados implementados en SolarFluidity mediante herramientas como **n8n, gum Loop y otras plataformas de automatización**, asegurando eficiencia operativa y reducción de tareas manuales.
+Esta guía describe los flujos automatizados implementados en SolarFluidity mediante herramientas como **Agentes IA / Python, otras plataformas de automatización y otras plataformas de automatización**, asegurando eficiencia operativa y reducción de tareas manuales.
 
 ## **2. Alcance**
 Las automatizaciones internas abarcan:
@@ -43,7 +43,7 @@ Las automatizaciones internas abarcan:
 - Envío de encuestas de satisfacción post-atención.
 
 ## **6. Integraciones con Herramientas Externas**
-### 6.1. n8n y gum Loop
+### 6.1. Agentes IA / Python y otras plataformas de automatización
 - Automatización de flujos de trabajo complejos.
 - Webhooks para integración en tiempo real con terceros.
 

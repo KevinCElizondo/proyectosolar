@@ -2,7 +2,7 @@
 
 ## Visión General de la Arquitectura
 
-Solar Fluidity está construido como una plataforma SaaS especializada en tres pilares fundamentales: **facturación electrónica offline**, **gestión de proyectos solares/electromecánicos** y **automatizaciones con n8n**. Utilizando una arquitectura moderna de microservicios con un frontend desacoplado, el sistema está diseñado para operar en entornos con conectividad limitada o intermitente, garantizando la continuidad de operaciones críticas incluso sin acceso a internet.
+Solar Fluidity está construido como una plataforma SaaS especializada en tres pilares fundamentales: **generación de estructura de facturación electrónica (XML)**, **gestión de proyectos solares/electromecánicos** y **automatizaciones con Agentes IA / Python**. Utilizando una arquitectura moderna de microservicios con un frontend desacoplado, el sistema está diseñado para operar en diversos entornos operativos, garantizando la continuidad de operaciones críticas incluso sin acceso a internet.
 
 A continuación se presenta un diagrama de la arquitectura general del sistema:
 
@@ -26,7 +26,7 @@ A continuación se presenta un diagrama de la arquitectura general del sistema:
           │                         ↓
           │               ┌─────────────────────┐    ┌───────────────────┐
           └-------------->│                     │    │                   │
-                          │        n8n          │<-->│     AWS S3        │
+                          │        Agentes IA / Python          │<-->│     AWS S3        │
                           │  (Automatizaciones) │    │  (Almacenamiento  │
                           │                     │    │   de documentos)  │
                           └─────────┬───────────┘    └───────────────────┘
@@ -80,7 +80,7 @@ src/
 ├── services/           # Servicios para lógica de negocio
 │   ├── invoice.ts      # Servicios de facturación
 │   ├── project.ts      # Servicios de proyectos
-│   └── n8n.ts          # Integración con n8n
+│   └── Agentes IA / Python.ts          # Integración con Agentes IA / Python
 └── styles/             # Estilos globales
 ```
 
@@ -221,9 +221,9 @@ CREATE POLICY "Usuarios pueden editar sus propias facturas" ON invoices
   FOR UPDATE USING (auth.uid() = user_id);
 ```
 
-### 3. Motor de Automatización (n8n)
+### 3. Motor de Automatización (Agentes IA / Python)
 
-n8n es el componente central de automatización en Solar Fluidity, implementado con capacidades de ejecución local y programación de tareas diferidas para entornos con conectividad intermitente. Este motor gestiona los procesos críticos relacionados con facturación electrónica offline y flujos de trabajo especializados para proyectos solares/electromecánicos.
+Agentes IA / Python es el componente central de automatización en Solar Fluidity, implementado con capacidades de ejecución local y programación de tareas diferidas para entornos con conectividad intermitente. Este motor gestiona los procesos críticos relacionados con generación de estructura de facturación electrónica (XML) y flujos de trabajo especializados para proyectos solares/electromecánicos.
 
 #### Características Principales:
 

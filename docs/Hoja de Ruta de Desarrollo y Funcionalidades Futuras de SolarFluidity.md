@@ -3,12 +3,12 @@
 **Fecha de entrada en vigencia:** 18 de marzo de 2025
 
 ## **1. Introducción**
-Este documento detalla el roadmap de desarrollo de Solar Fluidity, estableciendo las prioridades y objetivos estratégicos para la evolución de nuestra plataforma enfocada en facturación electrónica offline, gestión de proyectos solares/electromecánicos y automatizaciones con n8n. Su propósito es garantizar la innovación, escalabilidad y adaptación a las necesidades del mercado costarricense y regional.
+Este documento detalla el roadmap de desarrollo de Solar Fluidity, estableciendo las prioridades y objetivos estratégicos para la evolución de nuestra plataforma enfocada en facturación electrónica offline, gestión de proyectos solares/electromecánicos y automatizaciones con Agentes IA / Python. Su propósito es garantizar la innovación, escalabilidad y adaptación a las necesidades del mercado costarricense y regional.
 
 ## **2. Objetivos del Roadmap**
 - Potenciar el módulo de facturación electrónica offline para mejorar su rendimiento en zonas con conectividad limitada.
 - Ampliar las capacidades de gestión de proyectos solares y electromecánicos con herramientas especializadas.
-- Desarrollar nuevos flujos automatizados con n8n para reducir tareas manuales en procesos fiscales y operativos.
+- Desarrollar nuevos flujos automatizados con Agentes IA / Python para reducir tareas manuales en procesos fiscales y operativos.
 - Fortalecer las integraciones con proveedores de servicios solares y electromecánicos.
 - Mejorar la experiencia del usuario mediante optimización de UI/UX enfocada en usuarios contables y técnicos.
 - Expandir la plataforma para cumplir con normativas fiscales de otros países centroamericanos.
@@ -26,7 +26,7 @@ Este documento detalla el roadmap de desarrollo de Solar Fluidity, estableciendo
 - Creación de biblioteca de componentes solares/electromecánicos con especificaciones técnicas.
 - Sistema avanzado de planificación y seguimiento de mantenimientos preventivos y correctivos.
 
-### **Fase 3: Automatizaciones Avanzadas con n8n (Q4 2025)**
+### **Fase 3: Automatizaciones Avanzadas con Agentes IA / Python (Q4 2025)**
 - Creación de biblioteca de plantillas preconfiguradas para flujos comunes en el sector solar.
 - Desarrollo de nodos personalizados para integración con proveedores de equipos solares.
 - Automatización de seguimiento de rendimiento de instalaciones y alertas predictivas.

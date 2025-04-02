@@ -3,9 +3,9 @@
 ## Índice
 
 1. [General](#general)
-2. [Facturación Electrónica Offline](#facturación-electrónica-offline)
+2. [Generación de Factura Electrónica (XML)](#generación-de-factura-electrónica-xml)
 3. [Gestión de Proyectos Solares](#gestión-de-proyectos-solares)
-4. [Automatizaciones con n8n](#automatizaciones-con-n8n)
+4. [Automatizaciones con Agentes IA / Python](#automatizaciones-con-agentes-ia--python)
 5. [Soporte Técnico](#soporte-técnico)
 6. [Planes y Facturación](#planes-y-facturación)
 
@@ -16,17 +16,13 @@
 ### ¿Qué es Solar Fluidity?
 
 Solar Fluidity es una plataforma SaaS (Software as a Service) especializada para empresas del sector solar y electromecánico en Costa Rica, que integra tres funcionalidades principales:
-- Facturación electrónica con capacidad offline
+- Generación de estructura de facturación electrónica (XML para Hacienda CR)
 - Gestión de proyectos solares y electromecánicos
-- Automatización de procesos con n8n
+- Automatización de procesos con Agentes IA / Python
 
-### ¿Cómo funciona Solar Fluidity en modo offline?
+### ¿Solar Fluidity funciona sin conexión a internet?
 
-Solar Fluidity implementa tecnología PWA (Progressive Web App) que permite:
-1. Descargar y almacenar localmente los datos esenciales para su operación
-2. Generar documentos fiscales válidos sin conexión a internet
-3. Gestionar proyectos solares en campo
-4. Sincronizar automáticamente toda la información al recuperar conectividad
+Actualmente, Solar Fluidity requiere una conexión a internet para la mayoría de sus funciones, incluyendo la generación de la estructura XML de la factura y la interacción con los agentes de IA. La funcionalidad offline no está soportada en la versión inicial.
 
 ### ¿En qué dispositivos puedo utilizar Solar Fluidity?
 
@@ -39,55 +35,39 @@ Solo necesita un navegador moderno como Chrome, Firefox, Safari o Edge.
 
 ### ¿Necesito instalación especial para usar Solar Fluidity?
 
-No. Al ser una PWA, puede acceder directamente desde el navegador en app.solarfluidity.com. Para un mejor rendimiento offline, su navegador le ofrecerá la opción de "Instalar" la aplicación, lo que creará un acceso directo en su dispositivo.
+No. Al ser una aplicación web, puede acceder directamente desde el navegador en la URL proporcionada (ej. app.solarfluidity.com). No requiere instalación local más allá del navegador.
 
 ---
 
-## Facturación Electrónica Offline
+## Generación de Factura Electrónica (XML)
 
-### ¿Cómo puedo emitir facturas electrónicas sin conexión a internet?
+### ¿Cómo genera Solar Fluidity la factura electrónica?
 
-Solar Fluidity utiliza el mecanismo de contingencia autorizado por el Ministerio de Hacienda:
-1. La aplicación detecta automáticamente la falta de conectividad
-2. Activa el modo de contingencia según la resolución DGT-R-033-2019
-3. Permite generar documentos con numeración especial
-4. Almacena localmente los documentos firmados
-5. Sincroniza con Hacienda al recuperar conexión
+Solar Fluidity te permite ingresar los datos de tu factura (cliente, items, montos, impuestos, etc.) y genera el archivo XML correspondiente, siguiendo la estructura y validaciones requeridas por el Ministerio de Hacienda de Costa Rica (versión 4.3).
 
-### ¿Los documentos generados offline son válidos ante Hacienda?
+### ¿Solar Fluidity envía las facturas directamente a Hacienda?
 
-Sí. Los documentos generados en modo contingencia cumplen con todos los requisitos establecidos por la normativa fiscal costarricense, incluyendo:
-- Estructura XML válida según esquemas oficiales
-- Firma digital mediante certificado autorizado
-- Numeración según protocolo de contingencia
-- Indicación específica de emisión contingente
+No. Solar Fluidity **genera el archivo XML** con la estructura correcta requerida por el Ministerio de Hacienda de Costa Rica. **El usuario es responsable de firmar digitalmente este archivo XML** (utilizando su propio certificado y software de firma) **y enviarlo a Hacienda** a través de los medios que disponga (ej. ATV, software de terceros). Solar Fluidity no se conecta directamente con Hacienda para el envío.
 
-### ¿Cómo configuro mi certificado digital para uso offline?
+### ¿Necesito mi propia firma digital para usar Solar Fluidity?
 
-1. Vaya a "Configuración > Facturación Electrónica > Certificados"
-2. Cargue su certificado .p12
-3. Ingrese la contraseña del certificado
-4. Active la opción "Permitir uso offline"
-5. Establezca un PIN adicional para mayor seguridad (opcional)
+Sí. Para que la factura electrónica sea válida ante Hacienda, **necesitas tu certificado de firma digital vigente** para firmar el archivo XML generado por Solar Fluidity *antes* de enviarlo a Hacienda. Solar Fluidity **no realiza la firma digital** en su versión inicial; esta funcionalidad está planificada para futuras actualizaciones, donde se podría integrar el uso del certificado del usuario dentro de la plataforma.
 
-### ¿Qué sucede si emito una factura offline y luego no tengo conexión por varios días?
+### ¿Puedo generar la estructura XML sin conexión a internet?
 
-Solar Fluidity almacena de forma segura todos los documentos emitidos offline y los mantiene en cola de sincronización. La normativa costarricense establece un plazo de 2 días hábiles para enviar los documentos emitidos en contingencia, pero el sistema intentará sincronizar tan pronto como detecte conectividad.
+No. La generación de la estructura XML requiere una conexión a internet para interactuar con la plataforma, validar los datos y utilizar los agentes IA. La funcionalidad offline no está soportada actualmente.
 
-### ¿Puedo anular facturas emitidas en modo offline?
+### ¿Puedo generar notas de crédito o débito?
 
-Sí. Puede generar notas de crédito electrónicas (NC) referenciando las facturas emitidas offline. Estas NC también se mantendrán en cola de sincronización si continúa sin conexión.
+Sí. Solar Fluidity permite generar la estructura XML para notas de crédito y notas de débito electrónicas, referenciando la factura original. Al igual que con las facturas, el usuario es responsable de firmar y enviar estos documentos a Hacienda.
 
-### ¿Cómo manejo las facturas recibidas de proveedores estando offline?
+### ¿Cómo manejo las facturas recibidas de proveedores?
 
-Puede registrar manualmente las facturas recibidas en "Documentos > Recibidos > Nuevo" y posteriormente, al recuperar conexión, confirmar electrónicamente su aceptación mediante mensaje receptor.
+Puedes registrar manualmente las facturas recibidas en la sección correspondiente para tu control interno. La confirmación electrónica (mensaje receptor) ante Hacienda deberá realizarse a través de los medios que dispongas, ya que Solar Fluidity no se conecta directamente con Hacienda para esta función.
 
-### ¿Qué sucede si hay un conflicto de numeración al sincronizar?
+### ¿Solar Fluidity gestiona la numeración consecutiva de las facturas?
 
-El sistema tiene un mecanismo inteligente de resolución de conflictos que:
-1. Detecta duplicidades o inconsistencias
-2. Aplica reglas de negocio para resolver automáticamente cuando es posible
-3. Solicita intervención manual cuando es necesario, presentando opciones de resolución
+Sí. Solar Fluidity gestiona automáticamente la numeración consecutiva de los documentos electrónicos (facturas, notas de crédito, notas de débito) que generas dentro de la plataforma, asegurando el cumplimiento de este requisito fiscal para los documentos emitidos desde el SaaS.
 
 ---
 
@@ -95,33 +75,19 @@ El sistema tiene un mecanismo inteligente de resolución de conflictos que:
 
 ### ¿Puedo diseñar sistemas solares sin conexión a internet?
 
-Sí. Solar Fluidity incluye herramientas de diseño que funcionan offline:
-- Calculadora de dimensionamiento con datos precargados de radiación solar para Costa Rica
-- Catálogo de equipos disponible offline (paneles, inversores, baterías)
-- Templates de diseño para configuraciones comunes
-- Herramientas básicas de dibujo y diagramación
+Actualmente, las herramientas de diseño requieren conexión a internet para acceder a catálogos actualizados de equipos, datos de radiación precisos y funcionalidades completas de cálculo y diagramación.
 
 ### ¿Cómo gestiono proyectos en campo cuando no hay conectividad?
 
-La aplicación permite:
-1. Acceder a datos completos del proyecto previamente sincronizados
-2. Actualizar estados de tareas y cronogramas
-3. Capturar fotos y documentarlas directamente en el proyecto
-4. Registrar horas de trabajo y materiales utilizados
-5. Obtener firmas digitales de clientes para aprobaciones
-6. Sincronizar todo el progreso cuando recupere conectividad
+La gestión de proyectos (actualizar tareas, registrar horas, subir fotos, etc.) requiere conexión a internet para asegurar que toda la información esté actualizada y sincronizada en tiempo real para todos los miembros del equipo. No se recomienda realizar actualizaciones críticas sin conexión.
 
 ### ¿Puedo hacer cálculos de rendimiento solar sin conexión?
 
-Sí. El sistema incluye:
-- Datos históricos de radiación solar para diferentes zonas de Costa Rica
-- Algoritmos simplificados de cálculo que funcionan localmente
-- Factores de corrección preestablecidos para diferentes tipos de instalaciones
-- Estimaciones de producción mensual y anual
+Los cálculos de rendimiento más precisos y las simulaciones requieren acceso a datos actualizados y modelos que se ejecutan en nuestros servidores, por lo que necesitan conexión a internet.
 
 ### ¿Cómo manejo el inventario de equipos solares?
 
-Solar Fluidity permite:
+Solar Fluidity permite (requiere conexión):
 1. Administrar su inventario completo de equipos
 2. Realizar reservas de equipos para proyectos específicos
 3. Generar órdenes de compra a proveedores
@@ -131,63 +97,37 @@ Solar Fluidity permite:
 
 ### ¿Puedo generar propuestas comerciales para clientes sin internet?
 
-Sí. Puede crear propuestas completas que incluyen:
-- Diseño preliminar del sistema
-- Listado de equipos recomendados
-- Estimación de producción energética
-- Análisis financiero (ROI, tiempo de recuperación)
-- Presupuesto detallado
-- Cronograma estimado de implementación
-
-Estas propuestas se pueden exportar a PDF para compartir con el cliente inmediatamente.
+La generación de propuestas requiere conexión a internet para acceder a la información más reciente de precios, inventario, plantillas y realizar cálculos financieros actualizados. Puede exportar propuestas generadas previamente a PDF para verlas sin conexión.
 
 ---
 
-## Automatizaciones con n8n
+## Automatizaciones con Agentes IA / Python
 
 ### ¿Qué tipo de procesos puedo automatizar con Solar Fluidity?
 
-Las automatizaciones más comunes incluyen:
-- Envío automático de facturas recurrentes
-- Notificaciones de pagos pendientes
-- Alertas de vencimiento de certificados
-- Generación y distribución de reportes
-- Recordatorios de mantenimiento de instalaciones solares
-- Actualizaciones automáticas de estado de proyectos
-- Sincronización con otros sistemas (contabilidad, CRM)
+Las automatizaciones gestionadas por los Agentes IA / Python pueden incluir:
+- Envío programado de recordatorios de pago (basado en facturas generadas en el sistema)
+- Notificaciones internas sobre hitos de proyectos próximos o vencidos
+- Alertas de vencimiento de certificados (si se registran en el sistema)
+- Generación y distribución interna de reportes de proyectos
+- Actualizaciones automáticas de estado de proyectos basadas en reglas internas
+- Sincronización básica con otros sistemas mediante APIs (si se configuran)
 
 ### ¿Cómo funcionan las automatizaciones cuando no hay internet?
 
-Las automatizaciones en n8n están diseñadas para:
-1. Detectar la falta de conectividad
-2. Encolar las tareas pendientes
-3. Ejecutar localmente las que no requieren conexión
-4. Completar el resto cuando se recupera la conectividad
-5. Notificar sobre cualquier acción pendiente o completada
+Las automatizaciones gestionadas por los Agentes IA / Python requieren conexión a internet para ejecutarse, ya que dependen de la interacción con la plataforma, la base de datos (Supabase), los modelos de IA (Ollama/OpenAI) y potencialmente APIs externas.
 
 ### ¿Necesito conocimientos técnicos para configurar automatizaciones?
 
-No. Solar Fluidity incluye:
-- Plantillas predefinidas para casos de uso comunes
-- Editor visual intuitivo de flujos de trabajo
-- Asistentes paso a paso para configuraciones
-- Documentación detallada con ejemplos
+Solar Fluidity incluirá plantillas predefinidas para casos de uso comunes. La configuración de estas plantillas será guiada. Para flujos de trabajo muy personalizados o integraciones complejas, podría requerirse asistencia técnica o conocimientos básicos de lógica de flujos.
 
-Para casos más complejos, nuestro equipo de soporte puede ayudarle a implementar flujos personalizados.
+### ¿Puedo integrar Solar Fluidity con otros sistemas mediante Agentes IA / Python?
 
-### ¿Puedo integrar Solar Fluidity con otros sistemas mediante n8n?
-
-Sí. n8n permite integraciones con:
-- Software contable (QuickBooks, Xero, etc.)
-- CRM (Salesforce, HubSpot, etc.)
-- Herramientas de comunicación (Email, WhatsApp, SMS)
-- Almacenamiento en la nube (Google Drive, Dropbox)
-- Hojas de cálculo (Google Sheets, Excel)
-- Aplicaciones mediante webhooks y APIs
+Sí, las automatizaciones pueden diseñarse para interactuar con APIs de otros sistemas (contabilidad, CRM, comunicación, etc.), siempre que estos sistemas ofrezcan APIs accesibles y se configuren las credenciales y lógica necesarias dentro de los flujos Python.
 
 ### ¿Las automatizaciones consumen recursos adicionales de mi plan?
 
-Las automatizaciones básicas están incluidas en todos los planes. Sin embargo, algunas integraciones avanzadas o con alto volumen de ejecución pueden requerir complementos. Consulte la sección de "Planes y Facturación" para más detalles.
+Las automatizaciones básicas estarán incluidas en los planes. Flujos muy complejos, de alta frecuencia o que consuman muchos recursos de IA (ej. llamadas frecuentes a modelos de lenguaje) podrían tener límites o requerir complementos según el plan. Consulte la sección de "Planes y Facturación" para más detalles.
 
 ---
 
@@ -228,14 +168,9 @@ Las actualizaciones se notifican a través de:
 - Blog oficial (blog.solarfluidity.com)
 - Redes sociales (@SolarFluidity)
 
-### ¿Qué hago si olvido mi contraseña estando offline?
+### ¿Qué hago si olvido mi contraseña?
 
-Para prevenir esta situación:
-1. Configure métodos alternativos de acceso (biométrico si su dispositivo lo permite)
-2. Establezca un PIN de recuperación en "Configuración > Seguridad"
-3. Mantenga sesiones activas por períodos más largos en dispositivos confiables
-
-Si olvida su contraseña sin conexión, deberá esperar a recuperar conectividad para restablecerla.
+Si olvida su contraseña, necesitará conexión a internet para utilizar el proceso de restablecimiento de contraseña a través de su correo electrónico desde la pantalla de inicio de sesión.
 
 ---
 
@@ -246,20 +181,20 @@ Si olvida su contraseña sin conexión, deberá esperar a recuperar conectividad
 Ofrecemos planes diseñados para diferentes tamaños de negocio:
 
 **Basic**
-- Hasta 100 facturas/mes
+- Generación de hasta 100 XML de facturas/mes
 - Hasta 5 proyectos activos
 - Automatizaciones básicas
 - 5GB almacenamiento
 
 **Professional**
-- Hasta 500 facturas/mes
+- Generación de hasta 500 XML de facturas/mes
 - Hasta 15 proyectos activos
 - Automatizaciones avanzadas
 - 20GB almacenamiento
 - Soporte prioritario
 
 **Enterprise**
-- Facturas ilimitadas
+- Generación de XML de facturas ilimitadas
 - Proyectos ilimitados
 - Automatizaciones personalizadas
 - 50GB+ almacenamiento
@@ -277,7 +212,7 @@ Para downgrade a planes inferiores, el cambio se aplicará al final del ciclo de
 Los siguientes servicios pueden tener costos adicionales:
 - Almacenamiento adicional más allá del incluido en su plan
 - Integraciones especializadas con sistemas externos
-- Desarrollos a medida de flujos complejos en n8n
+- Desarrollos a medida de flujos complejos en Agentes IA / Python
 - Capacitación presencial o dedicada
 - Servicios de migración de datos
 
@@ -301,6 +236,6 @@ Aceptamos:
 
 Para clientes Enterprise también ofrecemos facturación con crédito a 30 días.
 
-### ¿La facturación también funciona offline?
+### ¿La gestión de mi suscripción funciona sin conexión?
 
-La gestión de su suscripción requiere conexión a internet. Sin embargo, una vez activada, puede utilizar todas las funcionalidades offline durante el periodo contratado sin problemas.
+No. La gestión de su suscripción (cambiar plan, actualizar pago, etc.) y el acceso general a la plataforma requieren conexión a internet.

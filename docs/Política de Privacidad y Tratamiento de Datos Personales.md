@@ -10,7 +10,7 @@ Recopilamos los siguientes datos personales de los usuarios:
 - **Datos de cuenta**: Nombre completo, correo electrónico, nombre de la empresa y rol dentro de la organización.
 - **Datos de facturación electrónica**: Información fiscal requerida por la DGT de Costa Rica, incluyendo números de identificación fiscal, códigos de actividad económica, certificados digitales para firma electrónica, y datos de comprobantes emitidos en modo offline.
 - **Datos de proyectos solares/electromecánicos**: Información técnica de instalaciones, direcciones de proyectos, especificaciones de equipos, calendarios de mantenimiento y datos de clientes finales.
-- **Datos de automatizaciones**: Configuraciones de flujos de trabajo en n8n, triggers, conexiones API y parámetros de integración con sistemas externos.
+- **Datos de automatizaciones**: Configuraciones de flujos de trabajo en Agentes IA / Python, triggers, conexiones API y parámetros de integración con sistemas externos.
 - **Datos de acceso y uso**: Direcciones IP, logs de actividad y cookies para mejorar la seguridad y la experiencia del usuario.
 - **Datos financieros**: Solar Fluidity no almacena información de tarjetas de crédito. Los pagos son procesados a través de proveedores de pago externos como PayPal.
 
@@ -19,15 +19,15 @@ Los datos recopilados son utilizados exclusivamente para:
 - La operación del SaaS y la prestación de servicios de facturación electrónica offline, gestión de proyectos solares/electromecánicos y automatizaciones.
 - Generación, firma y almacenamiento de documentos fiscales electrónicos cumpliendo con la normativa costarricense, incluyendo operación en modo offline y sincronización posterior.
 - Gestión integral de proyectos solares y electromecánicos, incluyendo planificación, ejecución y seguimiento de tareas y recursos.
-- Creación y ejecución de flujos automatizados de trabajo mediante n8n para optimizar procesos empresariales.
+- Creación y ejecución de flujos automatizados de trabajo mediante Agentes IA / Python para optimizar procesos empresariales.
 - Facturación y cumplimiento de obligaciones fiscales tanto online como offline.
 - Mejorar la seguridad de la plataforma mediante autenticación y monitoreo.
-- Integración con servicios externos como n8n, servicios de Hacienda y pasarelas de pago para automatización de procesos.
+- Integración con servicios externos como Agentes IA / Python, servicios de Hacienda y pasarelas de pago para automatización de procesos.
 
 ## **4. Compartición de Datos con Terceros**
 Compartimos ciertos datos con terceros exclusivamente para la operación de Solar Fluidity:
 - **Ministerio de Hacienda de Costa Rica**: Transmisión de documentos fiscales electrónicos (facturas, notas de crédito, etc.) conforme a obligaciones legales.
-- **n8n.io**: Plataforma de automatización de flujos de trabajo para la ejecución de procesos empresariales.
+- **Agentes IA / Python.io**: Plataforma de automatización de flujos de trabajo para la ejecución de procesos empresariales.
 - **Pasarelas de Pago**: Procesamiento de pagos a través de proveedores seguros.
 - **Proveedores de Almacenamiento en la Nube**: Para el respaldo seguro de documentos fiscales y datos de proyectos.
 - **Google Analytics**: Análisis del uso de la plataforma y mejora de la experiencia de usuario.

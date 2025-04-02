@@ -6,7 +6,7 @@
 2. [Módulo 1: Fundamentos de Solar Fluidity](#módulo-1-fundamentos-de-solar-fluidity)
 3. [Módulo 2: Facturación Electrónica Offline](#módulo-2-facturación-electrónica-offline)
 4. [Módulo 3: Gestión de Proyectos Solares](#módulo-3-gestión-de-proyectos-solares)
-5. [Módulo 4: Automatizaciones con n8n](#módulo-4-automatizaciones-con-n8n)
+5. [Módulo 4: Automatizaciones con Agentes IA / Python](#módulo-4-automatizaciones-con-Agentes IA / Python)
 6. [Evaluación y Certificación](#evaluación-y-certificación)
 7. [Recursos Adicionales](#recursos-adicionales)
 
@@ -16,7 +16,7 @@ Esta guía de capacitación está diseñada para usuarios de Solar Fluidity con 
 
 1. Facturación electrónica con capacidad offline
 2. Gestión especializada de proyectos solares y electromecánicos  
-3. Automatización de procesos mediante n8n
+3. Automatización de procesos mediante Agentes IA / Python
 
 Cada módulo incluye:
 - Objetivos de aprendizaje
@@ -227,7 +227,7 @@ Cuestionario de 10 preguntas sobre conceptos básicos y navegación.
 - Evaluación teórica sobre conceptos solares y mejores prácticas
 - Proyecto práctico: Diseño completo de sistema solar para caso de estudio
 
-## Módulo 4: Automatizaciones con n8n
+## Módulo 4: Automatizaciones con Agentes IA / Python
 
 **Duración estimada**: 3 horas
 
@@ -239,7 +239,7 @@ Cuestionario de 10 preguntas sobre conceptos básicos y navegación.
 
 ### Contenido
 
-#### 4.1 Introducción a n8n
+#### 4.1 Introducción a Agentes IA / Python
 
 - Conceptos fundamentales
 - Arquitectura en Solar Fluidity

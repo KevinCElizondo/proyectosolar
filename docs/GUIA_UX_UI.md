@@ -44,7 +44,7 @@
 ## Patrones de Interacción
 
 ### Gestos y Acciones
-- Arrastrar y soltar para reordenar tareas en proyectos y flujos de n8n
+- Arrastrar y soltar para reordenar tareas en proyectos y flujos de Agentes IA / Python
 - Swipe para acciones rápidas de aprobación/rechazo de facturas en móvil
 - Doble clic para edición rápida de líneas de factura y detalles de proyecto
 - Gestos intuitivos para el diseño de flujos de automatización
@@ -88,7 +88,7 @@
 ### Mensajes del Sistema
 - Errores fiscales: Específicos con referencia a la normativa y con solución clara
 - Éxito: Confirmación clara con información relevante (número de documento, clave numérica)
-- Loading: Información detallada del progreso en generación XML/PDF y ejecución de flujos n8n
+- Loading: Información detallada del progreso en generación XML/PDF y ejecución de flujos Agentes IA / Python
 
 ## Testing y Validación
 

@@ -1,6 +1,6 @@
 # Optimiza tu Negocio Solar: Cómo la Facturación Electrónica Offline y la Gestión Especializada de Proyectos Transforman tu Eficiencia en 2025
 
-El sector solar en Costa Rica está en pleno crecimiento, pero enfrenta desafíos únicos: cumplimiento fiscal, gestión especializada de proyectos y necesidad de automatización para mantenerse competitivo. En este artículo, exploramos cómo las soluciones integradas de facturación electrónica offline, gestión de proyectos solares/electromecánicos y automatizaciones con n8n pueden transformar la eficiencia operativa de tu empresa solar, reducir costos administrativos y mejorar significativamente la satisfacción del cliente, todo mientras cumples con la normativa fiscal costarricense.
+El sector solar en Costa Rica está en pleno crecimiento, pero enfrenta desafíos únicos: cumplimiento fiscal, gestión especializada de proyectos y necesidad de automatización para mantenerse competitivo. En este artículo, exploramos cómo las soluciones integradas de generación de estructura de facturación electrónica (XML), gestión de proyectos solares/electromecánicos y automatizaciones con Agentes IA / Python pueden transformar la eficiencia operativa de tu empresa solar, reducir costos administrativos y mejorar significativamente la satisfacción del cliente, todo mientras cumples con la normativa fiscal costarricense.
 
 ## 1. Facturación Electrónica Offline: Cumplimiento Fiscal sin Interrupciones
 
@@ -65,7 +65,7 @@ Ofrece servicios adicionales, como auditorías energéticas, instalación de bat
 Colabora con empresas de otros sectores, como construcción o agricultura, para desarrollar proyectos solares integrados (BNEF, 2024).
 
 ## Conclusión: Maximiza tu Potencial en el Mercado Solar
-## 3. Automatizaciones con n8n: El Futuro de los Negocios Solares
+## 3. Automatizaciones con Agentes IA / Python: El Futuro de los Negocios Solares
 
 Las automatizaciones de flujos de trabajo son la clave para escalar operaciones sin incrementar proporcionalmente los costos administrativos:
 
@@ -80,7 +80,7 @@ Conecta tus sistemas de monitoreo de rendimiento de instalaciones solares con pl
 
 ## Conclusión: La Integración es la Clave
 
-La verdadera revolución en la eficiencia de negocios solares viene de la integración de estas tres áreas críticas: facturación electrónica offline, gestión especializada de proyectos y automatizaciones. Las empresas que implementan soluciones que conectan estos aspectos pueden esperar:
+La verdadera revolución en la eficiencia de negocios solares viene de la integración de estas tres áreas críticas: generación de estructura de facturación electrónica (XML), gestión especializada de proyectos y automatizaciones. Las empresas que implementan soluciones que conectan estos aspectos pueden esperar:
 
 - Reducción de hasta 65% en tiempo administrativo dedicado a facturación y reportes fiscales
 - Mejora de 40% en la precisión de estimaciones y presupuestos de proyectos solares

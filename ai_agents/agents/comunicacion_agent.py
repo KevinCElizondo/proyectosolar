@@ -6,6 +6,10 @@ import panticai
 from panticai.agent import Agent
 from panticai.run import run_context
 from panticai.tools import tool
+import logging
+from datetime import datetime
+
+logger = logging.getLogger(__name__)
 
 from ..utils import get_model, MCPToolProvider
 
@@ -59,6 +63,7 @@ def create_comunicacion_agent(datos_cliente: Dict[str, Any]) -> Agent:
     """
     dependencies = ComunicacionDependencies(datos_cliente)
     
+    logger.info(f"Creating Comunicacion Agent with client data keys: {datos_cliente.keys()}")
     agent = panticai.Agent(
         model=get_model(),
         system=SYSTEM_PROMPT,
@@ -77,6 +82,7 @@ def enviar_correo(
     adjuntos: Optional[List[str]] = "Lista de URLs de archivos adjuntos (opcional)",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: enviar_correo to: {destinatario} with subject: '{asunto}'")
     """
     Envía un correo electrónico a través de Gmail.
     
@@ -106,9 +112,11 @@ def enviar_correo(
     if adjuntos:
         email_data["attachments"] = adjuntos
     
+    logger.debug(f"Calling Gmail send_email tool with data: {email_data}")
     result = gmail_tool(**email_data)
     
     # Registrar la comunicación en Airtable
+    logger.debug(f"Gmail send_email result: {result}. Logging communication to Airtable...")
     airtable_tool = mcp_tools.get_tool_for_server("airtable", "create_record")
     cliente_nombre = run_context.dependencies.datos_cliente.get("nombre", "Cliente")
     
@@ -124,7 +132,10 @@ def enviar_correo(
             "Estado": "Enviado"
         }
     )
+    logger.debug("Airtable create_record for communication log finished.")
     
+    return result
+    logger.info(f"Tool enviar_correo finished. Result: {result}")
     return result
 
 @tool("obtener_plantilla_correo")
@@ -132,6 +143,7 @@ def obtener_plantilla_correo(
     tipo_plantilla: str = "Tipo de plantilla (bienvenida, actualización, finalización, etc.)",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: obtener_plantilla_correo for type: {tipo_plantilla}")
     """
     Obtiene una plantilla de correo desde Airtable.
     
@@ -144,12 +156,14 @@ def obtener_plantilla_correo(
     mcp_tools = run_context.dependencies.mcp_tools
     airtable_tool = mcp_tools.get_tool_for_server("airtable", "list_records")
     
+    logger.debug("Calling Airtable list_records tool for plantilla...")
     result = airtable_tool(
         base_id="comunicaciones",
         table_name="Plantillas",
         filter_by_formula=f"{{Tipo}}='{tipo_plantilla}'"
     )
     
+    logger.debug(f"Airtable list_records result for plantilla: {result}")
     if result.get("records", []):
         return {
             "plantilla": result["records"][0]["fields"]["Contenido"],
@@ -161,6 +175,16 @@ def obtener_plantilla_correo(
         "error": "Plantilla no encontrada",
         "tipos_disponibles": ["bienvenida", "actualización", "finalización", "recordatorio", "cotización"]
     }
+    final_result = {
+        "plantilla": result["records"][0]["fields"]["Contenido"],
+        "asunto": result["records"][0]["fields"]["Asunto"],
+        "tipo": tipo_plantilla
+    } if result.get("records", []) else {
+        "error": "Plantilla no encontrada",
+        "tipos_disponibles": ["bienvenida", "actualización", "finalización", "recordatorio", "cotización"]
+    }
+    logger.info(f"Tool obtener_plantilla_correo finished. Found: {'error' not in final_result}")
+    return final_result
 
 @tool("enviar_notificacion_whatsapp")
 def enviar_notificacion_whatsapp(
@@ -168,6 +192,7 @@ def enviar_notificacion_whatsapp(
     mensaje: str = "Mensaje a enviar por WhatsApp",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: enviar_notificacion_whatsapp to: {numero_telefono}")
     """
     Envía una notificación por WhatsApp utilizando Zapier.
     
@@ -181,6 +206,7 @@ def enviar_notificacion_whatsapp(
     mcp_tools = run_context.dependencies.mcp_tools
     zapier_tool = mcp_tools.get_tool_for_server("zapier", "run_zap")
     
+    logger.debug(f"Calling Zapier run_zap tool 'enviar-whatsapp'...")
     result = zapier_tool(
         zap_id="enviar-whatsapp",
         input_data={
@@ -189,6 +215,7 @@ def enviar_notificacion_whatsapp(
         }
     )
     
+    logger.debug(f"Zapier 'enviar-whatsapp' result: {result}. Logging communication to Airtable...")
     # Registrar la comunicación en Airtable
     airtable_tool = mcp_tools.get_tool_for_server("airtable", "create_record")
     cliente_nombre = run_context.dependencies.datos_cliente.get("nombre", "Cliente")
@@ -204,7 +231,10 @@ def enviar_notificacion_whatsapp(
             "Estado": "Enviado"
         }
     )
+    logger.debug("Airtable create_record for communication log finished.")
     
+    return result
+    logger.info(f"Tool enviar_notificacion_whatsapp finished. Result: {result}")
     return result
 
 @tool("obtener_historial_comunicaciones")
@@ -212,6 +242,7 @@ def obtener_historial_comunicaciones(
     cliente_id: str = "ID del cliente en Airtable",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: obtener_historial_comunicaciones for client_id: {cliente_id}")
     """
     Obtiene el historial de comunicaciones con un cliente.
     
@@ -224,6 +255,7 @@ def obtener_historial_comunicaciones(
     mcp_tools = run_context.dependencies.mcp_tools
     airtable_tool = mcp_tools.get_tool_for_server("airtable", "list_records")
     
+    logger.debug("Calling Airtable list_records tool for communication history...")
     result = airtable_tool(
         base_id="comunicaciones",
         table_name="Comunicaciones",
@@ -231,10 +263,17 @@ def obtener_historial_comunicaciones(
         sort=[{"field": "Fecha", "direction": "desc"}]
     )
     
+    logger.debug(f"Airtable list_records result for history: {result}")
     return {
         "cliente_id": cliente_id,
         "comunicaciones": result.get("records", [])
     }
+    final_result = {
+        "cliente_id": cliente_id,
+        "comunicaciones": result.get("records", [])
+    }
+    logger.info(f"Tool obtener_historial_comunicaciones finished. Found {len(final_result['comunicaciones'])} records.")
+    return final_result
 
 def run_comunicacion_agent(prompt: str, datos_cliente: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -247,6 +286,10 @@ def run_comunicacion_agent(prompt: str, datos_cliente: Dict[str, Any]) -> Dict[s
     Returns:
         Resultado de la comunicación
     """
+    logger.info(f"Executing Comunicacion Agent with prompt: '{prompt[:50]}...' Client data keys: {datos_cliente.keys()}")
     agent = create_comunicacion_agent(datos_cliente)
     response = agent.run(prompt)
+    logger.debug("Calling internal agent run (panticai?)...")
+    return response.output
+    logger.info(f"Comunicacion Agent finished. Result output type: {type(response.output)}")
     return response.output

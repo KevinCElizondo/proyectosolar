@@ -4,6 +4,10 @@ Agente especializado en facturación electrónica para Solar Fluidity.
 from typing import Dict, List, Optional, Literal, Any
 from pydantic import BaseModel
 import json
+import logging
+from datetime import datetime
+
+logger = logging.getLogger(__name__)
 
 from ..utils import call_openai_api, MCPToolProvider
 
@@ -46,6 +50,7 @@ def create_facturacion_agent(datos_cliente: Dict[str, Any]) -> Agent:
     """
     dependencies = FacturacionDependencies(datos_cliente)
     
+    logger.info(f"Creating Facturacion Agent with client data keys: {datos_cliente.keys()}")
     agent = panticai.Agent(
         model=get_model(),
         system=SYSTEM_PROMPT,
@@ -60,6 +65,7 @@ def buscar_cliente_airtable(
     cedula: str = "Cédula o identificación fiscal del cliente",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: buscar_cliente_airtable with cedula: {cedula}")
     """
     Busca un cliente en Airtable por su cédula.
     
@@ -72,15 +78,20 @@ def buscar_cliente_airtable(
     mcp_tools = run_context.dependencies.mcp_tools
     airtable_tool = mcp_tools.get_tool_for_server("airtable", "list_records")
     
+    logger.debug("Calling Airtable list_records tool...")
     result = airtable_tool(
         base_id="clientes",
         table_name="Clientes",
         filter_by_formula=f"{{Cedula}}='{cedula}'"
     )
     
+    logger.debug(f"Airtable list_records result: {result}")
     if result.get("records", []):
         return result["records"][0]
     return {"exists": False}
+    final_result = result['records'][0] if result.get('records', []) else {'exists': False}
+    logger.info(f"Tool buscar_cliente_airtable finished. Found: {final_result.get('exists', True)}")
+    return final_result
 
 @tool("crear_cliente_airtable")
 def crear_cliente_airtable(
@@ -91,6 +102,7 @@ def crear_cliente_airtable(
     direccion: Optional[str] = "Dirección del cliente",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: crear_cliente_airtable for cedula: {cedula}")
     """
     Crea un nuevo cliente en Airtable.
     
@@ -119,12 +131,15 @@ def crear_cliente_airtable(
     if direccion:
         fields["Direccion"] = direccion
     
+    logger.debug(f"Calling Airtable create_record tool with fields: {fields}")
     result = airtable_tool(
         base_id="clientes",
         table_name="Clientes",
         fields=fields
     )
     
+    logger.info(f"Tool crear_cliente_airtable finished. Result ID: {result.get('id')}")
+    return result
     return result
 
 @tool("crear_factura")
@@ -136,6 +151,7 @@ def crear_factura(
     metodo_pago: str = "Método de pago (efectivo, transferencia, etc.)",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: crear_factura for client_id: {cliente_id}")
     """
     Crea una nueva factura en Airtable y genera el XML/PDF.
     
@@ -163,12 +179,14 @@ def crear_factura(
         "Fecha": datetime.now().strftime('%Y-%m-%d')
     }
     
+    logger.debug(f"Calling Airtable create_record tool for factura with fields: {fields}")
     factura = airtable_tool(
         base_id="facturacion",
         table_name="Facturas",
         fields=fields
     )
     
+    logger.debug(f"Factura created in Airtable, ID: {factura.get('id')}. Calling Zapier tool 'generar-xml-factura'...")
     # Llamar a Zapier para generar el XML/PDF
     zapier_tool = mcp_tools.get_tool_for_server("zapier", "run_zap")
     documento_result = zapier_tool(
@@ -181,6 +199,7 @@ def crear_factura(
             "total": total
         }
     )
+    logger.debug(f"Zapier 'generar-xml-factura' result: {documento_result}. Calling Airtable update_record tool...")
     
     # Actualizar la factura con los enlaces a los documentos
     airtable_update_tool = mcp_tools.get_tool_for_server("airtable", "update_record")
@@ -193,12 +212,20 @@ def crear_factura(
             "URL_PDF": documento_result.get("url_pdf", "")
         }
     )
+    logger.debug("Airtable update_record for factura URLs finished.")
     
     return {
         "factura_id": factura["id"],
         "url_xml": documento_result.get("url_xml", ""),
         "url_pdf": documento_result.get("url_pdf", "")
     }
+    final_result = {
+        "factura_id": factura.get("id"),
+        "url_xml": documento_result.get("url_xml", ""),
+        "url_pdf": documento_result.get("url_pdf", "")
+    }
+    logger.info(f"Tool crear_factura finished. Result: {final_result}")
+    return final_result
 
 @tool("enviar_factura_email")
 def enviar_factura_email(
@@ -206,6 +233,7 @@ def enviar_factura_email(
     cliente_email: str = "Correo electrónico del cliente",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: enviar_factura_email for factura_id: {factura_id} to {cliente_email}")
     """
     Envía la factura por correo electrónico al cliente.
     
@@ -219,6 +247,7 @@ def enviar_factura_email(
     mcp_tools = run_context.dependencies.mcp_tools
     
     # Obtener los datos de la factura
+    logger.debug("Calling Airtable get_record tool for factura...")
     airtable_tool = mcp_tools.get_tool_for_server("airtable", "get_record")
     factura = airtable_tool(
         base_id="facturacion",
@@ -226,6 +255,7 @@ def enviar_factura_email(
         record_id=factura_id
     )
     
+    logger.debug(f"Factura data retrieved. Calling Zapier tool 'enviar-factura-email'...")
     # Enviar el correo usando Zapier
     zapier_tool = mcp_tools.get_tool_for_server("zapier", "run_zap")
     email_result = zapier_tool(
@@ -239,6 +269,7 @@ def enviar_factura_email(
         }
     )
     
+    logger.debug(f"Zapier 'enviar-factura-email' result: {email_result}. Calling Airtable update_record tool...")
     # Actualizar el estado de la factura
     airtable_update_tool = mcp_tools.get_tool_for_server("airtable", "update_record")
     airtable_update_tool(
@@ -247,12 +278,20 @@ def enviar_factura_email(
         record_id=factura_id,
         fields={"Estado": "Enviada"}
     )
+    logger.debug("Airtable update_record for factura status finished.")
     
     return {
         "enviado": True,
         "correo": cliente_email,
         "factura_id": factura_id
     }
+    final_result = {
+        "enviado": True,
+        "correo": cliente_email,
+        "factura_id": factura_id
+    }
+    logger.info(f"Tool enviar_factura_email finished. Result: {final_result}")
+    return final_result
 
 def run_facturacion_agent(prompt: str, datos_cliente: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -265,8 +304,10 @@ def run_facturacion_agent(prompt: str, datos_cliente: Dict[str, Any]) -> Dict[st
     Returns:
         Resultado de la operación de facturación como texto
     """
+    logger.info(f"Executing Facturacion Agent with prompt: '{prompt[:50]}...' Client data keys: {datos_cliente.keys()}")
     agent = create_facturacion_agent(datos_cliente)
     response = agent(prompt)
+    logger.debug("Calling internal agent (panticai?)...")
     
     # Simulamos un resultado estructurado
     return {
@@ -278,3 +319,14 @@ def run_facturacion_agent(prompt: str, datos_cliente: Dict[str, Any]) -> Dict[st
             "enviada_por_email": True
         }
     }
+    final_result = {
+        "resultado": "success",
+        "mensaje": response,
+        "detalles": {
+            "cliente": datos_cliente.get("nombre_cliente", "Cliente"),
+            "factura_creada": True, # Assuming success for now
+            "enviada_por_email": True # Assuming success for now
+        }
+    }
+    logger.info(f"Facturacion Agent finished. Result: {final_result}")
+    return final_result

@@ -13,7 +13,7 @@ Este documento constituye la base fundamental para la comprensión, mantenimient
 5. [Componentes Principales](#5-componentes-principales)
 6. [Flujo de Datos](#6-flujo-de-datos)
 7. [Integraciones Externas](#7-integraciones-externas)
-8. [Sistema de Automatización con n8n](#8-sistema-de-automatización-con-n8n)
+8. [Sistema de Automatización con Agentes IA / Python](#8-sistema-de-automatización-con-Agentes IA / Python)
 9. [Integración de Inteligencia Artificial](#9-integración-de-inteligencia-artificial)
 10. [Estrategias de Optimización Implementadas](#10-estrategias-de-optimización-implementadas)
 11. [Seguridad y Privacidad](#11-seguridad-y-privacidad)
@@ -31,14 +31,14 @@ Solar Fluidity es una plataforma SaaS enfocada en tres pilares fundamentales:
 
 1. **Facturación Electrónica Offline**: Permite a empresas costarricenses generar documentos XML/PDF válidos sin requerir conexión constante a internet.
 2. **Gestión de Proyectos**: Especializada en servicios solares y electromecánicos.
-3. **Automatización de Procesos**: A través de n8n, permitiendo integrar diversas plataformas y servicios.
+3. **Automatización de Procesos**: A través de Agentes IA / Python, permitiendo integrar diversas plataformas y servicios.
 
 ### 1.2 Tecnologías Clave
 
 - **Frontend**: React + TypeScript, Vite, Tailwind CSS, shadcn-ui
 - **Backend**: Node.js, Express.js, RESTful APIs
 - **Base de Datos**: PostgreSQL (Supabase), Redis (caché)
-- **Automatización**: n8n, Anthropic MCP
+- **Automatización**: Agentes IA / Python, Anthropic MCP
 - **Despliegue**: AWS (ECS, S3, CloudFront)
 - **Observabilidad**: Sentry, PostHog
 
@@ -103,7 +103,7 @@ Solar Fluidity es una plataforma SaaS enfocada en tres pilares fundamentales:
           ▼                     ▼                      ▼
 ┌─────────────────┐   ┌─────────────────┐   ┌─────────────────────┐
 │                 │   │                 │   │                     │
-│  REDIS (CACHÉ)  │   │      n8n        │   │  ANTHROPIC MCP      │
+│  REDIS (CACHÉ)  │   │      Agentes IA / Python        │   │  ANTHROPIC MCP      │
 │                 │   │ (AUTOMATIZACIÓN)│   │    (IA)             │
 │                 │   │                 │   │                     │
 └─────────────────┘   └─────────────────┘   └─────────────────────┘
@@ -295,7 +295,7 @@ export default defineConfig({
       manifest: {
         name: 'Solar Fluidity',
         short_name: 'SolarFluid',
-        description: 'Plataforma de facturación electrónica offline y gestión de proyectos solares',
+        description: 'Plataforma de generación de estructura de facturación electrónica (XML para Hacienda CR) y gestión de proyectos solares',
         theme_color: '#0f172a',
         background_color: '#0f172a',
         display: 'standalone',
@@ -463,7 +463,7 @@ Componentes para gestionar proyectos solares y electromecánicos:
 
 #### 5.2.3 Automatizaciones
 
-Interfaz para la gestión y monitoreo de automatizaciones con n8n:
+Interfaz para la gestión y monitoreo de automatizaciones con Agentes IA / Python:
 
 - **AutomationDashboard**: Panel principal de automatizaciones
 - **WorkflowList**: Lista de flujos de trabajo disponibles
@@ -502,7 +502,7 @@ Interfaz para la gestión y monitoreo de automatizaciones con n8n:
                                   ▼
                         ┌───────────────────┐
                         │                   │
-                        │    n8n TRIGGERS   │
+                        │    Agentes IA / Python TRIGGERS   │
                         │ (AUTOMATIZACIONES)│
                         │                   │
                         └───────────────────┘

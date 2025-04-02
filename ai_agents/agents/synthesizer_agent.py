@@ -2,8 +2,11 @@
 Agente sintetizador que combina los resultados de los agentes especializados para Solar Fluidity.
 """
 from typing import Dict, List, Optional, Any
+import logging
 
-from ..utils import call_openai_api
+logger = logging.getLogger(__name__)
+
+from ..utils import call_llm_api
 
 # Sistema prompt para el agente sintetizador
 SYSTEM_PROMPT = """
@@ -36,7 +39,11 @@ def create_synthesizer_agent():
         Función del agente sintetizador configurado
     """
     def agent(prompt):
-        return call_openai_api(SYSTEM_PROMPT, prompt)
+        logger.info("Calling OpenAI API for synthesis...")
+        response = call_llm_api(SYSTEM_PROMPT, prompt)
+        logger.debug(f"Synthesizer OpenAI API raw response length: {len(response)}")
+        return response
+        return call_llm_api(SYSTEM_PROMPT, prompt)
     
     return agent
 
@@ -58,6 +65,11 @@ def run_synthesizer_agent(
     Returns:
         Síntesis final de todos los resultados
     """
+    logger.info("Executing Synthesizer Agent...")
+    logger.debug(f"Facturacion results keys: {resultados_facturacion.keys() if resultados_facturacion else 'None'}")
+    logger.debug(f"Proyecto results keys: {resultados_proyecto.keys() if resultados_proyecto else 'None'}")
+    logger.debug(f"Comunicacion results keys: {resultados_comunicacion.keys() if resultados_comunicacion else 'None'}")
+    logger.debug(f"Datos cliente keys: {datos_cliente.keys() if datos_cliente else 'None'}")
     agent = create_synthesizer_agent()
     
     # Construir el prompt con los resultados de todos los agentes
@@ -81,4 +93,8 @@ def run_synthesizer_agent(
     Crea un informe ejecutivo que combine toda esta información.
     """
     
+    logger.debug(f"Synthesizer prompt: {prompt[:200]}...")
+    synthesis_result = agent(prompt)
+    logger.info(f"Synthesizer Agent finished. Synthesis length: {len(synthesis_result)}")
+    return synthesis_result
     return agent(prompt)

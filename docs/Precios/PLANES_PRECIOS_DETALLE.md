@@ -47,7 +47,7 @@ Este documento describe en detalle los planes de suscripción de Solar Fluidity,
 - 10 proyectos activos
 - 3 usuarios + roles básicos
 - API básica (integración con software local)
-- Automatizaciones internas (flujos n8n para validación de datos)
+- Automatizaciones internas (flujos Agentes IA / Python para validación de datos)
 
 **CTA:** 🟠 "Prueba 7 Días Gratis"
 
@@ -65,7 +65,7 @@ Este documento describe en detalle los planes de suscripción de Solar Fluidity,
 - Facturas y proyectos ilimitados
 - API premium (20 llamadas/minuto + webhooks)
 - 10 usuarios + permisos jerárquicos
-- Automatizaciones avanzadas (n8n para gestión de inventario, alertas de mantenimiento)
+- Automatizaciones avanzadas (Agentes IA / Python para gestión de inventario, alertas de mantenimiento)
 - Soporte 24/7 con técnicos especializados en energía solar
 
 **Por qué es el más popular:**

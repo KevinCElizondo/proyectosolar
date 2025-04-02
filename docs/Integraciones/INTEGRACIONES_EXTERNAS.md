@@ -195,7 +195,7 @@ Solar Fluidity proporciona una API REST para que sistemas de terceros puedan int
 │   └── DELETE /:id          - Eliminar proyecto
 │
 └── /webhooks
-    ├── POST /n8n            - Webhook para automatizaciones
+    ├── POST /Agentes IA / Python            - Webhook para automatizaciones
     └── POST /payment        - Webhook para notificaciones de pago
 ```
 

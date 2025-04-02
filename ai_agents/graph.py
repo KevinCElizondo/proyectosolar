@@ -7,6 +7,9 @@ import json
 from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import MemorySaver
 import uuid
+import logging
+
+logger = logging.getLogger(__name__)
 
 from .agents.info_gathering_agent import run_info_gathering_agent, ProyectoSolarDetails
 from .agents.facturacion_agent import run_facturacion_agent
@@ -60,6 +63,7 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
     # 1. Nodo de recopilación de información
     @graph.node
     def gather_info(state: SolarFluidityState) -> SolarFluidityState:
+        logger.info(f"Entering node: gather_info for thread_id: {state.get('configurable', {}).get('thread_id')}")
         """Recopila información del cliente y del proyecto."""
         writer = state.get("writer")
         
@@ -71,8 +75,10 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
         conversation_history = state.get("conversation_history", [])
         
         proyecto_details = run_info_gathering_agent(user_input, conversation_history)
+        logger.info(f"Calling run_info_gathering_agent with input: '{state['user_input'][:50]}...' thread_id: {state.get('configurable', {}).get('thread_id')}")
         
         # Actualizar el estado
+        logger.info(f"Exiting node: gather_info. Details gathered: {proyecto_details.toda_informacion_proporcionada}")
         return {
             **state,
             "proyecto_details": proyecto_details.dict(),
@@ -85,6 +91,7 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
     # 2. Nodo para obtener la siguiente entrada del usuario
     @graph.node
     def get_next_user_input(state: SolarFluidityState) -> SolarFluidityState:
+        logger.info(f"Entering node: get_next_user_input for thread_id: {state.get('configurable', {}).get('thread_id')}")
         """Espera la siguiente entrada del usuario."""
         writer = state.get("writer")
         proyecto_details = state.get("proyecto_details", {})
@@ -96,10 +103,12 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
         # Este nodo solo devuelve el estado actual, la siguiente entrada del usuario
         # se recogerá mediante un "interrupt" en la gestión del grafo
         return state
+        logger.info(f"Exiting node: get_next_user_input. Waiting for interrupt.")
     
     # 3. Nodo para el agente de facturación (agente especializado paralelo)
     @graph.node
     def process_facturacion(state: SolarFluidityState) -> SolarFluidityState:
+        logger.info(f"Entering node: process_facturacion for thread_id: {state.get('configurable', {}).get('thread_id')}")
         """Procesa la información de facturación."""
         writer = state.get("writer")
         
@@ -120,9 +129,11 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
         """
         
         # Ejecutar el agente de facturación
+        logger.info(f"Calling run_facturacion_agent for thread_id: {state.get('configurable', {}).get('thread_id')}")
         facturacion_results = run_facturacion_agent(prompt, proyecto_details)
         
         # Actualizar el estado
+        logger.info(f"Exiting node: process_facturacion. Results keys: {facturacion_results.keys() if facturacion_results else 'None'}")
         return {
             **state,
             "facturacion_results": facturacion_results
@@ -131,6 +142,7 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
     # 4. Nodo para el agente de gestión de proyectos (agente especializado paralelo)
     @graph.node
     def process_proyecto(state: SolarFluidityState) -> SolarFluidityState:
+        logger.info(f"Entering node: process_proyecto for thread_id: {state.get('configurable', {}).get('thread_id')}")
         """Procesa la gestión del proyecto."""
         writer = state.get("writer")
         
@@ -152,9 +164,11 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
         """
         
         # Ejecutar el agente de gestión de proyectos
+        logger.info(f"Calling run_proyecto_agent for thread_id: {state.get('configurable', {}).get('thread_id')}")
         proyecto_results = run_proyecto_agent(prompt, proyecto_details)
         
         # Actualizar el estado
+        logger.info(f"Exiting node: process_proyecto. Results keys: {proyecto_results.keys() if proyecto_results else 'None'}")
         return {
             **state,
             "proyecto_results": proyecto_results
@@ -163,6 +177,7 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
     # 5. Nodo para el agente de comunicación (agente especializado paralelo)
     @graph.node
     def process_comunicacion(state: SolarFluidityState) -> SolarFluidityState:
+        logger.info(f"Entering node: process_comunicacion for thread_id: {state.get('configurable', {}).get('thread_id')}")
         """Procesa la comunicación con el cliente."""
         writer = state.get("writer")
         
@@ -183,9 +198,11 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
         """
         
         # Ejecutar el agente de comunicación
+        logger.info(f"Calling run_comunicacion_agent for thread_id: {state.get('configurable', {}).get('thread_id')}")
         comunicacion_results = run_comunicacion_agent(prompt, proyecto_details)
         
         # Actualizar el estado
+        logger.info(f"Exiting node: process_comunicacion. Results keys: {comunicacion_results.keys() if comunicacion_results else 'None'}")
         return {
             **state,
             "comunicacion_results": comunicacion_results
@@ -194,6 +211,7 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
     # 6. Nodo sintetizador (combina resultados de agentes paralelos)
     @graph.node
     def synthesize_results(state: SolarFluidityState) -> SolarFluidityState:
+        logger.info(f"Entering node: synthesize_results for thread_id: {state.get('configurable', {}).get('thread_id')}")
         """Sintetiza los resultados de todos los agentes."""
         writer = state.get("writer")
         
@@ -206,6 +224,7 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
         comunicacion_results = state.get("comunicacion_results", {})
         
         # Ejecutar el agente sintetizador
+        logger.info(f"Calling run_synthesizer_agent for thread_id: {state.get('configurable', {}).get('thread_id')}")
         synthesis = run_synthesizer_agent(
             facturacion_results,
             proyecto_results,
@@ -218,6 +237,7 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
             writer.write(synthesis)
         
         # Actualizar el estado
+        logger.info(f"Exiting node: synthesize_results. Synthesis length: {len(synthesis)}")
         return {
             **state,
             "final_synthesis": synthesis
@@ -231,12 +251,15 @@ def build_solar_fluidity_graph(memory_saver: Optional[MemorySaver] = None):
         proyecto_details = state.get("proyecto_details", {})
         toda_info = proyecto_details.get("toda_informacion_proporcionada", False)
         
+        logger.info(f"Router decision for thread_id: {state.get('configurable', {}).get('thread_id')}: toda_info={toda_info}")
         if toda_info:
             # Ejecutar todos los agentes paralelos
             return ["process_facturacion", "process_proyecto", "process_comunicacion"]
+            logger.info(f"Routing to parallel agents for thread_id: {state.get('configurable', {}).get('thread_id')}")
         else:
             # Recopilar más información
             return ["get_next_user_input"]
+            logger.info(f"Routing to get_next_user_input for thread_id: {state.get('configurable', {}).get('thread_id')}")
     
     # Configurar las conexiones del grafo
     graph.add_node("gather_info", gather_info)
@@ -278,6 +301,7 @@ async def run_solar_fluidity_graph(
     Returns:
         Resultados de la ejecución del grafo
     """
+    logger.info(f"--- Starting graph execution for thread_id: {thread_id} ---")
     # Crear el guardar en memoria para el grafo
     memory = MemorySaver()
     
@@ -305,6 +329,7 @@ async def run_solar_fluidity_graph(
         # Ejecutar el grafo con el estado inicial
         config = {"configurable": {"thread_id": thread_id}}
         for event in graph.stream(initial_state, config):
+            logger.debug(f"Graph event for thread_id {thread_id}: {event}") # Log all stream events at DEBUG level
             yield event
     else:
         # Continuar una conversación existente - reanudar desde el punto de interrupción
@@ -315,4 +340,6 @@ async def run_solar_fluidity_graph(
         
         # Reanudar el grafo
         for event in graph.stream(None, config):
+            logger.debug(f"Graph event for thread_id {thread_id}: {event}") # Log all stream events at DEBUG level
             yield event
+    logger.info(f"--- Finished graph execution for thread_id: {thread_id} ---")

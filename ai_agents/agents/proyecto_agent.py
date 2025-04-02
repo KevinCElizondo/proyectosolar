@@ -8,6 +8,9 @@ import panticai
 from panticai.agent import Agent
 from panticai.run import run_context
 from panticai.tools import tool
+import logging
+
+logger = logging.getLogger(__name__)
 
 from ..utils import get_model, MCPToolProvider
 
@@ -61,6 +64,7 @@ def create_proyecto_agent(datos_proyecto: Dict[str, Any]) -> Agent:
     """
     dependencies = ProyectoDependencies(datos_proyecto)
     
+    logger.info(f"Creating Proyecto Agent with project data keys: {datos_proyecto.keys()}")
     agent = panticai.Agent(
         model=get_model(),
         system=SYSTEM_PROMPT,
@@ -80,6 +84,7 @@ def crear_proyecto_airtable(
     detalles: Optional[str] = "Detalles adicionales del proyecto",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: crear_proyecto_airtable for client: {nombre_cliente}, type: {tipo_proyecto}")
     """
     Crea un nuevo proyecto en Airtable.
     
@@ -111,12 +116,15 @@ def crear_proyecto_airtable(
     if detalles:
         fields["Detalles"] = detalles
     
+    logger.debug(f"Calling Airtable create_record tool for proyecto with fields: {fields}")
     result = airtable_tool(
         base_id="proyectos",
         table_name="Proyectos",
         fields=fields
     )
     
+    logger.info(f"Tool crear_proyecto_airtable finished. Result ID: {result.get('id')}")
+    return result
     return result
 
 @tool("crear_issue_github")
@@ -127,6 +135,7 @@ def crear_issue_github(
     asignados: Optional[List[str]] = "Lista de usuarios a asignar",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: crear_issue_github with title: '{titulo}'")
     """
     Crea un nuevo issue en GitHub para seguimiento del proyecto.
     
@@ -152,8 +161,11 @@ def crear_issue_github(
     if asignados:
         issue_data["assignees"] = asignados
     
+    logger.debug(f"Calling GitHub create_issue tool with data: {issue_data}")
     result = github_tool(**issue_data)
     
+    logger.info(f"Tool crear_issue_github finished. Result URL: {result.get('html_url')}")
+    return result
     return result
 
 @tool("programar_evento_calendario")
@@ -166,6 +178,7 @@ def programar_evento_calendario(
     participantes: Optional[List[str]] = "Lista de correos de participantes",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: programar_evento_calendario with title: '{titulo}' for date: {fecha_inicio}")
     """
     Programa un evento en Google Calendar.
     
@@ -200,8 +213,11 @@ def programar_evento_calendario(
     if participantes:
         event_data["attendees"] = [{"email": email} for email in participantes]
     
+    logger.debug(f"Calling Google Calendar create_detailed_event tool with data: {event_data}")
     result = calendar_tool(event=event_data)
     
+    logger.info(f"Tool programar_evento_calendario finished. Result ID: {result.get('id')}")
+    return result
     return result
 
 @tool("crear_cronograma_proyecto")
@@ -212,6 +228,7 @@ def crear_cronograma_proyecto(
     duracion_estimada: int = "Duración estimada en días",
     run_context: run_context = None
 ) -> Dict[str, Any]:
+    logger.info(f"Executing tool: crear_cronograma_proyecto for project_id: {proyecto_id}, type: {tipo_proyecto}")
     """
     Crea un cronograma para el proyecto con todas las etapas necesarias.
     
@@ -271,6 +288,7 @@ def crear_cronograma_proyecto(
         etapa["fecha_fin"] = fecha_actual.strftime("%Y-%m-%d")
     
     # Guardar cronograma en Airtable
+    logger.debug(f"Calculated {len(etapas)} stages for the schedule.")
     for etapa in etapas:
         airtable_tool(
             base_id="proyectos",
@@ -284,6 +302,7 @@ def crear_cronograma_proyecto(
                 "Estado": "Pendiente"
             }
         )
+        logger.debug(f"Calling Airtable create_record tool for stage: {etapa['nombre']}")
     
     return {
         "proyecto_id": proyecto_id,
@@ -291,6 +310,14 @@ def crear_cronograma_proyecto(
         "fecha_fin": etapas[-1]["fecha_fin"],
         "etapas": etapas
     }
+    final_result = {
+        "proyecto_id": proyecto_id,
+        "fecha_inicio": fecha_inicio,
+        "fecha_fin": etapas[-1]["fecha_fin"],
+        "etapas": etapas
+    }
+    logger.info(f"Tool crear_cronograma_proyecto finished. Result keys: {final_result.keys()}")
+    return final_result
 
 def run_proyecto_agent(prompt: str, datos_proyecto: Dict[str, Any]) -> Dict[str, Any]:
     """
@@ -303,6 +330,10 @@ def run_proyecto_agent(prompt: str, datos_proyecto: Dict[str, Any]) -> Dict[str,
     Returns:
         Resultado de la gestión del proyecto
     """
+    logger.info(f"Executing Proyecto Agent with prompt: '{prompt[:50]}...' Project data keys: {datos_proyecto.keys()}")
     agent = create_proyecto_agent(datos_proyecto)
     response = agent.run(prompt)
+    logger.debug("Calling internal agent run (panticai?)...")
+    return response.output
+    logger.info(f"Proyecto Agent finished. Result output type: {type(response.output)}")
     return response.output

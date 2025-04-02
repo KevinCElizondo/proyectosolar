@@ -8,7 +8,6 @@ Esta guía detalla todos los pasos necesarios para instalar, configurar y ejecut
 2. [Instalación del Proyecto](#instalación-del-proyecto)
 3. [Configuración de Servicios Externos](#configuración-de-servicios-externos)
 4. [Configuración de la Base de Datos](#configuración-de-la-base-de-datos)
-5. [Configuración de n8n](#configuración-de-n8n)
 6. [Configuración de la Facturación Electrónica](#configuración-de-la-facturación-electrónica)
 7. [Ejecución del Proyecto](#ejecución-del-proyecto)
 8. [Despliegue en Producción](#despliegue-en-producción)
@@ -78,9 +77,6 @@ Necesitará crear cuentas en los siguientes servicios:
    - Cree una aplicación para obtener las credenciales de API
    - Configure webhooks para notificaciones de pago
 
-4. **n8n**: Para automatizaciones
-   - Puede usar la versión self-hosted o crear una cuenta en [https://n8n.io/](https://n8n.io/)
-   - Anote la URL y la clave API
 
 5. **Proveedor de Email** (SMTP):
    - Puede usar servicios como SendGrid, Amazon SES, o cualquier proveedor SMTP
@@ -142,9 +138,6 @@ VITE_SMTP_PORT=tu_smtp_port
 VITE_SMTP_USER=tu_smtp_user
 VITE_SMTP_PASSWORD=tu_smtp_password
 
-# n8n
-VITE_N8N_WEBHOOK_URL=tu_webhook_url
-VITE_N8N_API_KEY=tu_api_key
 ```
 
 ## Configuración de Servicios Externos
@@ -217,43 +210,6 @@ Para configurar datos iniciales necesarios para el funcionamiento del sistema:
 # Ejecutar script de datos iniciales
 # (Puede ejecutar esto manualmente en el editor SQL de Supabase)
 ```
-
-## Configuración de n8n
-
-### 1. Configurar Instancia de n8n
-
-#### Opción A: Instalación Local
-
-```bash
-# Instalar n8n globalmente
-npm install n8n -g
-
-# Iniciar n8n
-n8n start
-```
-
-#### Opción B: Usar Docker
-
-```bash
-# Iniciar n8n con Docker
-docker-compose up -d n8n
-```
-
-### 2. Importar Flujos de Trabajo
-
-1. Acceda a la interfaz de n8n (generalmente en http://localhost:5678)
-2. Vaya a "Workflows" > "Import from File"
-3. Importe los archivos JSON de workflows ubicados en el directorio `n8n/workflows/` del proyecto
-
-### 3. Configurar Credenciales
-
-1. En n8n, vaya a "Credentials"
-2. Configure las credenciales para:
-   - Supabase
-   - AWS S3
-   - SMTP (email)
-   - PayPal
-   - Cualquier otro servicio externo que utilicen sus flujos
 
 ## Configuración de la Facturación Electrónica
 
@@ -351,7 +307,7 @@ Después de la instalación y configuración, realice las siguientes verificacio
 
 1. Pruebe la generación y almacenamiento de facturas
 2. Verifique que los archivos se suben correctamente a S3
-3. Compruebe que los flujos de n8n se ejecutan según lo esperado
+3. Compruebe que los flujos de Agentes IA / Python se ejecutan según lo esperado
 4. Pruebe el procesamiento de pagos con PayPal en modo sandbox
 
 ## Solución de Problemas Comunes
@@ -366,7 +322,7 @@ Después de la instalación y configuración, realice las siguientes verificacio
 
 - Asegúrese de que los certificados digitales son válidos
 - Verifique que las plantillas XML cumplen con el formato requerido
-- Compruebe los logs de n8n para errores específicos
+- Compruebe los logs de los Agentes IA / Python para errores específicos
 
 ### Problemas con PayPal
 

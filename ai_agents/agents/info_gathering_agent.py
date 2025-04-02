@@ -4,8 +4,11 @@ Agente de recopilación de información para Solar Fluidity.
 from typing import Dict, List, Optional, Literal, Union, Any
 from pydantic import BaseModel, Field
 import json
+import logging
 
-from ..utils import call_openai_api
+logger = logging.getLogger(__name__)
+
+from ..utils import call_llm_api
 
 class ProyectoSolarDetails(BaseModel):
     """
@@ -66,6 +69,7 @@ def create_info_gathering_agent():
     Crea un agente de recopilación de información para proyectos solares.
     """
     def agent(prompt, conversation_history=None):
+        logger.debug(f"InfoGatheringAgent received prompt: '{prompt[:100]}...' History length: {len(conversation_history) if conversation_history else 0}")
         # Ajustar el prompt basado en la conversación
         context = ""
         if conversation_history:
@@ -82,8 +86,10 @@ def create_info_gathering_agent():
         full_user_prompt = f"{context}\n\nNuevo mensaje: {prompt}"
         
         # Llamar a la API
-        response_text = call_openai_api(full_system_prompt, full_user_prompt)
+        logger.info("Calling OpenAI API for info gathering...")
+        response_text = call_llm_api(full_system_prompt, full_user_prompt)
         
+        logger.debug(f"OpenAI API raw response: {response_text}")
         # Intentar parsear la respuesta como JSON
         try:
             # Extraer solo el JSON si está dentro de bloques de código
@@ -97,8 +103,10 @@ def create_info_gathering_agent():
             # Crear objeto Pydantic
             result = ProyectoSolarDetails.parse_raw(json_str)
             return result
+            logger.info("Successfully parsed OpenAI response into ProyectoSolarDetails.")
         except Exception as e:
             # Fallback: crear un objeto básico con la información mínima
+            logger.error(f"Failed to parse OpenAI response as JSON: {e}", exc_info=True)
             return ProyectoSolarDetails(
                 nombre_cliente="No especificado",
                 tipo_proyecto="Instalación Solar",
@@ -106,6 +114,7 @@ def create_info_gathering_agent():
                 respuesta=response_text,
                 toda_informacion_proporcionada=False
             )
+            logger.debug(f"InfoGatheringAgent returning: {result.dict() if isinstance(result, BaseModel) else result}")
     
     return agent
 
@@ -121,8 +130,13 @@ def run_info_gathering_agent(user_input: str, conversation_history: List[Dict] =
         Detalles del proyecto solar con la información recopilada
     """
     agent = create_info_gathering_agent()
+    logger.info(f"Executing Info Gathering Agent with input: '{user_input[:50]}...' History length: {len(conversation_history) if conversation_history else 0}")
     
     if conversation_history is None:
         conversation_history = []
     
     return agent(user_input, conversation_history)
+    # Log the final result before returning
+    final_result = agent(user_input, conversation_history)
+    logger.info(f"Info Gathering Agent finished. Result: {final_result.dict()}")
+    return final_result

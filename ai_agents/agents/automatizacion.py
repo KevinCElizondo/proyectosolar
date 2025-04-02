@@ -85,8 +85,10 @@ class AutomatizacionAgent:
         logger.info("Iniciando procesamiento de recordatorios de facturas")
         try:
             # 1. Consultar facturas pendientes
+            logger.debug("Consulting pending invoices...")
             facturas = await self.db_client.consultar_facturas_pendientes()
             logger.info(f"Facturas pendientes encontradas: {len(facturas)}")
+            logger.debug(f"Processing {len(facturas)} pending invoices.")
             
             for factura in facturas:
                 # 2. Calcular días para vencimiento
@@ -95,7 +97,9 @@ class AutomatizacionAgent:
                 
                 # 3. Filtrar facturas próximas a vencer (7 días o menos)
                 if dias_restantes <= 7:
+                    logger.info(f"Invoice {factura['id']} is due in {dias_restantes} days. Processing reminder.")
                     # 4. Obtener líneas de factura
+                    logger.debug(f"Consulting invoice lines for factura_id: {factura['id']}")
                     lineas = await self.db_client.consultar_lineas_factura(factura['id'])
                     
                     # 5. Crear modelo estructurado con Pydantic
@@ -124,6 +128,7 @@ class AutomatizacionAgent:
                         mensaje = self._generar_mensaje_por_vencer(recordatorio)
                     
                     # 7. Enviar correo mediante MCP
+                        logger.debug(f"Sending reminder email for factura_id: {factura['id']} to {recordatorio.cliente_email}")
                     if self.mcp_client:
                         await self.mcp_client.ejecutar_accion(
                             "gmail",
@@ -137,6 +142,7 @@ class AutomatizacionAgent:
                         logger.info(f"Recordatorio enviado para factura {factura['id']}")
                     
                     # 8. Actualizar estado en la base de datos
+                    logger.debug(f"Updating reminder status for factura_id: {factura['id']}")
                     await self.db_client.actualizar_estado_recordatorio(
                         factura['id'], 
                         {'recordatorio_enviado': True, 'fecha_recordatorio': datetime.now()}
@@ -146,6 +152,7 @@ class AutomatizacionAgent:
         
         except Exception as e:
             logger.error(f"Error al procesar recordatorios: {str(e)}")
+            logger.error(f"Error processing invoice reminders: {e}", exc_info=True)
             return {"status": "error", "message": str(e)}
     
     async def procesar_notificaciones_hitos(self):
@@ -156,10 +163,13 @@ class AutomatizacionAgent:
         logger.info("Iniciando procesamiento de notificaciones de hitos")
         try:
             # 1. Consultar proyectos activos
+            logger.debug("Consulting active projects...")
             proyectos = await self.db_client.consultar_proyectos_activos()
             
+            logger.debug(f"Processing {len(proyectos)} active projects for milestone notifications.")
             for proyecto in proyectos:
                 # 2. Obtener hitos pendientes
+                logger.debug(f"Consulting pending milestones for project_id: {proyecto['id']}")
                 hitos = await self.db_client.consultar_hitos_pendientes(proyecto['id'])
                 
                 for hito in hitos:
@@ -168,6 +178,7 @@ class AutomatizacionAgent:
                     
                     # 4. Filtrar hitos próximos (7 días o menos)
                     if dias_restantes <= 7:
+                        logger.info(f"Milestone {hito['id']} for project {proyecto['id']} is due in {dias_restantes} days. Processing notification.")
                         # 5. Crear modelo estructurado con Pydantic
                         notificacion = HitoProyecto(
                             hito_id=hito['id'],
@@ -193,6 +204,7 @@ class AutomatizacionAgent:
                         
                         # 7. Enviar notificaciones por múltiples canales
                         # Email
+                        logger.debug(f"Sending milestone notification email for hito_id: {hito['id']}")
                         if self.mcp_client:
                             await self.mcp_client.ejecutar_accion(
                                 "gmail",
@@ -205,6 +217,7 @@ class AutomatizacionAgent:
                             )
                             
                             # Opcional: Slack
+                            logger.debug(f"Sending milestone notification Slack message for hito_id: {hito['id']}")
                             await self.mcp_client.ejecutar_accion(
                                 "slack",
                                 "send_message",
@@ -215,6 +228,7 @@ class AutomatizacionAgent:
                             )
                         
                         # 8. Actualizar estado en la base de datos
+                        logger.debug(f"Updating milestone notification status for hito_id: {hito['id']}")
                         await self.db_client.actualizar_estado_notificacion_hito(
                             hito['id'],
                             {'notificacion_enviada': True, 'fecha_notificacion': datetime.now()}
@@ -224,6 +238,7 @@ class AutomatizacionAgent:
             
         except Exception as e:
             logger.error(f"Error al procesar notificaciones de hitos: {str(e)}")
+            logger.error(f"Error processing milestone notifications: {e}", exc_info=True)
             return {"status": "error", "message": str(e)}
     
     async def generar_reporte_semanal(self):
@@ -238,22 +253,27 @@ class AutomatizacionAgent:
                 logger.info("No es viernes, omitiendo generación de reportes")
                 return {"status": "skipped", "message": "No es viernes, reportes programados solo para viernes"}
             
+            logger.debug("Consulting active projects for weekly report...")
             # 1. Consultar proyectos activos
             proyectos = await self.db_client.consultar_proyectos_activos()
             
+            logger.debug(f"Processing {len(proyectos)} active projects for weekly report.")
             for proyecto in proyectos:
                 # 2. Obtener actividades recientes (última semana)
+                logger.debug(f"Consulting recent activities for project_id: {proyecto['id']}")
                 actividades = await self.db_client.consultar_actividades_recientes(
                     proyecto['id'], 
                     datetime.now() - timedelta(days=7)
                 )
                 
                 # 3. Obtener hitos recientes y próximos
+                logger.debug(f"Consulting recently completed milestones for project_id: {proyecto['id']}")
                 hitos_completados = await self.db_client.consultar_hitos_completados_recientes(
                     proyecto['id'], 
                     datetime.now() - timedelta(days=7)
                 )
                 
+                logger.debug(f"Consulting upcoming milestones for project_id: {proyecto['id']}")
                 proximos_hitos = await self.db_client.consultar_proximos_hitos(
                     proyecto['id'], 
                     datetime.now(), 
@@ -263,6 +283,7 @@ class AutomatizacionAgent:
                 # 4. Calcular porcentaje de completado
                 porcentaje_completado = proyecto.get('porcentaje_completado', 0)
                 if not porcentaje_completado and len(hitos_completados) > 0:
+                    logger.debug(f"Counting total milestones for project_id: {proyecto['id']}")
                     total_hitos = await self.db_client.contar_hitos_proyecto(proyecto['id'])
                     if total_hitos > 0:
                         porcentaje_completado = (len(hitos_completados) / total_hitos) * 100
@@ -306,10 +327,13 @@ class AutomatizacionAgent:
                 )
                 
                 # 7. Generar contenido HTML y texto plano
+                logger.debug(f"Generating HTML report content for project_id: {proyecto['id']}")
                 html_content = self._generar_html_reporte(reporte)
+                logger.debug(f"Generating text report content for project_id: {proyecto['id']}")
                 text_content = self._generar_texto_reporte(reporte)
                 
                 # 8. Enviar por email
+                logger.debug(f"Sending weekly report email for project_id: {proyecto['id']}")
                 if self.mcp_client:
                     await self.mcp_client.ejecutar_accion(
                         "gmail",
@@ -326,6 +350,7 @@ class AutomatizacionAgent:
                     )
                 
                 # 9. Guardar en la base de datos
+                logger.debug(f"Saving weekly report to DB for project_id: {proyecto['id']}")
                 await self.db_client.guardar_reporte(
                     proyecto['id'],
                     {
@@ -337,6 +362,7 @@ class AutomatizacionAgent:
                 )
                 
                 # 10. Actualizar fecha de último reporte
+                logger.debug(f"Updating last report date for project_id: {proyecto['id']}")
                 await self.db_client.actualizar_fecha_reporte(
                     proyecto['id'],
                     {'ultimo_reporte_enviado': datetime.now()}
@@ -346,10 +372,12 @@ class AutomatizacionAgent:
             
         except Exception as e:
             logger.error(f"Error al generar reportes semanales: {str(e)}")
+            logger.error(f"Error generating weekly reports: {e}", exc_info=True)
             return {"status": "error", "message": str(e)}
 
     # Métodos auxiliares para generar mensajes
     def _generar_mensaje_vencido(self, recordatorio: RecordatorioFactura) -> str:
+        logger.debug(f"Generating overdue invoice message for factura_id: {recordatorio.factura_id}")
         """Genera mensaje para facturas vencidas."""
         mensaje = f"Estimado(a) {recordatorio.cliente_nombre},\n\n"
         mensaje += f"Le recordamos que su factura #{recordatorio.factura_id} por un monto de ₡{recordatorio.monto_total} "
@@ -371,6 +399,7 @@ class AutomatizacionAgent:
         return mensaje
     
     def _generar_mensaje_por_vencer(self, recordatorio: RecordatorioFactura) -> str:
+        logger.debug(f"Generating due soon invoice message for factura_id: {recordatorio.factura_id}")
         """Genera mensaje para facturas próximas a vencer."""
         mensaje = f"Estimado(a) {recordatorio.cliente_nombre},\n\n"
         mensaje += f"Le recordamos que su factura #{recordatorio.factura_id} por un monto de ₡{recordatorio.monto_total} "
@@ -391,6 +420,7 @@ class AutomatizacionAgent:
         return mensaje
     
     def _generar_mensaje_hito_vencido(self, hito: HitoProyecto) -> str:
+        logger.debug(f"Generating overdue milestone message for hito_id: {hito.hito_id}")
         """Genera mensaje para hitos vencidos."""
         mensaje = f"El hito '{hito.descripcion}' del proyecto {hito.proyecto_nombre} "
         mensaje += f"está vencido por {abs(hito.dias_restantes)} días.\n\n"
@@ -405,6 +435,7 @@ class AutomatizacionAgent:
         return mensaje
     
     def _generar_mensaje_hito_hoy(self, hito: HitoProyecto) -> str:
+        logger.debug(f"Generating due today milestone message for hito_id: {hito.hito_id}")
         """Genera mensaje para hitos que vencen hoy."""
         mensaje = f"El hito '{hito.descripcion}' del proyecto {hito.proyecto_nombre} vence hoy.\n\n"
         
@@ -418,6 +449,7 @@ class AutomatizacionAgent:
         return mensaje
     
     def _generar_mensaje_hito_proximo(self, hito: HitoProyecto) -> str:
+        logger.debug(f"Generating upcoming milestone message for hito_id: {hito.hito_id}")
         """Genera mensaje para hitos próximos."""
         mensaje = f"El hito '{hito.descripcion}' del proyecto {hito.proyecto_nombre} "
         mensaje += f"vence en {hito.dias_restantes} días.\n\n"
@@ -433,6 +465,7 @@ class AutomatizacionAgent:
         return mensaje
     
     def _generar_html_reporte(self, reporte: ReporteProyecto) -> str:
+        logger.debug(f"Generating HTML report for project_id: {reporte.proyecto_id}")
         """Genera contenido HTML para reportes semanales."""
         # Esta es una versión simplificada del contenido HTML
         html = f"""
@@ -515,6 +548,7 @@ class AutomatizacionAgent:
         
         return html
     
+        logger.debug(f"Generating text report for project_id: {reporte.proyecto_id}")
     def _generar_texto_reporte(self, reporte: ReporteProyecto) -> str:
         """Genera contenido de texto plano para reportes semanales."""
         texto = f"REPORTE SEMANAL: {reporte.proyecto_nombre} - SEMANA {reporte.semana}\n"
