@@ -12,7 +12,6 @@ import { useRef, memo } from 'react';
 import LazySection from '@/components/lazy-section';
 import { OptimizedImage } from '@/components/ui/optimized-image';
 import AmazonAffiliateSection from '@/components/AmazonAffiliateSection';
-import AutomationSection from '@/components/AutomationSection';
 
 // Sección de características memoizada para mejorar el rendimiento
 const MemoizedFeatureSection = memo(() => (
@@ -26,7 +25,7 @@ const MemoizedFeatureSection = memo(() => (
                     <div className="flex gap-4">
                         <FileText className="w-12 h-12 text-primary" />
                         <div>
-                            <h3 className="text-xl font-semibold mb-2">Facturación Electrónica Offline</h3>
+                            <h3 className="text-xl font-semibold mb-2">Facturación Electrónica</h3>
                             <p className="text-gray-400">
                                 Genera facturas electrónicas XML/PDF válidas sin necesidad de conexión directa 
                                 con la autoridad tributaria. Mantén el control total de tu proceso fiscal.
@@ -42,18 +41,6 @@ const MemoizedFeatureSection = memo(() => (
                             <p className="text-gray-400">
                                 Planificación y seguimiento de proyectos solares y electromecánicos. Control de costos, 
                                 hitos y calendario de actividades en una interfaz intuitiva.
-                            </p>
-                        </div>
-                    </div>
-                </Card>
-                <Card className="p-6 bg-dark border-gray-800">
-                    <div className="flex gap-4">
-                        <Zap className="w-12 h-12 text-primary" />
-                        <div>
-                            <h3 className="text-xl font-semibold mb-2">Automatizaciones Inteligentes</h3>
-                            <p className="text-gray-400">
-                                Flujos de trabajo automatizados para recordatorios de pago, generación de reportes 
-                                y notificaciones programadas. Ahorra tiempo y mantén todo bajo control.
                             </p>
                         </div>
                     </div>
@@ -126,7 +113,7 @@ function Index() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.4, duration: 0.5 }}
                         >
-                            Facturación Electrónica Offline | Gestión de Proyectos | Automatizaciones con n8n
+                            Facturación Electrónica | Gestión de Proyectos | Más Funcionalidades
                         </motion.h2>
                         
                         <motion.p 
@@ -135,9 +122,9 @@ function Index() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.6, duration: 0.5 }}
                         >
-                            Plataforma especializada para empresas costarricenses de proyectos solares y servicios electromecánicos. 
-                            Genera facturas electrónicas válidas sin conexión directa con Hacienda, 
-                            gestiona tus proyectos con herramientas especializadas y automatiza procesos con n8n.
+                            Potencia tu empresa de energía solar o servicios electromecánicos en Costa Rica.
+                            Simplifica tu facturación electrónica, optimiza la gestión de tus proyectos y descubre
+                            herramientas diseñadas para impulsar tu crecimiento.
                         </motion.p>
                         
                         {/* Botones de llamada a la acción */}
@@ -171,10 +158,6 @@ function Index() {
                 <MemoizedFeatureSection />
             </LazySection>
             
-            {/* Sección de Automatizaciones con n8n - Lazy Loaded */}
-            <LazySection delay={0.3} className="w-full">
-                <AutomationSection />
-            </LazySection>
             
             {/* How It Works - Lazy Loaded */}
             <LazySection delay={0.2} className="w-full">
@@ -244,9 +227,6 @@ function Index() {
                                     <li className="flex items-center text-gray-300">
                                         <span className="mr-2 text-green-500">✓</span> Reportes básicos (solo PDF)
                                     </li>
-                                    <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-red-500">✗</span> API para integraciones
-                                    </li>
                                 </ul>
                                 <Button variant="outline" className="w-full hover:bg-primary hover:text-white">Comenzar Gratis</Button>
                             </Card>
@@ -260,13 +240,7 @@ function Index() {
                                         <span className="mr-2 text-green-500">✓</span> Facturas y proyectos ilimitados
                                     </li>
                                     <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> API premium (20 llamadas/minuto + webhooks)
-                                    </li>
-                                    <li className="flex items-center text-gray-300">
                                         <span className="mr-2 text-green-500">✓</span> 10 usuarios + permisos jerárquicos
-                                    </li>
-                                    <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> Automatizaciones avanzadas
                                     </li>
                                     <li className="flex items-center text-gray-300">
                                         <span className="mr-2 text-green-500">✓</span> Soporte 24/7 con técnicos especializados
@@ -290,9 +264,6 @@ function Index() {
                                     </li>
                                     <li className="flex items-center text-gray-300">
                                         <span className="mr-2 text-green-500">✓</span> 3 usuarios + roles básicos
-                                    </li>
-                                    <li className="flex items-center text-gray-300">
-                                        <span className="mr-2 text-green-500">✓</span> API básica (integración con software local)
                                     </li>
                                     <li className="flex items-center text-gray-300">
                                         <span className="mr-2 text-green-500">✓</span> Automatizaciones internas
@@ -345,25 +316,6 @@ function Index() {
                                     <p className="text-gray-400 mb-4">
                                         Estrategias y herramientas para optimizar la planificación, ejecución y seguimiento de proyectos
                                         solares.
-                                    </p>
-                                    <Button variant="link" className="text-primary p-0">Leer artículo →</Button>
-                                </div>
-                            </Card>
-                            <Card className="bg-dark border-gray-800 overflow-hidden hover:shadow-lg transition-shadow">
-                                <div className="h-48 overflow-hidden">
-                                    <OptimizedImage
-                                        src="/images/article-automation.jpg"
-                                        alt="Automatización"
-                                        className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-300"
-                                        width={400}
-                                        height={225}
-                                    />
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="text-xl font-semibold mb-2">API de Solar Fluidity: Integra Tus Sistemas</h3>
-                                    <p className="text-gray-400 mb-4">
-                                        Guía completa para conectar tus sistemas empresariales con nuestra API y acceder
-                                        a datos de facturación y proyectos en tiempo real.
                                     </p>
                                     <Button variant="link" className="text-primary p-0">Leer artículo →</Button>
                                 </div>

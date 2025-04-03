@@ -82,10 +82,6 @@ class SolarFluidityAgents:
             supabase_status = self.check_supabase_connection()
             state.current_status["supabase"] = supabase_status
 
-            # Check n8n workflows
-            n8n_status = self.check_n8n_workflows()
-            state.current_status["n8n"] = n8n_status
-
             # Check other integrations
             for integration, checks in self.config.INTEGRATION_CHECKS.items():
                 status = self.check_integration_status(integration, checks)
@@ -175,11 +171,6 @@ class SolarFluidityAgents:
             return "connected"
         except Exception as e:
             return f"error: {str(e)}"
-
-    def check_n8n_workflows(self) -> str:
-        """Check n8n workflows status"""
-        # Implement n8n workflow check
-        return "active"
 
     def check_integration_status(self, integration: str, checks: List[str]) -> str:
         """Check status of specific integration"""

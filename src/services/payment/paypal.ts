@@ -1,5 +1,5 @@
 // src/services/payment/paypal.ts
-import paypal from '@paypal/paypal-server-sdk';
+import * as paypal from '@paypal/paypal-server-sdk'; // Use namespace import
 import axios from 'axios';
 import { env } from '../../config/environment';
 
@@ -37,17 +37,21 @@ export class PayPalService {
   private constructor() {
     // Usar siempre sandbox para desarrollo y pruebas
     // Solo usar producción cuando sea explícitamente configurado
-    const environment = env.NODE_ENV === 'production'
-      ? new paypal.core.LiveEnvironment(env.PAYPAL_CLIENT_ID, env.PAYPAL_CLIENT_SECRET)
-      : new paypal.core.SandboxEnvironment(env.PAYPAL_CLIENT_ID, env.PAYPAL_CLIENT_SECRET);
+    const isProduction = env.NODE_ENV === 'production';
+    const clientId = isProduction ? env.PAYPAL_LIVE_CLIENT_ID : env.PAYPAL_SANDBOX_CLIENT_ID;
+    const clientSecret = isProduction ? env.PAYPAL_LIVE_SECRET : env.PAYPAL_SANDBOX_SECRET;
+
+    const environment = isProduction
+      ? new paypal.core.LiveEnvironment(clientId, clientSecret)
+      : new paypal.core.SandboxEnvironment(clientId, clientSecret);
     
     this.client = new paypal.core.PayPalHttpClient(environment);
-    this.API_BASE = env.NODE_ENV === 'production' 
+    this.API_BASE = isProduction 
       ? 'https://api-m.paypal.com' 
       : 'https://api-m.sandbox.paypal.com';
     
     // Verificar que las credenciales estén configuradas
-    if (!env.PAYPAL_CLIENT_ID || !env.PAYPAL_CLIENT_SECRET) {
+    if (!clientId || !clientSecret) {
       console.warn('PayPal no está correctamente configurado. Faltan credenciales en el archivo .env');
     }
   }
@@ -188,7 +192,15 @@ export class PayPalService {
    */
   private async getAccessToken(): Promise<string> {
     try {
-      const auth = Buffer.from(`${env.PAYPAL_CLIENT_ID}:${env.PAYPAL_CLIENT_SECRET}`).toString('base64');
+      const isProduction = env.NODE_ENV === 'production';
+      const clientId = isProduction ? env.PAYPAL_LIVE_CLIENT_ID : env.PAYPAL_SANDBOX_CLIENT_ID;
+      const clientSecret = isProduction ? env.PAYPAL_LIVE_SECRET : env.PAYPAL_SANDBOX_SECRET;
+      
+      if (!clientId || !clientSecret) {
+        throw new Error('PayPal credentials not configured for the current environment.');
+      }
+      
+      const auth = Buffer.from(`${clientId}:${clientSecret}`).toString('base64');
       
       const response = await axios({
         method: 'post',

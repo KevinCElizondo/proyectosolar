@@ -6,7 +6,7 @@
 2. [Primeros Pasos](#primeros-pasos)
 3. [Facturación Electrónica Offline](#facturación-electrónica-offline)
 4. [Gestión de Proyectos Solares](#gestión-de-proyectos-solares)
-5. [Automatizaciones con n8n](#automatizaciones-con-n8n)
+5. [Automatizaciones Inteligentes](#automatizaciones-inteligentes)
 6. [Soporte y Solución de Problemas](#soporte-y-solución-de-problemas)
 7. [Glosario](#glosario)
 
@@ -16,7 +16,7 @@ Solar Fluidity es una plataforma SaaS diseñada específicamente para empresas d
 
 1. **Facturación Electrónica Offline**: Genera documentos electrónicos válidos (XML/PDF) sin necesidad de conexión directa con Hacienda.
 2. **Gestión de Proyectos Solares y Electromecánicos**: Administra todo el ciclo de vida de proyectos, desde diseño hasta mantenimiento.
-3. **Automatizaciones con n8n**: Configura flujos de trabajo automatizados para procesos recurrentes.
+3. **Automatizaciones Inteligentes**: Configura flujos de trabajo automatizados con agentes IA para procesos recurrentes.
 
 Este manual le guiará a través de todas las funcionalidades principales de la plataforma para maximizar su productividad y cumplimiento fiscal, incluso en entornos con conectividad limitada.
 
@@ -211,9 +211,9 @@ Incluso sin conexión, puede generar reportes para su gestión:
    - Repuestos utilizados
 4. Genere informes de rendimiento para el cliente
 
-## Automatizaciones con n8n
+## Automatizaciones Inteligentes
 
-Solar Fluidity incluye automatizaciones preconfiguradas mediante n8n, que puede personalizar según sus necesidades.
+Solar Fluidity incluye automatizaciones preconfiguradas mediante agentes IA, que puede personalizar según sus necesidades.
 
 ### Automatizaciones Disponibles
 
@@ -242,7 +242,7 @@ Para personalizar una automatización existente:
    - Destinatarios
 4. Guarde y active el flujo modificado
 
-![Editor de flujos n8n](img/editor_n8n.png)
+![Diagrama de Agentes IA](img/agentes_ia_diagrama.png) <!-- Asumiendo que existe una imagen representativa -->
 
 ### Creación de Nuevas Automatizaciones
 
@@ -316,4 +316,4 @@ Para soporte prioritario, tenga a mano:
 | PWA | Progressive Web App (aplicación web progresiva) |
 | SLA | Acuerdo de Nivel de Servicio |
 | Modo Contingencia | Operación offline con numeración especial según normativa de Hacienda |
-| n8n | Plataforma de automatización de flujos de trabajo |
+| Agentes IA | Sistema inteligente para automatizar tareas |

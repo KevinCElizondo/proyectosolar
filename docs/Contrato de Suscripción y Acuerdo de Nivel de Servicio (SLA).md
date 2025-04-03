@@ -6,7 +6,7 @@
 Este Contrato de Suscripción y Acuerdo de Nivel de Servicio (SLA) regula el acceso y uso de Solar Fluidity. Al suscribirse a nuestros servicios, el usuario acepta los términos y condiciones establecidos en este documento.
 
 ## **2. Definiciones**
-- **Plataforma:** Solar Fluidity, plataforma SaaS especializada en facturación electrónica offline para Costa Rica, gestión de proyectos solares y electromecánicos, y automatizaciones con n8n.
+- **Plataforma:** Solar Fluidity, plataforma SaaS especializada en facturación electrónica offline para Costa Rica, gestión de proyectos solares y electromecánicos, y automatizaciones con agentes IA.
 - **Usuario:** Persona o entidad que se suscribe y utiliza la plataforma.
 - **Suscripción:** Acuerdo de pago para acceder a los servicios de Solar Fluidity.
 - **Tiempo de actividad (Uptime):** Porcentaje de tiempo en el que la plataforma está operativa.

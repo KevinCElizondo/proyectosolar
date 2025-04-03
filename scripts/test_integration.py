@@ -6,7 +6,6 @@ Este script verifica la conexión entre todos los componentes:
 - Base de datos (Supabase)
 - Agentes IA
 - Servidores MCP
-- n8n
 """
 
 import os
@@ -48,11 +47,11 @@ def run_command(command, cwd=None, timeout=10):
     print_info(f"Ejecutando: {command}")
     try:
         result = subprocess.run(
-            command, 
-            shell=True, 
-            check=True, 
+            command,
+            shell=True,
+            check=True,
             cwd=cwd,
-            capture_output=True, 
+            capture_output=True,
             text=True,
             timeout=timeout
         )
@@ -71,10 +70,10 @@ def run_command(command, cwd=None, timeout=10):
 def check_env_file():
     """Verifica si existe el archivo .env y contiene las variables necesarias."""
     print_header("Verificando archivo .env")
-    
+
     # Cargar variables de entorno
     load_dotenv()
-    
+
     required_vars = [
         "SUPABASE_URL",
         "SUPABASE_KEY",
@@ -82,46 +81,46 @@ def check_env_file():
         "NEXT_PUBLIC_SUPABASE_URL",
         "NEXT_PUBLIC_SUPABASE_ANON_KEY"
     ]
-    
+
     missing_vars = []
     for var in required_vars:
         if not os.environ.get(var):
             missing_vars.append(var)
-    
+
     if missing_vars:
         print_error(f"Faltan las siguientes variables en .env: {', '.join(missing_vars)}")
         return False
-    
+
     print_success("Archivo .env contiene todas las variables requeridas")
     return True
 
 def test_supabase_connection():
     """Prueba la conexión con Supabase."""
     print_header("Probando conexión con Supabase")
-    
+
     # Obtener credenciales de Supabase
     supabase_url = os.environ.get("SUPABASE_URL")
     supabase_key = os.environ.get("SUPABASE_KEY")
-    
+
     try:
         # Importar Supabase client
         from supabase import create_client
-        
+
         # Intentar conectar
         print_info(f"Conectando a Supabase: {supabase_url}")
         client = create_client(supabase_url, supabase_key)
-        
+
         # Probar con una consulta simple
         print_info("Ejecutando consulta de prueba...")
         response = client.table("facturas").select("*").limit(1).execute()
-        
+
         if response:
             print_success("Conexión con Supabase establecida correctamente")
             return True
         else:
             print_error("No se recibió respuesta de Supabase")
             return False
-            
+
     except ImportError:
         print_error("No se pudo importar 'supabase'. Intenta instalar con: pip install supabase")
         return False
@@ -132,9 +131,9 @@ def test_supabase_connection():
 def test_ai_agents():
     """Prueba la conexión con los agentes IA."""
     print_header("Probando agentes IA")
-    
+
     agent_url = "http://localhost:8000"
-    
+
     # Intentar iniciar el servidor de agentes en segundo plano
     try:
         # Verificar si ya está en ejecución
@@ -147,7 +146,7 @@ def test_ai_agents():
                 server_running = False
         except requests.RequestException:
             server_running = False
-        
+
         # Si no está en ejecución, iniciarlo
         if not server_running:
             print_info("Iniciando servidor de agentes IA...")
@@ -157,10 +156,10 @@ def test_ai_agents():
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE
             )
-            
+
             # Esperar a que se inicie
             time.sleep(5)
-        
+
         # Probar la API de agentes
         print_info("Enviando consulta de prueba a los agentes...")
         response = requests.post(
@@ -171,7 +170,7 @@ def test_ai_agents():
             },
             timeout=10
         )
-        
+
         if response.status_code == 200:
             print_success("Respuesta del agente recibida correctamente")
             print_info(f"Respuesta: {response.json().get('response', '')[:100]}...")
@@ -180,7 +179,7 @@ def test_ai_agents():
             print_error(f"Error en la respuesta del agente: {response.status_code}")
             print_info(f"Detalles: {response.text}")
             return False
-            
+
     except requests.RequestException as e:
         print_error(f"Error de conexión con los agentes: {str(e)}")
         return False
@@ -195,14 +194,14 @@ def test_ai_agents():
 def test_mcp_server():
     """Prueba la conexión con el servidor MCP."""
     print_header("Probando servidor MCP")
-    
+
     mcp_script_path = os.path.join("src", "integrations", "mcp", "solar_fluidity_mcp_server.py")
-    
+
     # Verificar que existe el script
     if not os.path.exists(mcp_script_path):
         print_error(f"No se encontró el script del servidor MCP en: {mcp_script_path}")
         return False
-    
+
     # Intentar iniciar el servidor MCP en segundo plano
     try:
         print_info("Iniciando servidor MCP...")
@@ -211,10 +210,10 @@ def test_mcp_server():
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE
         )
-        
+
         # Dar tiempo para que se inicie
         time.sleep(3)
-        
+
         # Crear un script temporal para probar la comunicación
         test_script = """
 import json
@@ -231,28 +230,28 @@ def main():
         stderr=subprocess.PIPE,
         text=True
     )
-    
+
     # Dar tiempo para inicializar
     time.sleep(1)
-    
+
     # Enviar mensaje de inicialización
     init_msg = {"jsonrpc": "2.0", "method": "initialize", "params": {}, "id": 1}
     process.stdin.write(json.dumps(init_msg) + "\\n")
     process.stdin.flush()
-    
+
     # Leer respuesta
     response = json.loads(process.stdout.readline())
     print(json.dumps(response))
-    
+
     # Listar recursos
     list_msg = {"jsonrpc": "2.0", "method": "mcp/listResources", "params": {}, "id": 2}
     process.stdin.write(json.dumps(list_msg) + "\\n")
     process.stdin.flush()
-    
+
     # Leer respuesta
     response = json.loads(process.stdout.readline())
     print(json.dumps(response))
-    
+
     # Terminar el proceso
     process.terminate()
     return 0
@@ -260,17 +259,17 @@ def main():
 if __name__ == "__main__":
     sys.exit(main())
 """
-        
+
         # Guardar el script temporal
         with open("temp_mcp_test.py", "w") as f:
             f.write(test_script)
-        
+
         # Ejecutar el script de prueba
         result = run_command("python temp_mcp_test.py", timeout=15)
-        
+
         # Limpiar
         os.remove("temp_mcp_test.py")
-        
+
         if result:
             print_success("Servidor MCP funcionando correctamente")
             print_info(f"Respuesta: {result[:100]}...")
@@ -278,7 +277,7 @@ if __name__ == "__main__":
         else:
             print_error("No se pudo comunicar con el servidor MCP")
             return False
-            
+
     except Exception as e:
         print_error(f"Error al probar el servidor MCP: {str(e)}")
         return False
@@ -287,41 +286,17 @@ if __name__ == "__main__":
         if 'mcp_process' in locals():
             mcp_process.terminate()
 
-def test_n8n():
-    """Prueba la conexión con el servidor n8n."""
-    print_header("Probando servidor n8n")
-    
-    n8n_url = "http://localhost:5678"
-    
-    try:
-        # Verificar si n8n está en ejecución
-        print_info(f"Verificando si n8n está disponible en: {n8n_url}")
-        response = requests.get(f"{n8n_url}/healthz", timeout=5)
-        
-        if response.status_code == 200:
-            print_success("Conexión con n8n establecida correctamente")
-            return True
-        else:
-            print_error(f"Error en la respuesta de n8n: {response.status_code}")
-            print_info("Intenta iniciar n8n con: n8n start")
-            return False
-            
-    except requests.RequestException as e:
-        print_error(f"Error de conexión con n8n: {str(e)}")
-        print_info("¿Está n8n instalado y en ejecución? Intenta con: npm install -g n8n && n8n start")
-        return False
-
 def test_frontend():
     """Prueba la conexión con el frontend."""
     print_header("Probando conexión con el frontend")
-    
+
     frontend_url = "http://localhost:3000"
-    
+
     try:
         # Verificar si el frontend está en ejecución
         print_info(f"Verificando si el frontend está disponible en: {frontend_url}")
         response = requests.get(frontend_url, timeout=5)
-        
+
         if response.status_code == 200:
             print_success("Frontend disponible correctamente")
             return True
@@ -329,7 +304,7 @@ def test_frontend():
             print_error(f"Error en la respuesta del frontend: {response.status_code}")
             print_info("Intenta iniciar el frontend con: npm run dev")
             return False
-            
+
     except requests.RequestException as e:
         print_error(f"Error de conexión con el frontend: {str(e)}")
         print_info("¿Está el servidor de desarrollo en ejecución? Intenta con: npm run dev")
@@ -350,46 +325,43 @@ def main():
     print(f"{NC}")
     print("Test de Integración del Sistema")
     print("-" * 50)
-    
+
     # Resultados
     results = {}
-    
+
     # Verificar .env
     results["env_file"] = check_env_file()
-    
+
     # Probar Supabase
     results["supabase"] = test_supabase_connection()
-    
+
     # Probar agentes IA
     results["ai_agents"] = test_ai_agents()
-    
+
     # Probar servidor MCP
     results["mcp_server"] = test_mcp_server()
-    
-    # Probar n8n
-    results["n8n"] = test_n8n()
-    
+
     # Probar frontend
     results["frontend"] = test_frontend()
-    
+
     # Resumen
     print_header("Resumen de las pruebas")
-    
+
     all_success = True
     for component, status in results.items():
         if status:
-            print_success(f"{component.replace('_', ' ').title()}: OK")
+            print_success(f"{component.replace('_', ' ').title().replace('Ai', 'AI')}: OK")
         else:
-            print_error(f"{component.replace('_', ' ').title()}: Fallo")
+            print_error(f"{component.replace('_', ' ').title().replace('Ai', 'AI')}: Fallo")
             all_success = False
-    
+
     if all_success:
         print(f"\n{GREEN}¡Todas las pruebas completadas con éxito!{NC}")
         print(f"{GREEN}El sistema Solar Fluidity está integrado correctamente.{NC}")
     else:
         print(f"\n{YELLOW}Algunas pruebas fallaron. Revisa los mensajes de error anteriores.{NC}")
         print(f"{YELLOW}Consulta la documentación para solucionar los problemas.{NC}")
-    
+
     return 0 if all_success else 1
 
 if __name__ == "__main__":

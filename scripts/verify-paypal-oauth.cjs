@@ -8,16 +8,17 @@ const { URLSearchParams } = require('url');
 // Cargar variables de entorno
 dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-const PAYPAL_CLIENT_ID = process.env.VITE_PAYPAL_CLIENT_ID;
-const PAYPAL_SECRET = process.env.VITE_PAYPAL_SECRET;
+// Use Production credentials
+const PAYPAL_CLIENT_ID = process.env.PAYPAL_LIVE_CLIENT_ID;
+const PAYPAL_SECRET = process.env.PAYPAL_LIVE_SECRET;
 
 // Determinar ambiente (sandbox o producción)
-// Usar el entorno de producción ya que las credenciales parecen ser de producción
+// Use Production URL
 const PAYPAL_API_BASE = 'https://api-m.paypal.com';
 
 // Información básica sobre la configuración
 console.log('Verificando conexión con PayPal usando OAuth:');
-console.log(`- Ambiente: Producción`);
+console.log(`- Ambiente: Producción`); // Updated log message
 console.log(`- Client ID: ${PAYPAL_CLIENT_ID ? PAYPAL_CLIENT_ID.substring(0, 10) + '...' : 'no configurado'}`);
 console.log(`- Secret: ${PAYPAL_SECRET ? '********' : 'no configurado'}`);
 

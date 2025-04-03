@@ -225,115 +225,9 @@ if __name__ == "__main__":
         if 'f' in locals() and os.path.exists(f.name):
             os.unlink(f.name)
 
-def generate_n8n_workflow():
-    """Genera un archivo JSON para importar en n8n."""
-    print_header("Generando workflow para n8n")
-    
-    workflow = {
-        "nodes": [
-            {
-                "parameters": {
-                    "command": "python",
-                    "arguments": "src/integrations/mcp/solar_fluidity_mcp_server.py",
-                    "environmentVariables": {
-                        "SUPABASE_URL": "https://rlqvkqaownzqelvxnhzd.supabase.co",
-                        "SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJscXZrcWFvd256cWVsdnhuaHpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg5MDc2OTYsImV4cCI6MjA1NDQ4MzY5Nn0.VbIVp5gROoFjCO4k1263nIqZfcAYY9WFkhTJr_VXvm0"
-                    }
-                },
-                "id": "1",
-                "name": "MCP Client",
-                "type": "n8n-nodes-base.mcpClient",
-                "typeVersion": 1,
-                "position": [250, 300]
-            },
-            {
-                "parameters": {
-                    "resource": "invoices://list"
-                },
-                "id": "2",
-                "name": "MCP Read Resource",
-                "type": "n8n-nodes-base.mcpReadResource",
-                "typeVersion": 1,
-                "position": [450, 300]
-            },
-            {
-                "parameters": {
-                    "httpMethod": "GET",
-                    "path": "invoices",
-                    "responseMode": "responseNode"
-                },
-                "id": "3",
-                "name": "Webhook",
-                "type": "n8n-nodes-base.webhook",
-                "typeVersion": 1,
-                "position": [50, 300]
-            },
-            {
-                "parameters": {
-                    "respondWith": "json",
-                    "responseBody": "={{$node[\"MCP Read Resource\"].json.result}}"
-                },
-                "id": "4",
-                "name": "Respond to Webhook",
-                "type": "n8n-nodes-base.respondToWebhook",
-                "typeVersion": 1,
-                "position": [650, 300]
-            }
-        ],
-        "connections": {
-            "Webhook": {
-                "main": [
-                    [
-                        {
-                            "node": "MCP Client",
-                            "type": "main",
-                            "index": 0
-                        }
-                    ]
-                ]
-            },
-            "MCP Client": {
-                "main": [
-                    [
-                        {
-                            "node": "MCP Read Resource",
-                            "type": "main",
-                            "index": 0
-                        }
-                    ]
-                ]
-            },
-            "MCP Read Resource": {
-                "main": [
-                    [
-                        {
-                            "node": "Respond to Webhook",
-                            "type": "main",
-                            "index": 0
-                        }
-                    ]
-                ]
-            }
-        },
-        "name": "Solar Fluidity - Listar Facturas",
-        "active": false
-    }
-    
-    # Guardar workflow
-    workflow_path = os.path.join("src", "integrations", "n8n", "workflows")
-    os.makedirs(workflow_path, exist_ok=True)
-    
-    with open(os.path.join(workflow_path, "listar_facturas.json"), "w") as f:
-        json.dump(workflow, f, indent=2)
-    
-    print_success(f"Workflow generado: {os.path.join(workflow_path, 'listar_facturas.json')}")
-    print_info("Importa este archivo en n8n para probar la integración")
-    
-    return True
-
 def main():
     """Función principal."""
-    print_header("Diagnóstico de Solar Fluidity MCP + n8n")
+    print_header("Diagnóstico de Solar Fluidity MCP")
     
     # Verificar versión de Python
     if not check_python_version():
@@ -349,17 +243,13 @@ def main():
     # Probar servidor MCP
     mcp_ok = test_mcp_server()
     
-    # Generar workflow para n8n
-    if supabase_ok and mcp_ok:
-        generate_n8n_workflow()
-    
     # Resumen
     print_header("Resumen del diagnóstico")
     print_info(f"Conexión con Supabase: {'✅' if supabase_ok else '❌'}")
     print_info(f"Servidor MCP: {'✅' if mcp_ok else '❌'}")
     
     if supabase_ok and mcp_ok:
-        print_success("¡Todo funciona correctamente! Puedes importar el workflow en n8n")
+        print_success("¡Todo funciona correctamente!")
     else:
         print_error("Hay problemas que debes resolver antes de continuar")
 

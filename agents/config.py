@@ -51,7 +51,6 @@ class Config(BaseModel):
     # Integration Points
     INTEGRATION_CHECKS = {
         "supabase": ["database", "authentication", "storage"],
-        "n8n": ["workflows", "credentials"],
         "hacienda": ["certificates", "api_access"],
         "paypal": ["sandbox", "production"]
     }

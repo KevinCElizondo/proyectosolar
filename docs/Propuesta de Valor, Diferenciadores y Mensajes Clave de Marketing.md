@@ -23,7 +23,7 @@ Convertirse en la solución líder en software de gestión para la industria sol
 "Simplificamos la gestión de proyectos solares con una plataforma inteligente y automatizada, permitiéndote enfocarte en lo que realmente importa: el crecimiento de tu empresa."
 
 ### 3.2. Diferenciadores
-- **Automatización Avanzada:** Integraciones con n8n y gum Loop para optimizar tareas.
+- **Automatización Avanzada:** Sistema de agentes IA y integraciones MCP para optimizar tareas.
 - **Interfaz Intuitiva:** Diseño UX/UI enfocado en la simplicidad y eficiencia.
 - **Facturación Electrónica Integrada:** Cumplimiento con normativas de Hacienda CR.
 - **Soporte Personalizado:** Atención especializada para cada cliente.

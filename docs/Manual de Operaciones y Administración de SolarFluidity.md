@@ -18,7 +18,7 @@ Este manual proporciona las directrices necesarias para la operación y mantenim
 
 ### 3.2. Configuración de Parámetros del Sistema
 - Definir opciones de facturación electrónica.
-- Configurar integraciones con n8n, PayPal y otros servicios externos.
+- Configurar integraciones con PayPal y otros servicios externos (MCPs).
 - Ajustar preferencias de notificaciones y seguridad.
 
 ## **4. Mantenimiento Preventivo**

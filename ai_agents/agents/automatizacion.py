@@ -1,6 +1,6 @@
 """
 Módulo de automatización basado en agentes IA para Solar Fluidity.
-Reemplaza las funcionalidades previamente manejadas por n8n con un enfoque
+Reemplaza las funcionalidades de automatización con un enfoque
 basado en LangGraph y Pydantic.
 """
 
@@ -68,7 +68,7 @@ class ReporteProyecto(BaseModel):
 class AutomatizacionAgent:
     """
     Agente principal de automatización que coordina los flujos automatizados
-    reemplazando la funcionalidad previamente proporcionada por n8n.
+    utilizando el sistema de agentes IA.
     """
     
     def __init__(self, db_client=None, mcp_client=None):
@@ -80,7 +80,6 @@ class AutomatizacionAgent:
     async def procesar_recordatorios_facturas(self):
         """
         Procesa recordatorios de facturas pendientes de pago.
-        Equivalente al flujo 'recordatorio_facturas.json' de n8n.
         """
         logger.info("Iniciando procesamiento de recordatorios de facturas")
         try:
@@ -158,7 +157,6 @@ class AutomatizacionAgent:
     async def procesar_notificaciones_hitos(self):
         """
         Procesa notificaciones de hitos de proyectos.
-        Equivalente al flujo 'notificacion_hitos.json' de n8n.
         """
         logger.info("Iniciando procesamiento de notificaciones de hitos")
         try:
@@ -244,7 +242,6 @@ class AutomatizacionAgent:
     async def generar_reporte_semanal(self):
         """
         Genera reportes semanales de proyectos.
-        Equivalente al flujo 'reporte_semanal.json' de n8n.
         """
         logger.info("Iniciando generación de reportes semanales")
         try:

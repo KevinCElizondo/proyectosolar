@@ -9,8 +9,11 @@ export const env = {
   API_URL: import.meta.env.VITE_API_URL || 'http://localhost:3000',
   
   // PayPal
-  PAYPAL_CLIENT_ID: import.meta.env.VITE_PAYPAL_CLIENT_ID,
-  PAYPAL_CLIENT_SECRET: import.meta.env.VITE_PAYPAL_SECRET,
+  // Use VITE_ prefix for frontend access, but read potentially different vars for backend/serverless context
+  PAYPAL_SANDBOX_CLIENT_ID: import.meta.env.VITE_PAYPAL_SANDBOX_CLIENT_ID || import.meta.env.PAYPAL_SANDBOX_CLIENT_ID,
+  PAYPAL_SANDBOX_SECRET: import.meta.env.VITE_PAYPAL_SANDBOX_SECRET || import.meta.env.PAYPAL_SANDBOX_SECRET,
+  PAYPAL_LIVE_CLIENT_ID: import.meta.env.VITE_PAYPAL_LIVE_CLIENT_ID || import.meta.env.PAYPAL_LIVE_CLIENT_ID,
+  PAYPAL_LIVE_SECRET: import.meta.env.VITE_PAYPAL_LIVE_SECRET || import.meta.env.PAYPAL_LIVE_SECRET,
   
   // Características
   ENABLE_ANALYTICS: import.meta.env.VITE_ENABLE_ANALYTICS === 'true',

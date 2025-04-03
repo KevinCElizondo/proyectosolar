@@ -24,7 +24,7 @@ Antes de comenzar la instalación, asegúrese de tener instalados y configurados
   ```bash
   # Verificar versión instalada
   node -v
-  
+
   # Si necesita instalar Node.js, visite: https://nodejs.org/
   ```
 
@@ -32,11 +32,11 @@ Antes de comenzar la instalación, asegúrese de tener instalados y configurados
   ```bash
   # Verificar versión de npm
   npm -v
-  
+
   # O si prefiere usar Bun (recomendado para este proyecto)
   # Instalar Bun
   curl -fsSL https://bun.sh/install | bash
-  
+
   # Verificar versión de Bun
   bun -v
   ```
@@ -45,7 +45,7 @@ Antes de comenzar la instalación, asegúrese de tener instalados y configurados
   ```bash
   # Verificar versión instalada
   git --version
-  
+
   # Si necesita instalar Git, visite: https://git-scm.com/
   ```
 
@@ -54,8 +54,18 @@ Antes de comenzar la instalación, asegúrese de tener instalados y configurados
   # Verificar versiones instaladas
   docker --version
   docker-compose --version
-  
+
   # Si necesita instalar Docker, visite: https://docs.docker.com/get-docker/
+  ```
+- **Python**: Versión 3.8 o superior (para Agentes IA)
+  ```bash
+  # Verificar versión instalada
+  python3 --version # o python --version
+  ```
+- **pip**: Gestor de paquetes para Python
+  ```bash
+  # Verificar versión instalada
+  pip3 --version # o pip --version
   ```
 
 ### Cuentas y Servicios
@@ -77,9 +87,11 @@ Necesitará crear cuentas en los siguientes servicios:
    - Cree una aplicación para obtener las credenciales de API
    - Configure webhooks para notificaciones de pago
 
+4. **OpenAI** (o modelo compatible): Para los Agentes IA
+   - Obtenga una clave API de [https://openai.com/](https://openai.com/)
 
 5. **Proveedor de Email** (SMTP):
-   - Puede usar servicios como SendGrid, Amazon SES, o cualquier proveedor SMTP
+   - Puede usar servicios como SendGrid, Amazon SES, o cualquier proveedor SMTP (si no usa Gmail MCP)
 
 ## Instalación del Proyecto
 
@@ -96,30 +108,40 @@ cd proyectosolar
 ### 2. Instalar Dependencias
 
 ```bash
+# Instalar dependencias de Node.js (Frontend)
 # Usando npm
 npm install
+# O usando Bun (recomendado)
+# bun install
 
-# O usando Bun (recomendado para este proyecto)
-bun install
+# Instalar dependencias de Python (Agentes IA)
+cd ai_agents
+pip install -r requirements.txt
+cd ..
 ```
 
 ### 3. Configurar Variables de Entorno
 
 ```bash
-# Copiar el archivo de ejemplo
+# Copiar el archivo de ejemplo para el frontend/general
 cp .env.example .env
-
 # Editar el archivo .env con sus credenciales
-nano .env  # o use su editor preferido
+
+# Copiar el archivo de ejemplo para los agentes IA
+cd ai_agents
+cp .env.example .env
+# Editar ai_agents/.env con sus credenciales (OpenAI API Key, etc.)
+cd ..
 ```
 
-Asegúrese de completar todas las variables requeridas en el archivo `.env`:
+Asegúrese de completar todas las variables requeridas en ambos archivos `.env`:
 
+**Archivo `.env` (Raíz del proyecto):**
 ```env
-# Supabase
+# Supabase (para Frontend y Backend)
 VITE_SUPABASE_URL=tu_url_de_supabase
 VITE_SUPABASE_ANON_KEY=tu_clave_anonima
-SUPABASE_SERVICE_ROLE_KEY=tu_clave_de_servicio
+SUPABASE_SERVICE_ROLE_KEY=tu_clave_de_servicio # Usada por backend/MCPs
 
 # PayPal
 VITE_PAYPAL_CLIENT_ID=tu_client_id
@@ -132,12 +154,21 @@ VITE_AWS_REGION=region
 AWS_ACCESS_KEY_ID=access_key
 AWS_SECRET_ACCESS_KEY=secret_key
 
-# Email
+# Email (si no usa Gmail MCP)
 VITE_SMTP_HOST=tu_smtp_host
 VITE_SMTP_PORT=tu_smtp_port
 VITE_SMTP_USER=tu_smtp_user
 VITE_SMTP_PASSWORD=tu_smtp_password
+```
 
+**Archivo `ai_agents/.env`:**
+```env
+# OpenAI
+OPENAI_API_KEY=tu_clave_api_openai
+
+# Supabase (para Agentes IA)
+SUPABASE_URL=tu_url_de_supabase
+SUPABASE_KEY=tu_clave_de_servicio # Service Role Key
 ```
 
 ## Configuración de Servicios Externos
@@ -218,7 +249,7 @@ Para configurar datos iniciales necesarios para el funcionamiento del sistema:
 Para la facturación electrónica en Costa Rica, necesitará:
 
 ```bash
-# Crear directorio de certificados
+# Crear directorio de certificados (si no existe)
 mkdir -p certificates
 
 # Copiar certificado y llave a este directorio
@@ -227,7 +258,7 @@ mkdir -p certificates
 
 ### 2. Configurar Plantillas XML
 
-Las plantillas para documentos fiscales se encuentran en el directorio `n8n/templates/`:
+Las plantillas para documentos fiscales se encuentran en el directorio `templates/` (o similar, verificar estructura):
 
 1. Revise y ajuste las plantillas según sea necesario
 2. Asegúrese de que cumplen con los requisitos actuales del Ministerio de Hacienda
@@ -237,23 +268,29 @@ Las plantillas para documentos fiscales se encuentran en el directorio `n8n/temp
 ### 1. Iniciar en Modo Desarrollo
 
 ```bash
+# Iniciar Frontend (React/Vite)
 # Usando npm
 npm run dev
-
 # O usando Bun
-bun run dev
+# bun run dev
+
+# Iniciar Servidor de Agentes IA (FastAPI)
+cd ai_agents
+python main.py
+cd ..
 ```
 
-La aplicación estará disponible en http://localhost:5173 (o el puerto que se configure)
+La aplicación frontend estará disponible en http://localhost:5173 (o el puerto que se configure).
+El servidor de agentes IA estará disponible en http://localhost:8000.
 
 ### 2. Compilar para Producción
 
 ```bash
+# Compilar Frontend
 # Usando npm
 npm run build
-
 # O usando Bun
-bun run build
+# bun run build
 ```
 
 ## Despliegue en Producción
@@ -265,11 +302,12 @@ Hay varias opciones para desplegar la aplicación en producción:
 #### Opción A: Servidor VPS
 
 1. Configure un servidor con Nginx/Apache
-2. Instale Node.js y PM2
+2. Instale Node.js, Python y PM2 (o similar)
 3. Configure SSL con Let's Encrypt
-4. Despliegue la aplicación compilada
+4. Despliegue la aplicación frontend compilada
+5. Despliegue el servidor de Agentes IA usando PM2
 
-#### Opción B: Servicios de Hosting Estático
+#### Opción B: Servicios de Hosting
 
 1. Para el frontend (archivos compilados):
    - Vercel
@@ -278,7 +316,7 @@ Hay varias opciones para desplegar la aplicación en producción:
 
 2. Para servicios adicionales:
    - Mantener Supabase en la nube
-   - Desplegar n8n en un servidor dedicado o usar n8n.cloud
+   - Desplegar el servidor de Agentes IA (FastAPI) en un entorno adecuado (Docker, K8s, PaaS como Render, Heroku, etc.)
 
 ### 2. Configuración de Dominio y SSL
 
@@ -307,7 +345,7 @@ Después de la instalación y configuración, realice las siguientes verificacio
 
 1. Pruebe la generación y almacenamiento de facturas
 2. Verifique que los archivos se suben correctamente a S3
-3. Compruebe que los flujos de Agentes IA / Python se ejecutan según lo esperado
+3. Compruebe que los flujos de Agentes IA se ejecutan según lo esperado (pruebe la API)
 4. Pruebe el procesamiento de pagos con PayPal en modo sandbox
 
 ## Solución de Problemas Comunes
@@ -322,7 +360,7 @@ Después de la instalación y configuración, realice las siguientes verificacio
 
 - Asegúrese de que los certificados digitales son válidos
 - Verifique que las plantillas XML cumplen con el formato requerido
-- Compruebe los logs de los Agentes IA / Python para errores específicos
+- Compruebe los logs de los Agentes IA para errores específicos
 
 ### Problemas con PayPal
 
@@ -330,8 +368,10 @@ Después de la instalación y configuración, realice las siguientes verificacio
 - Compruebe que los webhooks están configurados correctamente
 - Revise los logs de transacciones en el panel de PayPal
 
-### Errores en Automatizaciones
+### Errores en Automatizaciones (Agentes IA)
 
-- Verifique que n8n está ejecutándose
-- Compruebe las credenciales configuradas en n8n
-- Revise los logs de ejecución de los workflows
+- Verifique que el servidor de Agentes IA está ejecutándose
+- Compruebe las credenciales de API (OpenAI, etc.) en `ai_agents/.env`
+- Revise los logs de ejecución de los agentes en `ai_agents/logs/`
+- Asegúrese de que las variables de entorno son correctas
+- Pruebe la conexión con Supabase y otros servicios externos desde los agentes
