@@ -1,0 +1,26 @@
+# render.yaml for Solar Fluidity Backend API
+
+services:
+  - type: web # Specifies a web service
+    name: solar-fluidity-backend # Name of the service on Render
+    env: node # Environment (Node.js)
+    plan: free # Or your desired Render plan (e.g., starter)
+    region: oregon # Or your preferred Render region
+    buildCommand: "npm install" # Command to install dependencies
+    startCommand: "npm start" # Command to start the server (uses the script in package.json)
+    envVars:
+      - key: NODE_ENV # Set to production for deployed environment
+        value: production
+      - key: PORT # Render sets the PORT environment variable automatically, but good practice to define
+        value: 4000 # Render will override this with the internal port it assigns
+      - key: FRONTEND_URL # URL of your deployed frontend (important for CORS)
+        sync: false # Set this manually in Render dashboard or use a preview environment variable
+      - key: PAYPAL_CLIENT_ID # Use PAYPAL_LIVE_CLIENT_ID for production
+        fromSecret: true # Mark as secret, set value in Render dashboard
+      - key: PAYPAL_SECRET # Use PAYPAL_LIVE_SECRET for production
+        fromSecret: true # Mark as secret, set value in Render dashboard
+      # Add PAYPAL_LIVE_CLIENT_ID and PAYPAL_LIVE_SECRET if you use them explicitly based on NODE_ENV
+      - key: PAYPAL_LIVE_CLIENT_ID
+        fromSecret: true
+      - key: PAYPAL_LIVE_SECRET
+        fromSecret: true
