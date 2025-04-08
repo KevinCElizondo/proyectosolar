@@ -41,7 +41,6 @@ Solar Fluidity es una plataforma SaaS diseñada específicamente para empresas c
 -   **Backend API (Pagos)**: Node.js + Express (en `backend-api/`)
 -   **Base de Datos**: Supabase (PostgreSQL)
 -   **Automatizaciones**: Agentes IA (LangGraph + Pydantic + Python en `ai_agents/`)
--   **Notificador Slack**: Python + Watchdog + LangGraph (en `readme_notifier/`)
 -   **Servidor MCP (Facturas/Proyectos)**: Python + FastMCP + Supabase (en `src/integrations/mcp/`)
 -   **Almacenamiento**: AWS S3 (documentos XML/PDF) - *Configuración pendiente*
 -   **Pagos**: PayPal (integrado vía `backend-api`)
@@ -73,10 +72,10 @@ Asegúrate de tener instalado lo siguiente:
     -   Google Cloud (para OAuth de Gmail/Calendar)
     -   Supabase (para base de datos principal)
     -   PayPal Developer (para credenciales de API de pagos Sandbox y Live)
-    -   Slack (para crear un Bot y obtener un Bot Token `xoxb-...`)
-    -   (Opcional) OpenAI (si los agentes IA lo requieren)
-    -   (Opcional) Airtable, GitHub (si usas esos MCPs)
+    -   (Opcional) OpenAI (para los Agentes IA)
+    -   (Opcional) GitHub (si usas ese MCP)
     -   (Opcional) AWS (para S3)
+    -   **Docker y Docker Compose:** Para ejecutar servicios contenerizados (ver <a href="#ejecución-con-docker-compose">Ejecución con Docker Compose</a>).
 
 ### 2. Clonar el Repositorio
 
@@ -239,66 +238,87 @@ Si planeas usar las integraciones MCP (Gmail, Calendar, Airtable, GitHub):
 
 ## 🚀 Ejecución
 
-Puedes iniciar los diferentes componentes del proyecto de forma individual o todos juntos.
+Puedes iniciar los diferentes componentes del proyecto de forma individual, usando el script `start_solar_fluidity.sh`, o utilizando Docker Compose para los servicios soportados.
 
-### Iniciar Todos los Servicios (Recomendado para desarrollo completo)
+### Ejecución con Docker Compose (Recomendado para Agentes IA y Dashboard)
+
+Docker Compose gestiona los servicios `ai-agents` y `support-dashboard`. Asegúrate de haber configurado los archivos `.env` correspondientes como se indica en la [Guía de Despliegue](docs/GUIA_DESPLIEGUE.md).
+
+```bash
+# Construir (si es necesario) e iniciar los servicios en segundo plano
+docker-compose up --build -d
+
+# Ver logs
+docker-compose logs -f
+
+# Detener los servicios
+docker-compose down
+```
+
+Servicios disponibles:
+-   **AI Agents API:** `http://localhost:8001`
+-   **Support Dashboard:** `http://localhost:9999`
+
+Consulta la [Guía de Despliegue](docs/GUIA_DESPLIEGUE.md) para más detalles.
+
+### Iniciar Todos los Servicios (Script)
+
+El script `start_solar_fluidity.sh` puede intentar iniciar varios componentes (puede requerir ajustes).
 
 ```bash
 ./start_solar_fluidity.sh --full
 ```
-Esto debería iniciar:
-1.  Frontend (Vite dev server)
-2.  Backend API (Node.js/Express)
-3.  Agentes IA (Python/FastAPI - si aplica)
-4.  Servidor MCP (Python/FastMCP)
-5.  (Opcional) Podrías añadir el inicio del `readme_notifier` a este script.
 
-### Iniciar Componentes Individualmente
+### Iniciar Componentes Individualmente (Manual)
+
+Si no usas Docker Compose para los agentes o necesitas iniciar otros componentes manualmente:
 
 -   **Frontend:**
     ```bash
-    npm run dev 
+    npm run dev
     ```
-    (Accede en `http://localhost:5173` o el puerto que indique Vite)
+    (Accede en `http://localhost:5173`)
 
 -   **Backend API:**
     ```bash
     cd backend-api
     npm start
     ```
-    (API disponible en `http://localhost:4000` o el puerto en `.env`)
+    (API disponible en `http://localhost:4000`)
 
--   **Agentes IA:**
+-   **Agentes IA (si no usas Docker):**
     ```bash
-    cd ai_agents
-    python main.py # o el comando de inicio correspondiente
+    # Asegúrate de tener las dependencias: pip install -r ai_agents/requirements.txt
+    # Asegúrate de que ai_agents/.env esté configurado
+    python ai_agents/main.py
     ```
+    (API disponible en `http://localhost:8000`)
 
 -   **Servidor MCP (Facturas/Proyectos):**
     ```bash
-    cd src/integrations/mcp
-    # Asegúrate de que las variables SUPABASE_URL y SUPABASE_KEY estén disponibles
-    # Puede ser necesario exportarlas antes o usar:
-    # SUPABASE_URL=$VITE_SUPABASE_URL SUPABASE_KEY=$SUPABASE_KEY python solar_fluidity_mcp_server.py
-    python solar_fluidity_mcp_server.py 
+    # Asegúrate de tener las dependencias y variables de entorno (SUPABASE_URL, SUPABASE_KEY)
+    python src/integrations/mcp/solar_fluidity_mcp_server.py
     ```
 
 -   **Notificador Slack:**
     ```bash
-    # Desde la raíz del proyecto
-    python readme_notifier/main.py 
+    # Asegúrate de tener las dependencias y readme_notifier/.env configurado
+    python readme_notifier/main.py
     ```
 
 -   **MCPs Externos (Gmail, Calendar, etc.):**
-    Inícialos según la configuración de tu hub MCP (puede ser a través de la extensión de VSCode, un script, etc., basado en tu archivo `mcp_config.json`).
+    Inícialos según la configuración de tu hub MCP.
 
 ## 🤖 Agentes IA y Automatizaciones
 
 *(Sección omitida por brevedad - mantener la existente)*
 
-## 📘 Guías de Uso
+## 📘 Guías de Uso y Despliegue
 
-*(Sección omitida por brevedad - mantener la existente)*
+-   **Guía de Usuario:** [docs/GUIA_USUARIO.md](docs/GUIA_USUARIO.md)
+-   **Guía de Despliegue (Docker):** [docs/GUIA_DESPLIEGUE.md](docs/GUIA_DESPLIEGUE.md)
+-   **Documentación de Arquitectura:** [docs/DOCUMENTO_MAESTRO_ARQUITECTURA.md](docs/DOCUMENTO_MAESTRO_ARQUITECTURA.md)
+-   **Estructura del Proyecto:** [docs/ESTRUCTURA_PROYECTO.md](docs/ESTRUCTURA_PROYECTO.md)
 
 ## 📄 Licencia
 

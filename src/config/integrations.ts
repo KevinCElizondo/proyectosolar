@@ -20,7 +20,7 @@ export const GOOGLE_AUTH_CONFIG = {
 export const CONVEX_CONFIG = {
   deploymentUrl: 'https://agile-bee-457.convex.cloud',
   httpActionUrl: 'https://agile-bee-457.convex.site',
-  deployKey: 'prod:agile-bee-457|eyJ2MiI6ImM2NWM1NTI1OTUzNTQyYTU4OTZjYWUxOTk3OTJmOGJlIn0='
+  deployKey: import.meta.env.VITE_CONVEX_DEPLOY_KEY || '' // Read from environment variable
 };
 
 // Configuración de Supabase

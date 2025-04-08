@@ -215,9 +215,8 @@ La integración con MCP permite conectar con servicios externos de manera estand
 Los principales servidores MCP utilizados son:
 1. Gmail MCP - Para comunicaciones automáticas
 2. Google Calendar MCP - Para gestión de agenda
-3. Airtable MCP - Para gestión de datos estructurados
-4. GitHub MCP - Para seguimiento de proyectos
-5. Browser Tools MCP - Para automatización web
+3. GitHub MCP - Para seguimiento de proyectos
+4. Browser Tools MCP - Para automatización web
 
 ## Tecnologías Utilizadas
 

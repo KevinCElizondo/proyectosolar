@@ -107,23 +107,6 @@ class SolarFluidityAgents:
             state.alerts.append(f"Task management error: {str(e)}")
             return state
 
-    async def notification_handler_agent(self, state: ProjectState) -> ProjectState:
-        """Handle notifications and alerts"""
-        try:
-            # Send alerts to appropriate Slack channels
-            for alert in state.alerts:
-                self.send_slack_alert(alert)
-
-            # Update project status in Slack
-            self.update_slack_status(state.current_status)
-
-            # Clear processed alerts
-            state.alerts = []
-
-            return state
-        except Exception as e:
-            print(f"Notification error: {str(e)}")
-            return state
 
     async def send_direct_message(self, user: str, message: str):
         """Send a direct message using Zapier's send_direct_message tool"""
@@ -208,29 +191,3 @@ class SolarFluidityAgents:
         except Exception as e:
             print(f"Airtable tasks update error: {str(e)}")
 
-    def send_slack_alert(self, alert: str):
-        """Send alert to appropriate Slack channel"""
-        try:
-            response = self.slack.chat_postMessage(
-                channel=self.config.MONITORING_CHANNELS["alerts"],
-                text=alert
-            )
-            if not response["ok"]:
-                print(f"Failed to send alert: {response['error']}")
-        except Exception as e:
-            print(f"Slack alert error: {str(e)}")
-
-    def update_slack_status(self, status: Dict[str, str]):
-        """Update project status in Slack"""
-        try:
-            status_message = "Project Status Update:\n" + \
-                "\n".join([f"{k}: {v}" for k, v in status.items()])
-            
-            response = self.slack.chat_postMessage(
-                channel=self.config.MONITORING_CHANNELS["development"],
-                text=status_message
-            )
-            if not response["ok"]:
-                print(f"Failed to update status: {response['error']}")
-        except Exception as e:
-            print(f"Slack status update error: {str(e)}")

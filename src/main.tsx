@@ -2,12 +2,17 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { env } from './config/environment'; // Import centralized env config
 
-// Retrieve the Sandbox Client ID from environment variables
+// Determine PayPal Client ID based on environment
+const paypalClientId = env.NODE_ENV === 'development'
+  ? env.PAYPAL_SANDBOX_CLIENT_ID
+  : env.PAYPAL_LIVE_CLIENT_ID;
+
 const initialOptions = {
-    "client-id": import.meta.env.VITE_PAYPAL_CLIENT_ID || "test", // Use "test" as fallback if not found
-    currency: "USD", // You can change this to your desired currency
-    intent: "capture",
+    clientId: paypalClientId || "test", // Use configured ID or fallback to "test"
+    currency: "USD", // Default currency
+    intent: "capture", // Default intent
 };
 
 createRoot(document.getElementById("root")!).render(

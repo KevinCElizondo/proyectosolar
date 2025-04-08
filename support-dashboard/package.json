@@ -1,0 +1,21 @@
+{
+  "name": "support-dashboard",
+  "version": "1.0.0",
+  "description": "Local development support dashboard for Solar Fluidity",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "docker",
+    "dashboard",
+    "development",
+    "support"
+  ],
+  "author": "Solar Fluidity Team",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

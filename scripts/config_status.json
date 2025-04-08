@@ -1,0 +1,81 @@
+{
+  "timestamp": "2025-04-03 16:13:42",
+  "status": {
+    "Archivos de Configuraci\u00f3n": false,
+    "Conexi\u00f3n a Supabase": false,
+    "Agentes IA": false,
+    "Servidor MCP": true,
+    "Frontend": false,
+    "Configuraci\u00f3n PayPal": true
+  },
+  "details": {
+    "env_files": {
+      ".env": {
+        "exists": true,
+        "missing_vars": [],
+        "placeholder_vars": []
+      },
+      "agents/.env": {
+        "exists": true,
+        "missing_vars": [],
+        "placeholder_vars": [
+          "SUPABASE_KEY",
+          "OPENAI_API_KEY",
+          "AIRTABLE_API_KEY",
+          "AIRTABLE_BASE_ID",
+          "AIRTABLE_TABLE_NAME",
+          "GITHUB_TOKEN"
+        ]
+      },
+      "src/integrations/mcp/.env": {
+        "exists": true,
+        "missing_vars": [],
+        "placeholder_vars": []
+      }
+    },
+    "supabase": {
+      "connection": true,
+      "existing_tables": [],
+      "missing_tables": [
+        "facturas",
+        "factura_lineas",
+        "proyectos",
+        "proyecto_hitos",
+        "clientes",
+        "usuarios"
+      ]
+    },
+    "ai_agents": {
+      "env_file": true,
+      "missing_keys": [],
+      "placeholder_keys": [
+        "OPENAI_API_KEY",
+        "SUPABASE_KEY",
+        "GITHUB_TOKEN"
+      ],
+      "server_running": false
+    },
+    "mcp_server": {
+      "config_file": true,
+      "missing_keys": [],
+      "placeholder_keys": [],
+      "server_running": true
+    },
+    "frontend": {
+      "frontend_url": "http://localhost:8080",
+      "frontend_running": true,
+      "api_url": "http://localhost:3000",
+      "api_running": false
+    },
+    "paypal": {
+      "config_complete": true
+    }
+  },
+  "required_actions": [
+    "Reemplazar los valores de marcador de posici\u00f3n en agents/.env para: SUPABASE_KEY, OPENAI_API_KEY, AIRTABLE_API_KEY, AIRTABLE_BASE_ID, AIRTABLE_TABLE_NAME, GITHUB_TOKEN",
+    "Crear las tablas faltantes en Supabase: facturas, factura_lineas, proyectos, proyecto_hitos, clientes, usuarios",
+    "Reemplazar los valores de marcador de posici\u00f3n en agents/.env para: OPENAI_API_KEY, SUPABASE_KEY, GITHUB_TOKEN",
+    "Iniciar el servidor de agentes IA (python ai_agents/main.py)",
+    "Iniciar el servidor API en http://localhost:3000"
+  ]
+}

@@ -6,9 +6,6 @@ class Config(BaseModel):
     SUPABASE_URL: str
     SUPABASE_KEY: str
     
-    # Slack
-    SLACK_BOT_TOKEN: str
-    SLACK_CHANNEL_ID: str
     
     # Airtable
     AIRTABLE_API_KEY: str
@@ -22,12 +19,6 @@ class Config(BaseModel):
     GITHUB_TOKEN: str
     GITHUB_REPO: str = "KevinCElizondo/proyectosolar"
 
-    # Monitoring Channels
-    MONITORING_CHANNELS = {
-        "development": "C123...", # Replace with actual Slack channel IDs
-        "production": "C456...",
-        "errors": "C789..."
-    }
 
     # Project Structure
     REQUIRED_DIRECTORIES = [

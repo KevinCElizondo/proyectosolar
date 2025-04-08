@@ -251,7 +251,6 @@ Para integrar tus flujos con servicios externos:
 2. Selecciona el servicio con el que deseas integrarte:
    - Google Workspace (Gmail, Calendar, Drive)
    - Airtable
-   - Slack
    - WhatsApp Business
    - CRM externo
    - ERP externo

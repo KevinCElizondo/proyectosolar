@@ -1,19 +1,72 @@
 version: '3.8'
 
 services:
-  # Define other services like your web application, database, etc.
-  # Example:
-  # webapp:
-  #   build: .
-  #   ports:
-  #     - "3000:3000"
+  frontend:
+    build:
+      context: .
+    container_name: solar_fluidity_frontend
+    working_dir: /app
+    command: npm run preview
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./:/app
+    environment:
+      - VITE_API_URL=http://localhost:4000
+    depends_on:
+      - backend-api
 
-# Define any necessary volumes for other services
-# volumes:
-#   postgres_data:
-#     name: solar_fluidity_pg_data
+  backend-api:
+    build:
+      context: ./backend-api
+    container_name: solar_fluidity_backend_api
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./backend-api/.env
+    depends_on:
+      - db
 
-# Define any necessary networks for other services
-# networks:
-#   app-network:
-#     name: solar_fluidity_network
+  ai-agents:
+    build: ./ai_agents
+    container_name: solar_fluidity_ai_agents
+    ports:
+      - "8001:8000"
+    env_file:
+      - ./ai_agents/.env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    container_name: solar_fluidity_db
+    restart: always
+    environment:
+      POSTGRES_USER: solaruser
+      POSTGRES_PASSWORD: solarpassword
+      POSTGRES_DB: solardb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    container_name: solar_fluidity_adminer
+    restart: always
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+
+  support-dashboard:
+    build: ./support-dashboard
+    container_name: solar_fluidity_support_dashboard
+    ports:
+      - "9999:9999"
+    volumes:
+      - .:/usr/src/project:ro
+    # Removed Docker socket mount for security
+
+volumes:
+  postgres_data:

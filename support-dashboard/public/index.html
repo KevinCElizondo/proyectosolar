@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Fluidity - Dev Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h1>Solar Fluidity</h1>
+            <nav>
+                <ul>
+                    <li><a href="#dashboard" class="nav-link active" data-section="dashboard">Dashboard</a></li>
+                    <li><a href="#service-status" class="nav-link" data-section="service-status">Service Status</a></li>
+                    <li><a href="#log-viewer" class="nav-link" data-section="log-viewer">Log Viewer</a></li>
+                    <li><a href="#environment" class="nav-link" data-section="environment">Environment</a></li>
+                    <li><a href="#project-structure" class="nav-link" data-section="project-structure">Project Structure</a></li>
+                    <li><a href="#quick-links" class="nav-link" data-section="quick-links">Quick Links</a></li>
+                    <!-- Optional: MCP Inspector -->
+                    <li><a href="#git-activity" class="nav-link" data-section="git-activity">Git Activity</a></li>
+
+                    <!-- <li><a href="#mcp-inspector" class="nav-link" data-section="mcp-inspector">MCP Inspector</a></li> -->
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <!-- Content sections will be loaded here -->
+            <section id="dashboard" class="content-section active">
+                <h2>Dashboard (Overview)</h2>
+                <p>Loading summary...</p>
+                <div id="dashboard-summary">
+                    <!-- Summary stats will be injected here -->
+                </div>
+                <div class="quick-access">
+                    <button onclick="navigateTo('service-status')">View Service Status</button>
+                    <button onclick="navigateTo('log-viewer')">View Logs</button>
+                </div>
+            </section>
+
+            <section id="service-status" class="content-section">
+                <h2>Service Status (Docker)</h2>
+                <p>Loading service status...</p>
+                <table id="service-status-table">
+                    <thead>
+                        <tr>
+                            <th>Service Name</th>
+                            <th>Container ID</th>
+                            <th>Status</th>
+                            <th>Ports</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Service rows will be injected here -->
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="log-viewer" class="content-section">
+                <h2>Log Viewer</h2>
+                <label for="log-service-select">Select Service:</label>
+                <select id="log-service-select">
+                    <option value="">-- Select a Service --</option>
+                    <!-- Options will be populated dynamically -->
+                </select>
+                <button id="fetch-logs-btn">Fetch Logs</button>
+                <button id="tail-logs-btn" disabled>Follow Logs (TBD)</button>
+                <pre id="log-output">Select a service to view logs.</pre>
+            </section>
+
+            <section id="environment" class="content-section">
+                <h2>Environment Variables (Non-Secret)</h2>
+                <p class="warning"><strong>Warning:</strong> Only non-sensitive environment variables are shown here. Secrets (API Keys, Passwords, Tokens) are intentionally hidden for security.</p>
+                <p><i>Feature not yet implemented. Requires careful consideration of how to expose variables without leaking secrets.</i></p>
+                <!-- Placeholder for environment variable display -->
+            </section>
+
+            <section id="project-structure" class="content-section">
+                <h2>Project Structure</h2>
+                <pre id="project-structure-output">Loading project structure...</pre>
+            </section>
+
+            <section id="quick-links" class="content-section">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="http://localhost:5173" target="_blank">Frontend Local (localhost:5173)</a></li>
+                    <li><a href="http://localhost:4000" target="_blank">Backend API Local (localhost:4000)</a></li>
+                    <li><a href="https://app.supabase.io/" target="_blank">Supabase Dashboard</a></li>
+                    <li><a href="https://dashboard.render.com/" target="_blank">Render Dashboard</a></li>
+                    <li><a href="./docs/" target="_blank">Project Documentation (./docs/)</a></li>
+                    <li><a href="https://github.com/your-repo/proyectosolar" target="_blank">Git Repository (Update Link)</a></li>
+                    <!-- Add other relevant links -->
+                </ul>
+            </section>
+
+            <section id="git-activity" class="content-section">
+                <h2>Recent Git Commits</h2>
+                <p>Loading recent commits...</p>
+                <ul id="commit-list">
+                    <!-- Commit items will be injected here -->
+                </ul>
+            </section>
+
+
+            <!-- Optional: MCP Inspector Section -->
+            <!--
+            <section id="mcp-inspector" class="content-section">
+                <h2>MCP Inspector</h2>
+                <p><i>Feature not yet implemented.</i></p>
+            </section>
+            -->
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

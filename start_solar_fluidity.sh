@@ -124,6 +124,17 @@ install_dependencies() {
     cd ..
     print_success "Dependencias de Python para agentes IA instaladas"
 
+    # Instalar dependencias del backend API
+    print_info "Instalando dependencias del backend API..."
+    if [ -d "backend-api" ]; then
+        cd backend-api
+        npm install
+        cd ..
+        print_success "Dependencias del backend API instaladas"
+    else
+        print_info "Directorio backend-api no encontrado, omitiendo instalación."
+    fi
+
     print_success "Todas las dependencias del proyecto instaladas"
 }
 
@@ -163,6 +174,21 @@ start_mcp_servers() {
     print_success "Servidor MCP iniciado (PID: $MCP_PID)"
 }
 
+
+# Función para iniciar el backend API
+start_backend_api() {
+    print_header "Iniciando Backend API"
+    if [ -d "backend-api" ] && [ -f "backend-api/server.js" ]; then
+        cd backend-api
+        npm start &
+        BACKEND_PID=$!
+        cd ..
+        print_success "Backend API iniciado (PID: $BACKEND_PID)"
+    else
+        print_error "No se encontró el directorio backend-api o server.js"
+    fi
+}
+
 # Función para crear las tablas en Supabase
 setup_supabase() {
     print_header "Configurando tablas en Supabase"
@@ -187,6 +213,7 @@ show_help() {
     echo "  --mcp      Inicia solo los MCPs"
     echo "  --setup    Configura las tablas de Supabase"
     echo "  --help     Muestra esta ayuda"
+    echo "  --backend  Inicia solo el backend API"
 }
 
 # Función principal
@@ -214,6 +241,7 @@ main() {
             start_web_server
             start_ai_agents
             start_mcp_servers
+            start_backend_api # Add backend start
             ;;
         --web)
             install_dependencies
@@ -230,6 +258,10 @@ main() {
         --setup)
             setup_supabase
             ;;
+        --backend)
+            install_dependencies # Ensure backend deps are installed
+            start_backend_api
+            ;;
         --help)
             show_help
             exit 0
@@ -245,7 +277,7 @@ main() {
     print_info "Presiona Ctrl+C para detener todos los servicios"
 
     # Mantener el script en ejecución y manejar la terminación de procesos
-    trap 'kill $WEB_PID $AGENTS_PID $MCP_PID 2>/dev/null' EXIT
+    trap 'kill $WEB_PID $AGENTS_PID $MCP_PID $BACKEND_PID 2>/dev/null' EXIT
     wait
 }
 

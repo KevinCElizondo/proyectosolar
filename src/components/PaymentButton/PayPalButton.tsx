@@ -4,12 +4,13 @@ import {
     PayPalButtons,
     usePayPalScriptReducer
 } from "@paypal/react-paypal-js";
-import paypalService from '../../services/payment/paypal';
+// import paypalService from '../../services/payment/paypal'; // DO NOT import server-side service here
+import { env } from '../../config/environment'; // Import env to get API URL
 
 interface PayPalButtonProps {
   amount: number;
   description?: string;
-  onSuccess?: (orderId: string) => void;
+  onSuccess?: (orderId: string, details?: any) => void; // Pass details back if needed
   onError?: (error: any) => void;
   onCancel?: () => void;
   className?: string;
@@ -17,7 +18,8 @@ interface PayPalButtonProps {
 
 /**
  * Componente de botón de PayPal para Solar Fluidity
- * Utiliza el SDK de PayPal para renderizar el botón y gestionar el proceso de pago
+ * Utiliza el SDK de PayPal para renderizar el botón y gestiona el proceso de pago
+ * interactuando con el backend para crear y capturar órdenes.
  */
 const PayPalButton: React.FC<PayPalButtonProps> = ({
   amount,
@@ -29,6 +31,7 @@ const PayPalButton: React.FC<PayPalButtonProps> = ({
 }) => {
   const navigate = useNavigate();
   const [{ isPending, isRejected }] = usePayPalScriptReducer();
+  const API_URL = env.API_URL; // Get API base URL from config
 
   return (
     <div className={`paypal-button-container ${className}`}>
@@ -47,41 +50,75 @@ const PayPalButton: React.FC<PayPalButtonProps> = ({
           forceReRender={[amount, description]} // Re-render if amount or description changes
           createOrder={async () => {
             try {
-              // Crear orden usando nuestro servicio backend
-              const orderId = await paypalService.createOrder(amount, 'USD', description);
-              if (!orderId) {
+              // Llamar al backend para crear la orden
+              const response = await fetch(`${API_URL}/api/paypal/create-order`, { // Adjust endpoint if needed
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  // Include auth token if required by your backend
+                  // 'Authorization': `Bearer ${yourAuthToken}` 
+                },
+                body: JSON.stringify({
+                  amount,
+                  currency: 'USD', // Or get dynamically
+                  description,
+                }),
+              });
+
+              if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || `Error creating order: ${response.statusText}`);
+              }
+
+              const order = await response.json();
+              if (!order.id) {
                 throw new Error("Backend did not return an Order ID");
               }
-              return orderId;
+              console.log("Order ID from backend:", order.id);
+              return order.id; // Return only the Order ID to PayPal SDK
             } catch (err) {
-              console.error('Error al crear la orden de PayPal via backend:', err);
+              console.error('Error creating PayPal order via backend:', err);
               if (onError) onError(err);
-              // Propagate the error to PayPal SDK to show an error message
-              throw err;
+              throw err; // Propagate error to PayPal SDK
             }
           }}
           onApprove={async (data) => {
             try {
-              // Capturar el pago usando nuestro servicio backend
-              const details = await paypalService.captureOrder(data.orderID);
-              console.log('Pago completado via backend:', details);
+              // Llamar al backend para capturar el pago
+              const response = await fetch(`${API_URL}/api/paypal/capture-order`, { // Adjust endpoint if needed
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                   // Include auth token if required
+                  // 'Authorization': `Bearer ${yourAuthToken}`
+                },
+                body: JSON.stringify({ orderID: data.orderID }),
+              });
+
+              if (!response.ok) {
+                 const errorData = await response.json();
+                throw new Error(errorData.message || `Error capturing order: ${response.statusText}`);
+              }
+
+              const details = await response.json(); // Backend should return capture details
+              console.log('Payment captured via backend:', details);
               
               if (onSuccess) {
-                onSuccess(data.orderID);
+                onSuccess(data.orderID, details); // Pass details to callback
               } else {
                 // Redirigir a una página de éxito por defecto
                 navigate('/payment/success?orderId=' + data.orderID);
               }
-              // The return type for onApprove is Promise<void>, so we don't return details
             } catch (err) {
-              console.error('Error al capturar el pago via backend:', err);
+              console.error('Error capturing payment via backend:', err);
               if (onError) onError(err);
-              // Propagate the error to PayPal SDK
-              throw err; 
+              // Consider navigating to an error page or showing a message
+              // navigate('/payment/error'); 
+              throw err; // Propagate error to PayPal SDK if needed, or handle here
             }
           }}
           onCancel={() => {
-            console.log('El usuario canceló el pago');
+            console.log('User cancelled payment');
             if (onCancel) {
               onCancel();
             } else {
@@ -90,8 +127,10 @@ const PayPalButton: React.FC<PayPalButtonProps> = ({
             }
           }}
           onError={(err: any) => {
-            console.error('Error en el proceso de pago PayPal SDK:', err);
+            console.error('PayPal SDK Error:', err);
             if (onError) onError(err);
+             // Consider navigating to an error page or showing a message
+             // navigate('/payment/error');
           }}
         />
       )}

@@ -214,16 +214,6 @@ class AutomatizacionAgent:
                                 }
                             )
                             
-                            # Opcional: Slack
-                            logger.debug(f"Sending milestone notification Slack message for hito_id: {hito['id']}")
-                            await self.mcp_client.ejecutar_accion(
-                                "slack",
-                                "send_message",
-                                {
-                                    "channel": "proyectos-hitos",
-                                    "text": asunto
-                                }
-                            )
                         
                         # 8. Actualizar estado en la base de datos
                         logger.debug(f"Updating milestone notification status for hito_id: {hito['id']}")
