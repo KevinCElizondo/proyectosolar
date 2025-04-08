@@ -1,4 +1,6 @@
-# Solar Fluidity - Plataforma Integral SaaS para Empresas Solares y Electromecánicas
+# Solar Fluidity
+
+# Plataforma Integral SaaS para Empresas Solares y Electromecánicas
 
 <p align="center">
   <img src="public/logo-full.png" alt="Solar Fluidity Logo" width="400"/>
@@ -9,53 +11,226 @@
 </p>
 
 <p align="center">
-  <a href="#visión-general">Visión General</a> •
+  <a href="#descripción-general">Descripción General</a> •
   <a href="#arquitectura-tecnológica">Arquitectura</a> •
+  <a href="#estructura-del-proyecto">Estructura</a> •
+  <a href="#contenedores-docker-principales">Contenedores</a> •
+  <a href="#despliegue">Despliegue</a> •
   <a href="#funcionalidades-clave">Funcionalidades</a> •
-  <a href="#configuración-e-instalación">Instalación</a> •
-  <a href="#ejecución">Ejecución</a> •
-  <a href="#licencia">Licencia</a>
+  <a href="#integraciones-y-aliases">Integraciones</a> •
+  <a href="#pasos-de-instalación">Instalación</a> •
+  <a href="#consideraciones-de-seguridad">Seguridad</a> •
+  <a href="#contacto-y-soporte">Contacto</a>
 </p>
 
-## 📋 Visión General
+## 1. Descripción General
 
-Solar Fluidity es una plataforma SaaS diseñada específicamente para empresas costarricenses del sector de proyectos solares y servicios electromecánicos, ofreciendo tres pilares principales:
+Solar Fluidity es una plataforma SaaS diseñada para empresas costarricenses de los sectores solar y electromecánico. Ofrece tres pilares principales:
 
-1.  **Facturación Electrónica Offline**: Genera XML/PDF válidos según la normativa fiscal de Costa Rica sin requerir conexión directa con Hacienda, otorgando mayor autonomía al usuario.
-2.  **Gestión de Proyectos Especializada**: Funcionalidades adaptadas a los sectores solar y electromecánico, incluyendo seguimiento de instalaciones, mantenimientos y cotizaciones.
-3.  **Automatización con Agentes IA**: Sistema avanzado de agentes de inteligencia artificial basados en LangGraph y Pydantic que automatizan validación de facturas, recordatorios de pago, reportes financieros y seguimiento de proyectos.
+### 1.1 Facturación Electrónica Offline
+- Genera documentos XML/PDF válidos siguiendo la normativa fiscal de Costa Rica.
+- No requiere conexión directa con Hacienda para la creación de facturas.
+- El usuario puede emitir y descargar la factura en cualquier momento, garantizando mayor autonomía.
 
-### ✨ Principales Diferenciadores
+### 1.2 Gestión de Proyectos Especializada
+- Herramientas diseñadas para seguimiento de instalaciones, mantenimientos y cotizaciones.
+- Incluye un sistema que replica funcionalidades esenciales de herramientas organizativas como Airtable o Notion, agregando valor al permitir la centralización y administración avanzada de datos y proyectos.
 
--   **Control Total del Proceso Fiscal**: Genere documentos fiscales válidos sin depender de conexión a servicios externos.
--   **Interfaz Adaptada al Sector**: Diseñada específicamente para proyectos solares y electromecánicos en Costa Rica.
--   **Agentes IA Especializados**: Implementación de IA para automatizar tareas complejas de facturación y gestión.
--   **Integraciones MCP**: Conexión con Gmail, Google Calendar, Airtable y otras herramientas mediante Model Context Protocol.
+### 1.3 Automatización con Agentes IA
+- Sistema interno y confidencial de agentes de IA basados en LangGraph y Pydantic.
+- Automatizan validaciones, recordatorios, reportes financieros, seguimientos de proyectos y más.
+- Nota: Esta característica es principalmente de uso interno, no se expone públicamente a los clientes.
 
-## 🏗️ Arquitectura Tecnológica
+La plataforma integra múltiples servicios externos para ofrecer una experiencia completa en términos de gestión de proyectos, facturación, almacenamiento seguro y análisis inteligente.
 
-### Stack Técnico
+## 2. Arquitectura Tecnológica
 
--   **Frontend**: React 18 + TypeScript + Vite
--   **UI/UX**: Tailwind CSS + shadcn/ui + Framer Motion
--   **Backend API (Pagos)**: Node.js + Express (en `backend-api/`)
--   **Base de Datos**: Supabase (PostgreSQL)
--   **Automatizaciones**: Agentes IA (LangGraph + Pydantic + Python en `ai_agents/`)
--   **Servidor MCP (Facturas/Proyectos)**: Python + FastMCP + Supabase (en `src/integrations/mcp/`)
--   **Almacenamiento**: AWS S3 (documentos XML/PDF) - *Configuración pendiente*
--   **Pagos**: PayPal (integrado vía `backend-api`)
--   **Seguridad**: Autenticación Google/Convex, Supabase RLS, HTTPS/SSL
--   **Integraciones Externas**: Model Context Protocol (MCP) para Gmail, Google Calendar, Airtable, GitHub
+### 2.1 Visión General del Stack
 
-*(Diagrama de Arquitectura y Tabla de Integraciones omitidos por brevedad - mantener los existentes)*
+- **Frontend**:
+  - Framework: React 18
+  - Lenguaje: TypeScript
+  - Bundler: Vite
+  - Estilos: Tailwind CSS
+  - Animaciones e Interacción: Framer Motion
+  - Autenticación y Base de Datos: Supabase
+  - Hospedaje recomendado: Netlify, Vercel o S3+CloudFront
+  
+- **Backend y Orquestación de Microservicios**:
+  - Contenedores Docker orquestados mediante docker-compose.yml
+  - API Principal (Node.js + Express): Manejo de endpoints para facturación, validaciones y pagos (PayPal).
+  - Agentes IA (Python + FastAPI): Servicios internos de automatización.
+    - Basados en LangGraph + Pydantic.
+    - Expuestos en contenedores separados.
+    - Uso interno, no público.
+    
+- **Base de Datos**:
+  - Supabase (PostgreSQL manejado en la nube).
+  - Opción de integración con DB propia en PostgreSQL vía Docker en entornos locales.
+  
+- **Almacenamiento de Archivos**:
+  - AWS S3 para los documentos XML/PDF generados en facturación.
+  
+- **Integraciones y Servicios Adicionales**:
+  - Gmail (con alias): Envío de correos, notificaciones y documentación.
+  - PayPal: Procesamiento de pagos y suscripciones.
+  - API Gateway / Reverse Proxy (opcional en producción): Traefik o similar.
+  - Supabase: Alojamiento principal de la base de datos + autenticación (RLS).
+  
+- **Plataformas de Despliegue**:
+  - Netlify / Vercel: Para hosting del frontend (sitio estático).
+  - AWS (Elastic Beanstalk, ECS, EC2 o Lightsail, según el caso): Para contenedores Docker de la API, Agentes IA, etc.
+  - Supabase: Base de datos PostgreSQL + servicios serverless integrados.
 
-## ✅ Funcionalidades Clave
+## 3. Estructura del Proyecto
 
-*(Secciones de Funcionalidades omitidas por brevedad - mantener las existentes)*
+La estructura propuesta facilita la organización del código, la extensibilidad y la implementación de buenas prácticas de DevOps. A continuación, una vista general (simplificada) de los directorios:
 
-## 🔌 Integraciones con Model Context Protocol (MCP)
+```
+proyectosolar/
+├── docker-compose.yml       # Orquestación de contenedores en desarrollo/producción
+├── .env.example             # Variables de entorno de ejemplo
+├── src/
+│   ├── components/          # Componentes React reutilizables
+│   ├── pages/               # Rutas principales (React Router)
+│   │   ├── auth/            # Login, registro y recuperación de cuentas
+│   │   ├── dashboard/       # Panel principal
+│   │   ├── projects/        # Gestión de proyectos
+│   │   ├── invoices/        # Facturación electrónica
+│   │   ├── reports/         # Reportes financieros
+│   │   └── settings/        # Configuración del usuario
+│   ├── services/            # Conexiones con APIs (supabase, paypal, etc.)
+│   ├── hooks/               # Custom hooks de React
+│   ├── context/             # Contextos React
+│   ├── utils/               # Helpers y funciones auxiliares
+│   ├── styles/              # Configuración de Tailwind y estilos globales
+│   └── integrations/        # Código adicional de integración
+│       └── mcp/             # MCP (Model Context Protocol) - opcional
+├── ai_agents/               # Código Python para Agentes IA (internos)
+│   ├── agents/              # Lógica de agentes especializados
+│   ├── main.py              # Servidor FastAPI
+│   ├── graph.py             # Definición de LangGraph
+│   └── requirements.txt     # Dependencias Python
+├── scripts/                 # Scripts de automatización (ej. migraciones, backups, etc.)
+├── docs/                    # Documentación detallada (guías, manuales, políticas)
+└── ...
+```
 
-*(Sección de MCP omitida por brevedad - mantener la existente)*
+## 4. Contenedores Docker Principales
+
+Para orquestar los diferentes servicios, se sugiere un docker-compose.yml con varios contenedores. A continuación, una lista de contenedores principales:
+
+1. **frontend**
+   - Build de la aplicación React con Vite.
+   - Sirve contenido estático.
+
+2. **backend-api**
+   - Contiene la lógica Node.js (Express) para la API principal.
+   - Expone los endpoints de facturación, pagos, etc.
+
+3. **ai-agents**
+   - Servidor FastAPI que maneja los agentes IA.
+   - Uso interno. No se expone públicamente.
+
+4. **db** (opcional en entornos locales)
+   - Contenedor de PostgreSQL para pruebas locales (en producción se usa Supabase).
+
+5. **adminer / pgAdmin** (opcional)
+   - Herramienta de administración de base de datos.
+
+6. **support-dashboard** (opcional)
+   - Interfaz interna para soporte y monitoreo.
+   - Nota: En producción, evitar exponer sockets del host.
+
+En producción, cada uno puede ser desplegado en infraestructura distinta (por ejemplo, ECS para backend-api y ai-agents, Netlify para el frontend estático, y Supabase como DB).
+
+## 5. Despliegue
+
+### 5.1 Despliegue del Frontend en Netlify
+
+1. Compilar el proyecto:
+```bash
+npm install
+npm run build
+```
+
+2. Subir la carpeta dist/ (generada por Vite) a Netlify o configurarlo para ejecutar los comandos de build automáticamente desde el repo.
+3. Configurar variables de entorno en Netlify para conectarse con la API (VITE_API_URL, VITE_SUPABASE_URL, etc.).
+
+### 5.2 Despliegue de la API Principal y Agentes IA
+
+- **Opción A: AWS ECS o Elastic Beanstalk**
+  - Definir tareas ECS para cada contenedor (backend-api, ai-agents).
+  - Almacenar imágenes en ECR (Elastic Container Registry).
+  - Configurar seguridad (VPC, SG, etc.).
+
+- **Opción B: Docker en EC2 o Lightsail**
+  - Subir el repositorio al servidor.
+  - Configurar .env de producción con secretos.
+  - Ejecutar docker-compose up -d --build.
+
+- **Opción C: Otros PaaS (Heroku, Fly.io, etc.)**
+  - Ajustar la configuración del Dockerfile.
+  - Subir la imagen en contenedor según los lineamientos del proveedor.
+
+### 5.3 Base de Datos con Supabase
+
+- Crear proyecto en Supabase y obtener:
+  - SUPABASE_URL
+  - SUPABASE_ANON_KEY
+  - SUPABASE_SERVICE_ROLE_KEY
+- Configurar reglas RLS para limitar el acceso a cada usuario/organización.
+- Ejecutar migraciones (si las hubiera) o scripts de creación de tablas.
+
+### 5.4 Almacenamiento de Documentos (AWS S3)
+
+1. Crear un bucket S3.
+2. Configurar políticas de acceso (lectura/escritura limitada).
+3. Agregar las credenciales (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) en el archivo .env.
+4. Verificar que la ruta de subida de archivos PDF/XML sea la correcta (VITE_AWS_BUCKET_NAME).
+
+## 6. Funcionalidades Clave
+
+### 6.1 Facturación Electrónica Offline
+- Generación de XML/PDF según la normativa fiscal de Costa Rica (UBL 2.1).
+- Operación Offline: No requiere comunicación directa con Hacienda para la emisión.
+- Firma Digital (opcional) para validación con BCCR.
+- Download Inmediato: El usuario puede descargar la factura al momento.
+- Historial de facturas emitidas, con estados ("Pendiente de firma", "Emitida", etc.).
+- Seguridad: Almacenamiento cifrado de documentos en S3.
+
+### 6.2 Gestión de Proyectos Especializada
+- Planificación y Seguimiento de instalaciones, mantenimientos y cotizaciones.
+- Calendarios y Hitos para proyectos de tipo solar, electromecánico o híbrido.
+- Reposición de Funcionalidades de Airtable o Notion:
+  - Tablas personalizadas, enlaces entre registros, control de versiones básico.
+  - Paneles con vistas personalizadas para cada rol (administración, técnicos, etc.).
+- Documentación Técnica centralizada (subida de planos, manuales).
+- Notificaciones vía correo electrónico (Gmail alias) o a través del panel interno.
+
+### 6.3 Automatización Interna con Agentes IA
+- Sistema Interno y Confidencial (no se expone al usuario final).
+- Basado en LangGraph + Pydantic:
+  - Flujos cognitivos configurables y validación estricta de datos.
+  - Manejo de tareas repetitivas, validaciones, recordatorios y reportes.
+- Orquestación: Los agentes pueden trabajar en paralelo, utilizando un grafo para procesar datos de facturación, calendario, etc.
+- Desencadenantes: Generación de recordatorios de pago, alertas de mantenimiento, reportes de desempeño, etc.
+- Registro de Actividad: Logs detallados para control interno.
+
+## 7. Integraciones y Aliases
+
+### 7.1 Integración con Gmail (Aliases)
+- Permite el envío de correos automatizados desde diferentes alias (ej. facturacion@tudominio.com, soporte@tudominio.com).
+- Se configuran credenciales IMAP/SMTP o se utiliza la API de Gmail.
+- Permite notificaciones y envío de documentos a clientes finales.
+
+### 7.2 PayPal
+- Procesamiento de pagos recurrentes (suscripciones mensuales/anuales) o pagos únicos.
+- Webhooks configurados para registrar el estado de cada transacción.
+
+### 7.3 Otras Integraciones
+- Model Context Protocol (MCP): Potencia la conexión con servicios de terceros (Gmail, Google Calendar, Airtable, etc.), si se desea.
+- Herramientas Organizativas (replicadas internamente) para proyectos.
 
 ## 🛠 Configuración e Instalación
 

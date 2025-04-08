@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # Frontend web application
   frontend:
     build:
       context: .
@@ -11,34 +12,63 @@ services:
       - "5173:5173"
     volumes:
       - ./:/app
+      - /app/node_modules
     environment:
+      - NODE_ENV=development
       - VITE_API_URL=http://localhost:4000
+      - VITE_SUPABASE_URL=${SUPABASE_URL}
+      - VITE_SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
     depends_on:
       - backend-api
+    restart: unless-stopped
 
+  # Backend API for payments and other functionalities
   backend-api:
     build:
       context: ./backend-api
     container_name: solar_fluidity_backend_api
     ports:
       - "4000:4000"
+    volumes:
+      - ./backend-api:/app
+      - /app/node_modules
     env_file:
       - ./backend-api/.env
+    environment:
+      - NODE_ENV=development
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - PAYPAL_CLIENT_ID=${PAYPAL_CLIENT_ID}
+      - PAYPAL_CLIENT_SECRET=${PAYPAL_CLIENT_SECRET}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
     depends_on:
       - db
+    restart: unless-stopped
 
+  # AI Agents service (internal use)
   ai-agents:
     build: ./ai_agents
     container_name: solar_fluidity_ai_agents
     ports:
       - "8001:8000"
+    volumes:
+      - ./ai_agents:/app
     env_file:
       - ./ai_agents/.env
+    environment:
+      - PYTHONPATH=/app
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
     depends_on:
       - db
+    restart: unless-stopped
 
+  # PostgreSQL database (for local development)
   db:
-    image: postgres:14
+    image: postgres:14-alpine
     container_name: solar_fluidity_db
     restart: always
     environment:
@@ -50,14 +80,38 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  # Database admin tool
   adminer:
     image: adminer
     container_name: solar_fluidity_adminer
-    restart: always
     ports:
       - "8081:8080"
     depends_on:
       - db
+    restart: unless-stopped
+
+  # Optional: Support dashboard for internal monitoring
+  # support-dashboard:
+  #   build:
+  #     context: ./support-dashboard
+  #     dockerfile: Dockerfile
+  #   container_name: solar_fluidity_support_dashboard
+  #   ports:
+  #     - "8082:8080"
+  #   volumes:
+  #     - ./support-dashboard:/app
+  #     - /app/node_modules
+  #   environment:
+  #     - NODE_ENV=development
+  #     - SUPABASE_URL=${SUPABASE_URL}
+  #     - SUPABASE_SERVICE_ROLE_KEY=${SUPABASE_SERVICE_ROLE_KEY}
+  #   depends_on:
+  #     - db
+  #     - backend-api
+  #     - ai-agents
+  #   restart: unless-stopped
+
+
 
   support-dashboard:
     build: ./support-dashboard
