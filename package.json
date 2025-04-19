@@ -6,12 +6,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --max-warnings 0",
     "preview": "vite preview",
     "test": "vitest"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@hookform/resolvers": "^3.3.4",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
     "@paypal/checkout-server-sdk": "^1.0.3",
     "@paypal/paypal-server-sdk": "^0.7.0",
     "@paypal/react-paypal-js": "^8.8.2",
@@ -29,6 +33,8 @@
     "axios": "^1.8.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "cmdk": "^1.1.1",
+    "convex": "^1.23.0",
     "date-fns": "^3.3.1",
     "dotenv": "^16.4.7",
     "framer-motion": "^10.18.0",
@@ -61,6 +67,7 @@
     "tailwindcss": "^3.4.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
+    "typescript-eslint": "^8.29.1",
     "vite": "^5.0.8",
     "vitest": "^1.2.2"
   }

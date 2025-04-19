@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button, Typography, Box, CircularProgress } from '@mui/material';
 import { Google as GoogleIcon } from '@mui/icons-material';
 import { GOOGLE_AUTH_CONFIG } from '../config/integrations';
@@ -18,6 +18,15 @@ const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
   const [initialized, setInitialized] = useState(false);
+
+  const initializeGoogleAuth = useCallback(() => {
+    if (window.google) {
+      setInitialized(true);
+    } else {
+      console.error("No se pudo cargar la API de Google");
+      onAuthFailure && onAuthFailure(new Error("No se pudo cargar la API de Google"));
+    }
+  }, [onAuthFailure]);
 
   useEffect(() => {
     // Cargar el script de Google API
@@ -44,16 +53,7 @@ const GoogleAuthButton: React.FC<GoogleAuthButtonProps> = ({
         googleScript.remove();
       }
     };
-  }, []);
-
-  const initializeGoogleAuth = () => {
-    if (window.google) {
-      setInitialized(true);
-    } else {
-      console.error("No se pudo cargar la API de Google");
-      onAuthFailure && onAuthFailure(new Error("No se pudo cargar la API de Google"));
-    }
-  };
+  }, [initializeGoogleAuth]);
 
   const handleGoogleLogin = () => {
     if (!initialized) {

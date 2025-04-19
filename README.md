@@ -317,8 +317,20 @@ Si no usas Docker Compose para los agentes o necesitas iniciar otros componentes
 
 -   **Guía de Usuario:** [docs/GUIA_USUARIO.md](docs/GUIA_USUARIO.md)
 -   **Guía de Despliegue (Docker):** [docs/GUIA_DESPLIEGUE.md](docs/GUIA_DESPLIEGUE.md)
+-   **Guía de Despliegue (Vercel):** [docs/GUIA_DESPLIEGUE_VERCEL.md](docs/GUIA_DESPLIEGUE_VERCEL.md)
 -   **Documentación de Arquitectura:** [docs/DOCUMENTO_MAESTRO_ARQUITECTURA.md](docs/DOCUMENTO_MAESTRO_ARQUITECTURA.md)
 -   **Estructura del Proyecto:** [docs/ESTRUCTURA_PROYECTO.md](docs/ESTRUCTURA_PROYECTO.md)
+
+## 🚀 Despliegue en Vercel
+
+Solar Fluidity está optimizado para ser desplegado fácilmente en Vercel. Para realizar el despliegue:
+
+1. **Crea una cuenta en Vercel** si aún no tienes una.
+2. **Importa tu repositorio de GitHub** desde el panel de Vercel.
+3. **Configura las Variables de Entorno** en Vercel según lo definido en `.env.production`.
+4. **Despliega** la aplicación con la configuración por defecto.
+
+Para más detalles, consulta la [Guía de Despliegue en Vercel](docs/GUIA_DESPLIEGUE_VERCEL.md).
 
 ## 📄 Licencia
 
