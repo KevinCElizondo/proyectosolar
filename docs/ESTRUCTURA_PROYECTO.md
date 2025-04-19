@@ -19,6 +19,8 @@ proyectosolar/
 ├── src/                    # Código fuente principal
 │   ├── assets/             # Recursos estáticos (imágenes, fuentes, etc.)
 │   ├── components/         # Componentes React reutilizables
+│   │   ├── amazon-affiliate/ # Componentes para integración con Amazon Affiliates
+│   │   └── ui/             # Componentes UI básicos
 │   ├── config/             # Archivos de configuración
 │   ├── context/            # Contextos de React para gestión de estado
 │   ├── hooks/              # Custom hooks de React
@@ -133,6 +135,24 @@ docs/
 │   └── ui_components/      # Componentes de interfaz de usuario
 ### Amazon Affiliates Integration
 
+La integración con Amazon Affiliates se implementa principalmente en:
+
+```
+src/
+├── components/amazon-affiliate/  # Componentes específicos para afiliados de Amazon
+│   ├── AmazonBanner.tsx          # Banner promocional de productos Amazon
+│   └── ShopPromotion.tsx         # Componente de promoción para la tienda
+├── components/AmazonAffiliateSection.tsx  # Sección principal de afiliados
+└── pages/shop/                   # Página de redirección a solarfluidity.shop
+    └── index.tsx                 # Página de redirección con contador
+```
+
+Esta implementación permite:
+1. Mostrar productos recomendados de Amazon en la plataforma
+2. Redirigir a los usuarios a solarfluidity.shop para compras
+3. Generar ingresos por comisiones de afiliados
+4. Promocionar equipamiento solar especializado
+
 The Amazon Affiliates program is integrated to provide additional revenue streams through affiliate marketing. This integration is managed within the `/src/components/AmazonAffiliateSection.tsx` and is documented in the `/docs/Afiliados/SECCION_AFILIADOS_AMAZON.md` file.
 ├── Afiliados/              # Documentación del programa de afiliados
 ├── Artículos/              # Artículos de recursos
@@ -153,7 +173,21 @@ The Amazon Affiliates program is integrated to provide additional revenue stream
 
 ## Funcionalidades Principales y su Implementación
 
-### 1. Generación de Estructura de Factura Electrónica (XML)
+### 1. Amazon Affiliates e Integración de Tienda
+
+La integración con Amazon Affiliates se encuentra principalmente en:
+
+- **Frontend**: `/src/components/amazon-affiliate/` y `/src/components/AmazonAffiliateSection.tsx`
+- **Redirección**: `/src/pages/shop/index.tsx` para redirección a solarfluidity.shop
+- **Configuración**: `/src/config/constants.ts` con rutas y configuraciones para la tienda
+
+Esta funcionalidad permite:
+1. Mostrar productos solares recomendados de Amazon
+2. Redirigir usuarios a una tienda especializada (solarfluidity.shop)
+3. Generar ingresos pasivos a través del programa de afiliados
+4. Categorizar productos según necesidades de proyectos solares
+
+### 2. Generación de Estructura de Factura Electrónica (XML)
 
 La implementación de facturación electrónica se encuentra principalmente en:
 
@@ -221,11 +255,11 @@ Los principales servidores MCP utilizados son:
 ## Tecnologías Utilizadas
 
 - **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui, Framer Motion
-- **Backend**: Supabase (PostgreSQL, Autenticación, Storage)
+- **Backend**: Supabase (PostgreSQL, Autenticación, Storage), Express.js
 - **IA**: OpenAI API, LangGraph, Pydantic, FastAPI
-- **Automatización**: Agentes IA / Python
-- **MCP**: Model Context Protocol (diversas implementaciones de clientes y servidores)
-- **Despliegue**: Vercel (frontend), Supabase (backend), Docker (MCP servers)
+- **Automatización**: n8n, Agentes IA con LangGraph
+- **Integración**: Amazon Associates, PayPal Checkout
+- **Despliegue**: Vercel (frontend), Render/Digital Ocean (backend API), Docker (contenedores)
 
 ## Flujo de Datos
 
@@ -233,7 +267,8 @@ Los principales servidores MCP utilizados son:
 2. Las operaciones CRUD se realizan a través de la API de Supabase
 3. Los documentos XML/PDF se almacenan en Supabase Storage
 4. Los agentes IA procesan solicitudes complejas a través de un servidor FastAPI
-5. Las automatizaciones con Agentes IA / Python se activan por eventos o programación
-6. Las integraciones con servicios externos se realizan a través de MCP
+5. Las automatizaciones con n8n se activan por eventos o programación (webhooks)
+6. La integración con Amazon Affiliates redirecciona a los usuarios a solarfluidity.shop
+7. Las transacciones de pago se procesan a través de la API de PayPal
 
 Este enfoque garantiza una arquitectura desacoplada, mantenible y escalable que puede adaptarse a las necesidades cambiantes de los usuarios.

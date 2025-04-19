@@ -18,6 +18,7 @@ import Invoices from './pages/invoices/Invoices';
 import InvoiceDetail from './pages/invoices/InvoiceDetail';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
+import ShopRedirectPage from './pages/shop';
 
 const queryClient = new QueryClient();
 
@@ -157,6 +158,9 @@ function App() {
 
                         {/* Landing Page - Public */}
                         <Route path={ROUTES.HOME} element={<Index />} />
+                        
+                        {/* Shop redirect page - Public */}
+                        <Route path={ROUTES.SHOP} element={<ShopRedirectPage />} />
                         
                         {/* Redirect any unknown routes to home */}
                         <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />

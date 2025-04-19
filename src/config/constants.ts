@@ -33,7 +33,8 @@ export const ROUTES = {
     INVOICES: '/invoices',
     INVOICE_DETAIL: '/invoices/:id',
     SETTINGS: '/settings',
-    PROFILE: '/profile'
+    PROFILE: '/profile',
+    SHOP: '/shop'
 };
 
 // Cache Duration
