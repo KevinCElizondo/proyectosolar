@@ -1,340 +1,242 @@
-# 🌞 SolarFluidity Ecosystem – Plan Maestro de Dominación SaaS
+# 🔥 SOLAR FLUIDITY 3D – PLATAFORMA DEFINITIVA DE CONFIGURACIÓN 3D MULTI-TIENDA
 
-> **Propietario:** Kevin Josue Cordero Elizondo (Solar Fluidity Venture Studio)
-> 
-> **Ubicación:** Zona Sur, Costa Rica
-> 
-> **Actividad:** 6201 (Desarrollo de software y consultoría informática)
+## Versión Final 5.0 – Modelo Freemium + Pro (Sin Hardware, Sin Comisiones Publicitarias)
+
+> *Documento maestro validado y ajustado para implementación inmediata*
 
 ---
 
-## 🎯 1. El Veredicto Definitivo: Ecosistema "Propiedad Total"
+## 📌 1. Resumen Ejecutivo
 
-El análisis de viabilidad técnica y comercial ha concluido una realidad ineludible: **Fluidity CAD, desarrollado nativamente con React Three Fiber (R3F) y con una capa de hardware complementaria (mini impresoras 3D), es la estrategia ganadora**.
+**SolarFluidity 3D** es un SaaS que permite a fabricantes de muebles, diseñadores y carpinteros crear **múltiples tiendas virtuales con configuradores 3D fotorrealistas**, incrustables en cualquier sitio web mediante un simple script (`embed.js`). El modelo es **Freemium**: plan gratis básico y plan Pro a $49/mes (o $490/año) sin comisiones ocultas.
 
-¿Por qué este cambio es crucial? Al eliminar intermediarios (como Zakeke), pasas de ser un "revendedor de servicios" a ser una **Empresa de Tecnología con Activos Tangibles e Intangibles**.
+**Cambios estratégicos clave (post-validación):**
+- ✅ **Eliminado el hardware** (mini impresoras). En su lugar, se ofrece exportación de archivos `.stl` y alianzas de afiliación.
+- ✅ **Publicidad simplificada:** El Plan Pro incluye un panel de banners. El cliente negocia y cobra a sus patrocinadores por fuera; SolarFluidity no interviene en pagos.
+- ✅ **CDN + compresión Draco** para modelos 3D, garantizando rendimiento sin costos explosivos.
+- ✅ **Iluminación personalizable** en el Plan Pro (HDRI, intensidad, dirección) para que cada marca tenga su estética única.
 
-**Las capas de ventaja que construyes:**
-- **Margen Infinito en el software:** Una vez programado el código, te cuesta lo mismo ($0) ejecutarlo para 1 cliente que para 1.000. Cada nuevo cliente SaaS es ingreso puro sin costo marginal.
-- **Control Visual Total:** R3F te permite una fidelidad gráfica (sombras dinámicas, texturas de madera realistas, iluminación HDRI) superior a los configuradores genéricos, vital para vender muebles de alta gama.
-- **Activo Vendible (Propiedad Intelectual):** Este código se puede licenciar o vender en el futuro. Estás construyendo valor patrimonial.
-- **Hardware como Barrera de Entrada:** Las mini impresoras 3D (que vendes instaladas, calibradas y con garantía) crean un ecosistema cerrado. Un cliente que compra tu hardware difícilmente se cambiará a otro proveedor de software.
-
----
-
-## 🧩 2. La Estrategia de Fusión: El Modelo "Tesla + HP"
-
-Tu negocio de muebles y tu hardware no son cosas distintas de tu SaaS. Funcionan bajo un ecosistema integrado de tres capas:
-
-| Capa | Producto | Función en el Ecosistema | Ingreso Asociado |
-|:---|:---|:---|:---|
-| **Capa 1 – Hardware** | Mini impresoras 3D preconfiguradas | Genera leads B2B masivos. Instaladores que compran la impresora necesitan el software para digitalizar sus diseños. | Venta única de hardware (₡300,000 - ₡800,000) |
-| **Capa 2 – SaaS de Configuración** | Fluidity CAD (Plan Taller / Pro) | Es el motor de ingresos recurrentes. Sin el software, la impresora es una caja. | Suscripción mensual ($29 - $79) |
-| **Capa 3 – Marketplace Digital** | Directorio de Muebles + Marketplace de Planos | Escala el negocio: vendedores de planos 3D y carpinteros externalizan su inventario a tu plataforma. | Comisión por venta + Suscripción de vendedor |
-
-> ⚠️ **ADVERTENCIA ESTRATÉGICA – ORDEN DE OPERACIONES CRÍTICO:**
-> 
-> El modelo "Tesla + HP" es poderoso, pero construir tres negocios a la vez es una receta segura para la parálisis. NO intentes lanzar las 3 capas simultáneamente.
->
-> **El orden correcto es:**
-> 1. **Fase 1 (Ahora):** Lanza el SaaS de configuración (Fluidity CAD) con tu propia tienda de muebles como caso de estudio. Sin hardware, sin marketplace.
-> 2. **Fase 2 (Mes 6):** Introduce las mini impresoras 3D como upsell para clientes del SaaS que quieran fabricar sus diseños.
-> 3. **Fase 3 (Mes 12):** Abre el marketplace para que terceros vendan planos o muebles digitalizados.
-> 
-> Si saltas directo al ecosistema completo, terminarás con 3 MVPs inconclusos en lugar de 1 negocio funcionando.
+**Proyección año 1:** 80 usuarios Pro → MRR $3,920 + ingresos afiliación ≈ $45,000 ARR, con margen >90%.
 
 ---
 
-## 🏗️ 3. Arquitectura Técnica "Antigravedad" + R3F
+## 🧭 2. Filosofía y Público Objetivo
 
-Esta arquitectura garantiza **mantenimiento bajo y escalabilidad masiva** sin costos fijos altos.
+| **Cliente ideal** | Carpinterías, mueblerías, diseñadores industriales, tiendas Print-on-Demand, talleres de muebles modulares. |
+|-------------------|-------------------------------------------------------------------------------------------------------------|
+| **Dolor que resuelve** | Un configurador 3D profesional cuesta $5,000-$20,000 de desarrollo. SolarFluidity lo ofrece por $49/mes. |
+| **Propuesta de valor** | “Muestra tus productos en 3D realista, permite personalizar colores/texturas, y aumenta tus ventas online sin invertir en software caro.” |
 
-### 3.1. El Stack de Desarrollo
+**Sobre el nombre «SolarFluidity»:** Si bien el dominio principal mantiene su branding tecnológico, se recomienda adquirir un dominio secundario como `3dconfig.co.cr` o `muebles3d.app` para campañas específicas al nicho de mueblerías, evitando confusiones con energía solar.
 
-| Componente | Tecnología | Propósito | Costo |
-|:---|:---|:---|:---|
-| **Entorno & Deploy** | Project IDX (Google Cloud) + Vercel | Desarrollo en la nube, despliegue global instantáneo | $0 (IDX) + $0-20 (Vercel) |
-| **Motor Gráfico** | React Three Fiber (R3F) + Drei | El corazón del configurador 3D | $0 |
-| **Optimización de Assets** | gltfjsx (npx gltfjsx model.glb --transform) | Reduce modelos 3D entre 70% y 90% | $0 |
-| **Estado Global** | Zustand | Maneja cambios de color/tamaño sin re-renderizar todo el canvas | $0 |
-| **Backend & DB** | Supabase (PostgreSQL) | Guarda configuraciones de usuarios y gestiona autenticación | $0-25 |
-| **Automatización** | n8n | Orquestador de pedidos, facturación y notificaciones | $0-20 |
-| **Servicio de Impresión** | Moonraken API + OctoPrint | Control remoto de las mini impresoras 3D | $0 |
+---
 
-> 🔥 **CONSEJO PARA UN MANTENIMIENTO CERo:** La mejor manera de no tener que mantener algo es que otros lo mantengan por ti. Siempre que sea posible, usa herramientas serverless: Supabase (base de datos administrada), n8n en la nube, Vercel (frontend administrado). Tu código se reduce a la lógica de negocio y el motor 3D.
+## 💰 3. Modelo de Monetización (Solo 2 Planes)
 
-### 3.2. Flujo de Datos Técnico (End-to-End)
+| Característica | Plan Gratis | Plan Pro |
+|:---|:---|:---|
+| **Precio** | $0 / mes | **$49 / mes** o **$490 / año** (2 meses gratis) |
+| **Tiendas (dominios/subdominios)** | 1 (subdominio `.solarfluidity.app`) | **Ilimitadas** (dominios personalizados) |
+| **Productos por tienda** | Hasta 3 | Ilimitados |
+| **Configurador 3D** | Básico (1 textura fija, sin sombras dinámicas) | Avanzado (texturas intercambiables, luces, sombras, HDRI) |
+| **Iluminación personalizable** | No (iluminación estándar) | **Sí** (ajuste de HDRI, intensidad, dirección, temperatura de color) |
+| **Marca SolarFluidity visible** | Sí (footer “Powered by”) | No (white‑label opcional) |
+| **Panel de banners publicitarios** | No | **Sí** (el cliente sube imágenes y enlaces; negocia pagos por fuera) |
+| **Exportar videos 360°** | No | Sí |
+| **Estadísticas (visitas, conversiones)** | No | Sí (por tienda y producto) |
+| **Exportación de archivos `.stl`** | No | Sí (para impresión 3D) |
+| **Soporte** | Comunidad (foro) | Prioritario (email + chat) |
+| **Cupones de descuento** | No | Sí (hasta 20 códigos activos por tienda) |
 
+**¿Por qué $49?** Es el punto dulce B2B: no requiere aprobación gerencial, pero filtra a usuarios no serios. Un fabricante que venda una sola silla de $200 adicional gracias al configurador ya recupera la inversión del año.
+
+---
+
+## 🏗️ 4. Arquitectura Técnica (Ajustada y Escalable)
+
+### 4.1. Stack Definitivo
+
+| Capa | Tecnología | Costo mensual (inicial) |
+|:---|:---|:---|
+| Frontend | Next.js + React Three Fiber (R3F) + Drei + Zustand | $0 (Vercel Hobby) |
+| Backend / DB | Supabase (PostgreSQL) | $0-25 (Pro cuando escale) |
+| Orquestación | n8n (Render Starter) | $7 |
+| Email | Resend | $0 |
+| Almacenamiento de modelos | Supabase Storage + **Cloudflare R2 (CDN)** | $0 (10GB gratis + tráfico CDN incluido) |
+| Compresión 3D | **Draco** (gltf-transform) | $0 |
+| **Total fijo** | | **≈$7-10/mes** |
+
+### 4.2. Modelo de Datos (Corregido)
+
+```sql
+-- Creación segura de tablas (sintaxis corregida)
+CREATE TABLE IF NOT EXISTS stores (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users NOT NULL,
+  subdomain TEXT UNIQUE NOT NULL,
+  custom_domain TEXT UNIQUE,
+  name TEXT NOT NULL,
+  logo_url TEXT,
+  primary_color TEXT DEFAULT '#2C3E50',
+  plan TEXT DEFAULT 'free' CHECK (plan IN ('free', 'pro')),
+  stripe_customer_id TEXT,
+  -- Campos de iluminación personalizable (solo relevantes en pro)
+  hdri_url TEXT,
+  light_intensity DECIMAL DEFAULT 1.0,
+  light_direction JSONB,  -- {x, y, z}
+  color_temperature INTEGER DEFAULT 5500,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS products (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  store_id UUID REFERENCES stores(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  model_url TEXT NOT NULL,          -- GLB optimizado con Draco
+  thumbnail_url TEXT,
+  base_price DECIMAL(10,2),
+  textures JSONB,                   -- { "madera": ["url1", "url2"], "metal": [...] }
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Panel de banners (sin comisiones, solo almacenamiento)
+CREATE TABLE IF NOT EXISTS banners (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  store_id UUID REFERENCES stores(id) ON DELETE CASCADE,
+  image_url TEXT NOT NULL,
+  link_url TEXT NOT NULL,
+  position TEXT CHECK (position IN ('sidebar', 'banner_top', 'popup')),
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Cupones (descuentos aplicables a suscripción Pro)
+CREATE TABLE IF NOT EXISTS coupons (
+  code TEXT PRIMARY KEY,
+  discount_percent INT DEFAULT 0,
+  free_months INT DEFAULT 0,
+  max_uses INT,
+  used_count INT DEFAULT 0,
+  expires_at TIMESTAMPTZ
+);
 ```
-Cliente (Carpintero/Instalador) ──► Sube foto de su madera/tela
-                                          │
-                                          ▼
-                              ┌─────────────────────────┐
-                              │ Servidor de Texturizado │
-                              │ (Node.js + Sharp)       │
-                              │ • Convierte imagen a    │
-                              │   textura repetible     │
-                              │ • Optimiza tamaño       │
-                              └───────────┬─────────────┘
-                                          │
-                                          ▼
-                              ┌─────────────────────────┐
-                              │ React Three Fiber       │
-                              │ (Cliente Web)           │
-                              │ • Aplica textura al     │
-                              │   modelo 3D             │
-                              │ • Renderiza en tiempo   │
-                              │   real con luces/sombras│
-                              └───────────┬─────────────┘
-                                          │
-                                          ▼
-                              ┌─────────────────────────┐
-                              │ Zustand (Estado Global) │
-                              │ • Guarda configuración  │
-                              │   del usuario           │
-                              │ • Sincroniza con UI     │
-                              └───────────┬─────────────┘
-                                          │
-              ┌───────────────────────────┼───────────────────────────┐
-              │                           │                           │
-              ▼                           ▼                           ▼
-    ┌─────────────────┐         ┌─────────────────┐       ┌─────────────────────┐
-    │ Botón "Pedir"   │         │ Botón "Exportar"│       │ Botón "Compartir"   │
-    │ → n8n genera    │         │ → Descarga      │       │ → Genera video      │
-    │   cotización    │         │   plano PDF     │       │   MP4 del mueble    │
-    │   + factura     │         │   con medidas   │       │   para Instagram    │
-    └─────────────────┘         └─────────────────┘       └─────────────────────┘
+
+### 4.3. Optimización de Modelos 3D (Compresión Draco)
+
+Para evitar costos de ancho de banda, todos los archivos `.glb` se procesan automáticamente al subirlos:
+
+```bash
+# Usando gltf-transform (CLI)
+npx gltf-transform draco model_raw.glb model_optimized.glb --compression-level 10
 ```
 
-### 3.3. El Secreto del Rendimiento: Instancing + GLTFJSX
+Además, se sirven a través de **Cloudflare R2** con caché CDN. Los modelos de 15 MB se reducen a 2-3 MB.
 
-Dos técnicas son críticas para que la experiencia 3D no sea lenta:
+### 4.4. Script de Inserción Multi-Tienda (`embed.js`)
 
-**A. Instancing (Drei/Instances):** Cuando tienes múltiples objetos iguales (ej. múltiples sillas en una mesa), cada `<mesh>` genera una "draw call" al GPU. Con `<Instances>`, reduces 50 draw calls a 1 sola, pasando de 8 FPS a 60 FPS fluidos.
+```javascript
+(function() {
+  const storeId = document.currentScript.getAttribute('data-store');
+  if (!storeId) return;
 
-**B. GLTFJSX con transformación:** El comando `npx gltfjsx model.glb --transform` comprime, optimiza y convierte tu modelo en un componente React reutilizable, reduciendo el tamaño del archivo hasta en un 90%.
+  const container = document.querySelector('.solar-fluidity-configurator');
+  if (!container) return;
 
-### 3.4. La "Plataforma Beta": Código Cero, Ingresos Ahora
+  const iframe = document.createElement('iframe');
+  iframe.src = `https://app.solarfluidity.com/embed/${storeId}`;
+  iframe.style.width = '100%';
+  iframe.style.height = container.getAttribute('data-height') || '600px';
+  iframe.style.border = 'none';
+  container.appendChild(iframe);
+})();
+```
 
-Olvida el desarrollo complejo. El objetivo es vender una solución que ya es funcional.
-
-| Componente | Función en el MVP | Costo Mensual |
-|:---|:---|:---|
-| **Tally.so** | Formulario de captura de clientes potenciales (leads) | $0 |
-| **n8n** (Render Starter) | Orquestador de pedidos y facturación | $7 |
-| **Google Sheets** | Base de datos de clientes (simple) | $0 |
-| **Gemini API** | Asistente de soporte automatizado | ≈$5 |
-| **Resend** | Envío de correos de confirmación | $0 (3,000 emails/mes) |
-| **Vercel** | Landing page y directorio público | $0 |
-
-**Total fijo mensual para operar el MVP:** ≈$12.
-
----
-
-## 👑 4. El "Super Usuario" y la Arquitectura de Autogestión
-
-El objetivo es que el código **no se toque** para el mantenimiento diario. Todo lo que un cliente necesita cambiar debe ser autogestionable desde un panel. Para ello, implementamos tres portales diferenciados:
-
-### 4.1. Portal del Administrador (Tú – Super Usuario)
-
-Tu herramienta de control central, construida con **Retool** (plan gratuito suficiente para empezar), te permite:
-
-| Funcionalidad | Descripción | Frecuencia de Uso |
-|:---|:---|:---|
-| **Gestión de Prompts de IA** | Editar el comportamiento del asistente Gemini de TODOS los clientes desde un solo lugar | Semanal (mejoras) |
-| **Monitoreo de Uso de API** | Ver cuántas consultas procesó cada cliente este mes | Diario (5 min) |
-| **Logs de Errores** | Revisar qué webhooks fallaron y por qué | Diario (10 min) |
-| **Gestión de Planes** | Activar/desactivar clientes, cambiar suscripciones | Semanal |
-| **Dashboard de Ingresos** | Ver MRR, clientes nuevos, churn | Diario |
-
-**Ventaja:** Nunca tocas el código de producción para cambios de contenido o configuración. Todo se maneja desde Retool + variables de entorno.
-
-### 4.2. Portal del Cliente (El Instalador/Carpintero)
-
-El instalador accede a su propio panel donde gestiona autónomamente su negocio:
-
-| Módulo | Funcionalidad | Cómo se Implementa sin Tocar Código |
-|:---|:---|:---|
-| **Perfil de Anuncio** | Subir logo, descripción, enlace web | Formulario → guarda en Supabase → se muestra en el directorio automáticamente |
-| **Base de Datos de Clientes** | Añadir, editar o eliminar clientes | Interfaz visual en Retool embebida o Supabase Table Editor |
-| **Banner Publicitario** | Subir imagen para pie de correo | Subida a Supabase Storage → n8n actualiza el prompt de Gemini |
-| **Estadísticas** | Ver cuántas consultas procesó el bot este mes | Dashboard simple con datos de Supabase |
-
-**Tecnología:** Supabase (PostgreSQL) + Retool embebido (gratis). El cliente nunca ve el código.
-
-### 4.3. Marketplace de Planos 3D (Expansión futura)
-
-Vendedores externos (diseñadores 3D freelance) pueden subir sus modelos y recibir comisiones automáticas.
-
-| Funcionalidad | Automatización |
-|:---|:---|
-| **Subida de modelo GLB** | El vendedor sube archivo → Supabase Storage |
-| **Conversión automática** | n8n ejecuta `npx gltfjsx model.glb --transform` para optimizar |
-| **Precio y venta** | Stripe Connect → comisión automática para SolarFluidity |
-| **Notificación al comprador** | Resend envía enlace de descarga |
+**Uso en la tienda del cliente:**
+```html
+<script src="https://cdn.solarfluidity.com/embed.js" data-store="mi-tienda"></script>
+<div class="solar-fluidity-configurator" data-product="silla-123"></div>
+```
 
 ---
 
-## 💰 5. Modelo de Negocio Simplificado (2 Planes + Hardware)
+## 🎨 5. Iluminación Personalizable (Ventaja Competitiva del Plan Pro)
 
-Para Costa Rica, la simplicidad es clave. Eliminamos el plan intermedio. O eres un artesano individual o eres un negocio establecido.
+Uno de los diferenciadores más poderosos frente a Zakeke o configuradores genéricos es que el Plan Pro permite **ajustar la iluminación 3D** para que coincida con la estética de la marca.
 
-### 5.1. Planes de Software
+**Parámetros configurables desde el panel:**
+- **HDRI (mapa de entorno):** El cliente puede subir su propio archivo `.hdr` o elegir entre 5 preajustes (estudio, exterior nublado, atardecer, interior cálido, luz de día).
+- **Intensidad de la luz principal:** De 0.5 a 2.0.
+- **Dirección:** Ángulos en X, Y, Z.
+- **Temperatura de color:** 3000K (cálido) a 6500K (frío).
 
-| Plan | Precio Mensual USD | Precio Mensual CRC (aprox) | Incluye | Objetivo |
-|:---|:---|:---|:---|:---|
-| **Taller Maker** | $29 | ₡15,500 | 1 producto configurable, carga de texturas propias, botón "Pedido por WhatsApp" | Artesanos individuales, emprendedores de Instagram |
-| **Industrial Pro** | $79 | ₡42,000 | Hasta 10 productos, exportación de planos PDF, generación automática de videos 360°, embed sin marca | Mueblerías establecidas, talleres de soldadura, empresas de exhibición |
-
-**Validación de ingresos:** Con solo 20 clientes en el plan `Taller Maker`, cubres todos tus costos operativos y generas ≈$580 USD/mes pasivos. Con 10 clientes en `Industrial Pro`, generas ≈$790 USD/mes adicionales.
-
-### 5.2. Hardware: Mini Impresora 3D "Fluidity Forge"
-
-No vendes impresoras genéricas. Vendes una **herramienta llave en mano** para que el carpintero fabrique sus diseños.
-
-| Especificación | Detalle |
-|:---|:---|
-| **Base** | Impresora 3D estilo Prusa Mini (open source) |
-| **Firmware** | Marlin (open source, compatible con Klipper)|
-| **Software de Control** | OctoPrint + Moonraken API (para control remoto desde el SaaS) |
-| **Precio de Venta al Cliente** | $350 - $500 (instalada, calibrada, con garantía de 6 meses) |
-| **Margen por Unidad** | ≈$150 - $250 |
-
-**Cómo se vende:** Como upsell dentro del plan `Industrial Pro`. "¿Ya digitalizaste tu inventario? Ahora fábrica tus piezas personalizadas con nuestra impresora preconfigurada."
-
-### 5.3. El Caso de Éxito "Baika" (Prueba de Concepto Validada)
-
-La empresa costarricense **Baika** ha validado que el mercado de muebles personalizados en Costa Rica es real y rentable. Sus piezas (como el sillón Baika de 3 plazas revestido en madera de castaño oscuro) demuestran que:
-
-- Los clientes costarricenses **están dispuestos a pagar precios premium** por muebles únicos y personalizados.
-- Ofrecen explícitamente la opción de personalización: *"Podemos personalizar el tamaño, color, altura, medidas y materiales"*.
-- Utilizan **plataformas digitales (1stdibs, Lagu.shop)** para vender internacionalmente, demostrando que el canal online funciona para este nicho.
-
-**Lección para SolarFluidity:** Si Baika puede vender muebles personalizados de alta gama sin un configurador 3D, imagina lo que podrás lograr *con* uno. Tu tecnología es el multiplicador de su modelo de negocio.
+**Impacto comercial:** Una mueblería de alta gama puede mostrar sus sillas de teca con una iluminación cálida y sombras suaves, transmitiendo lujo. Una tienda de muebles industriales puede usar luz fría y contrastes marcados. La personalización de la iluminación es un argumento de venta directo para justificar el upgrade a Pro.
 
 ---
 
-## 📈 6. Validación de Mercado y Tamaño de Oportunidad
+## 🚀 6. Plan de Implementación (4 Semanas)
 
-### 6.1. TAM (Mercado Total Abordable)
+### Semana 1 – Base Multi-Tienda (MVP funcional)
+- [ ] Configurar Supabase con las tablas `stores`, `products`.
+- [ ] Autenticación con Magic Links.
+- [ ] Panel simple para crear una tienda (nombre, subdominio).
+- [ ] Script `embed.js` básico que carga un iframe con el storeId.
 
-El mercado de muebles en Costa Rica proyecta un crecimiento anual superior al 9% hasta 2026. Solo en la provincia de San José, existen **195 fabricantes de muebles** registrados. Si consideramos que al menos el 20% de estos fabricantes podrían beneficiarse de un configurador 3D:
+### Semana 2 – Configurador 3D Genérico
+- [ ] Componente R3F que recibe `productId` y carga modelo GLB (con Draco ya aplicado).
+- [ ] Implementar cambio de texturas (mockup con 2 opciones).
+- [ ] Soportar parámetros de iluminación desde la tabla `stores`.
 
-- **Clientes potenciales SaaS:** ≈40 empresas solo en San José.
-- **Clientes adicionales en otras provincias:** ≈30 empresas adicionales.
-- **TAM inicial:** ≈70 empresas de muebles en Costa Rica.
+### Semana 3 – Plan Pro, Banners y Exportación
+- [ ] Integrar Stripe (suscripción $49/mes o $490/año).
+- [ ] Middleware que protege rutas Pro (panel de banners, exportación .stl).
+- [ ] Panel de banners: subir imagen, enlace, posición. Sin lógica de pagos.
+- [ ] Botón “Exportar .stl” (usa `gltf-transform` para extraer la geometría).
 
-### 6.2. SAM (Mercado Potencial Atendible)
-
-No todos los fabricantes tienen el perfil para pagar un SaaS. Segmentamos por:
-
-| Categoría | Cantidad Estimada | Perfil | Potencial de Conversión |
-|:---|:---|:---|:---|
-| **Mueblerías de alta gama** (Escazú, Santa Ana, Zona Sur) | 15-20 | Presencia digital activa, venden en línea, precios premium | Alta (30-40%) |
-| **Talleres con redes sociales activas** | 20-30 | Venden por Instagram, necesitan destacar visualmente | Media (15-25%) |
-| **Mueblerías tradicionales** (sin presencia digital) | 20-30 | Venden por referencia y catálogo físico | Baja (5-10%) |
-
-**SAM realista:** ≈30-40 empresas con alto potencial de conversión.
-
-### 6.3. Proyección de Ingresos Realista (Año 1)
-
-| Métrica | Mes 1 | Mes 3 | Mes 6 | Mes 12 |
-|:---|:---|:---|:---|:---|
-| Clientes `Taller Maker` ($29) | 3 | 8 | 15 | 25 |
-| Clientes `Industrial Pro` ($79) | 0 | 2 | 5 | 10 |
-| Unidades de hardware vendidas | 0 | 0 | 2 | 5 |
-| **MRR (SaaS)** | $87 | $390 | $830 | $1,515 |
-| **Ingreso por hardware (único)** | $0 | $0 | $500 | $1,250 |
-| **Total Acumulado Año 1** | $87 | $1,224 | $4,980 | ≈$19,500 |
-
-**Objetivo para Año 2:** 60 clientes SaaS + 20 unidades de hardware → MRR ≈$2,500 + ingreso hardware ≈$5,000 → Total ≈$35,000 anuales.
+### Semana 4 – Cupones, Landing Page y Lanzamiento
+- [ ] Tabla `coupons` y validación en checkout.
+- [ ] Landing page pública (`solarfluidity.com`) con demo en vivo.
+- [ ] Generar 20 cupones VIP (50% descuento primeros 3 meses) y contactar prospectos.
 
 ---
 
-## 🚀 7. Plan de Ejecución por Fases (6 Meses)
+## 📈 7. Proyección Financiera (Año 1)
 
-### Fase 1 – "Patient Zero" (Semanas 1-2)
+| Mes | Usuarios Gratis | Usuarios Pro | MRR Pro ($49) | Ingresos Afiliación* | Total Mes | Acumulado |
+|:---|:---|:---|:---|:---|:---|:---|
+| 1 | 30 | 2 | $98 | $0 | $98 | $98 |
+| 2 | 60 | 5 | $245 | $20 | $265 | $363 |
+| 3 | 100 | 12 | $588 | $50 | $638 | $1,001 |
+| 4 | 150 | 20 | $980 | $80 | $1,060 | $2,061 |
+| 5 | 180 | 30 | $1,470 | $120 | $1,590 | $3,651 |
+| 6 | 200 | 40 | $1,960 | $200 | $2,160 | $5,811 |
+| 9 | 250 | 60 | $2,940 | $400 | $3,340 | $15,000 |
+| 12 | 300 | 80 | $3,920 | $600 | $4,520 | $45,000 |
 
-Tu primer cliente eres tú mismo. Digitaliza UNO de tus muebles como prueba de concepto.
+*Ingresos por afiliación (ej. comisiones por referir a Bambu Lab o vender planos `.stl` en un marketplace futuro). Sin hardware, sin complicaciones logísticas.
 
-| Día | Actividad | Herramientas | Tiempo |
-|:---|:---|:---|:---|
-| 1 | Modelar UN mueble en Blender (optimizado, bajo poligonaje) | Blender | 4h |
-| 2-3 | Configurar proyecto en Project IDX, instalar React Three Fiber | IDX, npm | 2h |
-| 3-4 | Crear escena R3F (luces, sombras, OrbitControls) | R3F, Drei | 4h |
-| 4-5 | Implementar cambio de textura con clic (Zustand para estado) | Zustand | 2h |
-| 6 | Ejecutar `npx gltfjsx model.glb --transform` para optimizar | gltfjsx | 1h |
-| 7 | Integrar en landing page de Next.js y desplegar en Vercel | Vercel | 2h |
-
-### Fase 2 – Abstracción SaaS (Semanas 3-4)
-
-Convertir tu código personalizado en una plataforma multiusuario.
-
-| Actividad | Detalle | Tiempo |
-|:---|:---|:---|
-| Configurar Supabase (auth, base de datos) | Tablas: users, products, textures, subscriptions | 2h |
-| Hacer el configurador multi-tenant | Cargar texturas desde Supabase según usuario | 3h |
-| Crear panel de administración en Retool | Gestión de clientes, texturas, logs | 2h |
-| Conectar n8n para automatizar bienvenidas y facturación | Webhooks + Stripe | 2h |
-
-### Fase 3 – Hardware como Upsell (Semanas 5-8)
-
-Introducir las mini impresoras 3D como oferta complementaria.
-
-| Actividad | Detalle | Tiempo |
-|:---|:---|:---|
-| Configurar impresora de prueba | Compra una mini impresora (ej. Kingroon KLP1) | 1h |
-| Instalar OctoPrint en Raspberry Pi | Control remoto de la impresora | 2h |
-| Integrar API Moonraken con n8n | Para iniciar impresiones desde el SaaS | 3h |
-| Crear oferta de hardware en la landing page | "Lleva tu diseño al mundo físico" | 1h |
-
-### Fase 4 – Directorio y Marketplace de Planos (Semanas 9-12)
-
-Escalar el negocio con contenido generado por usuarios.
-
-| Actividad | Detalle | Tiempo |
-|:---|:---|:---|
-| Crear tabla `marketplace_products` en Supabase | Modelos 3D de terceros | 1h |
-| Construir página pública del directorio | Lista de carpinteros destacados | 2h |
-| Implementar subida de planos para vendedores externos | Panel en Retool | 2h |
-| Configurar Stripe Connect para comisiones | Pagos automáticos a vendedores | 2h |
+**Margen operativo:** >90% (costos fijos ~$50/mes).  
+**Punto de equilibrio:** Mes 4.
 
 ---
 
-## 📊 8. Análisis de Riesgos y Mitigaciones
+## ✅ 8. Conclusión y Llamada a la Acción
 
-| Riesgo | Impacto | Probabilidad | Mitigación |
-|:---|:---|:---|:---|
-| **Curva de aprendizaje R3F** | Alto (proyecto se retrasa 2-3 semanas) | Media | No intentes hacer fotorrealismo nivel cine al inicio. Usa materiales PBR estándar y buena iluminación HDRI. |
-| **Rendimiento en celulares** | Medio (usuarios frustrados) | Alta | Usa `drei/PerformanceMonitor` para bajar calidad gráfica automáticamente si detecta un celular lento. |
-| **Creación de modelos 3D** | Alto (cuello de botella) | Alta | Ofrece el servicio de modelado como pago único extra ($50-$100 por modelo). Externaliza a freelancers. |
-| **Adopción lenta del hardware** | Medio (inventario parado) | Media | Empieza con pedidos bajo demanda (preventa con depósito). No mantengas inventario grande. |
-| **Competencia de Zakeke/Configurators** | Medio (alternativas más baratas) | Media | Zakeke cobra $69-149/mes por su 3D configurator, pero su calidad de render no es premium. Tu ventaja es la fidelidad visual + hardware integrado. |
-| **Costo oculto de Render gratis** | Bajo (servicio se duerme) | Baja | Usa Render Starter ($7/mes) para evitar suspensiones y cold starts. No dependas de UptimeRobot (Render penaliza esta práctica). |
+**SolarFluidity 3D versión 5.0** es el resultado de un proceso de validación riguroso:
 
----
+- **Modelo Freemium** que atrae usuarios, **Pro** que genera ingresos recurrentes.
+- **Sin hardware, sin comisiones publicitarias** → cero fricción operativa.
+- **Iluminación personalizable** como ventaja competitiva frente a alternativas genéricas.
+- **Script `embed.js`** que permite a cualquier negocio integrar el configurador en minutos.
 
-## 💎 9. Conclusión: Por Qué Este Es el Mejor Enfoque Estratégico
-
-**Has pasado de tener una idea difusa a tener un Plan Maestro de Ejecución.** Este documento no es teoría; es un plano de construcción.
-
-**Las 5 ventajas competitivas que construyes:**
-1. **Margen infinito en software:** El SaaS escala sin costo marginal.
-2. **Control total de la tecnología:** Nadie te puede cambiar las reglas de precio como Zakeke.
-3. **Hardware como barrera de entrada:** Un cliente con tu impresora no se cambia a otro software.
-4. **Marketplace como efecto de red:** Más vendedores atraen más compradores, más compradores atraen más vendedores.
-5. **Propiedad intelectual vendible:** Este código vale dinero. Es un activo patrimonial.
-
-**El orden de ejecución es la clave del éxito:**
-1. **Ahora:** Lanza el SaaS de configuración con tu propio mueble como caso de estudio.
-2. **En 3 meses:** Añade mini impresoras 3D como upsell para tus clientes SaaS.
-3. **En 6 meses:** Abre el directorio y marketplace para que terceros aporten contenido.
-
-> 📞 **Próximo Paso Inmediato:** Abre Blender. Necesitas el modelo 3D (archivo `.glb`) de TU mueble más vendido. Ese es el inicio de todo.
+**Próximo paso inmediato:**  
+Configura tu primera tienda gratuita en `prueba.solarfluidity.app` con 2-3 modelos 3D descargados de Sketchfab (licencia creative commons). Luego, contacta a 5 carpinteros locales y ofréceles el plan Pro con los primeros cupones VIP.
 
 ---
 
-## 📁 10. Estructura del Proyecto
+## 📁 9. Estructura y Arquitectura de Archivos Actual
+
+Esta es la organización maestra de archivos de Solar Fluidity, diseñada para escalar eficientemente como plataforma SaaS Multi-Tenant.
 
 ```text
 .env
