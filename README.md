@@ -1,516 +1,510 @@
-# Solar Fluidity
+# 🌞 SolarFluidity Ecosystem – Plan Maestro de Dominación SaaS
 
-# Plataforma Integral SaaS para Empresas Solares y Electromecánicas
+> **Propietario:** Kevin Josue Cordero Elizondo (Solar Fluidity Venture Studio)
+> 
+> **Ubicación:** Zona Sur, Costa Rica
+> 
+> **Actividad:** 6201 (Desarrollo de software y consultoría informática)
 
-<p align="center">
-  <img src="public/logo-full.png" alt="Solar Fluidity Logo" width="400"/>
-</p>
+---
 
-<p align="center">
-  <strong>Facturación Electrónica Offline | Gestión de Proyectos | Automatizaciones con Agentes IA</strong>
-</p>
+## 🎯 1. El Veredicto Definitivo: Ecosistema "Propiedad Total"
 
-<p align="center">
-  <a href="#descripción-general">Descripción General</a> •
-  <a href="#arquitectura-tecnológica">Arquitectura</a> •
-  <a href="#estructura-del-proyecto">Estructura</a> •
-  <a href="#contenedores-docker-principales">Contenedores</a> •
-  <a href="#despliegue">Despliegue</a> •
-  <a href="#funcionalidades-clave">Funcionalidades</a> •
-  <a href="#integraciones-y-aliases">Integraciones</a> •
-  <a href="#pasos-de-instalación">Instalación</a> •
-  <a href="#consideraciones-de-seguridad">Seguridad</a> •
-  <a href="#contacto-y-soporte">Contacto</a>
-</p>
+El análisis de viabilidad técnica y comercial ha concluido una realidad ineludible: **Fluidity CAD, desarrollado nativamente con React Three Fiber (R3F) y con una capa de hardware complementaria (mini impresoras 3D), es la estrategia ganadora**.
 
-## 1. Descripción General
+¿Por qué este cambio es crucial? Al eliminar intermediarios (como Zakeke), pasas de ser un "revendedor de servicios" a ser una **Empresa de Tecnología con Activos Tangibles e Intangibles**.
 
-Solar Fluidity es una plataforma SaaS diseñada para empresas costarricenses de los sectores solar y electromecánico. Ofrece tres pilares principales:
+**Las capas de ventaja que construyes:**
+- **Margen Infinito en el software:** Una vez programado el código, te cuesta lo mismo ($0) ejecutarlo para 1 cliente que para 1.000. Cada nuevo cliente SaaS es ingreso puro sin costo marginal.
+- **Control Visual Total:** R3F te permite una fidelidad gráfica (sombras dinámicas, texturas de madera realistas, iluminación HDRI) superior a los configuradores genéricos, vital para vender muebles de alta gama.
+- **Activo Vendible (Propiedad Intelectual):** Este código se puede licenciar o vender en el futuro. Estás construyendo valor patrimonial.
+- **Hardware como Barrera de Entrada:** Las mini impresoras 3D (que vendes instaladas, calibradas y con garantía) crean un ecosistema cerrado. Un cliente que compra tu hardware difícilmente se cambiará a otro proveedor de software.
 
-### 1.1 Facturación Electrónica Offline
-- Genera documentos XML/PDF válidos siguiendo la normativa fiscal de Costa Rica.
-- No requiere conexión directa con Hacienda para la creación de facturas.
-- El usuario puede emitir y descargar la factura en cualquier momento, garantizando mayor autonomía.
+---
 
-### 1.2 Gestión de Proyectos Especializada
-- Herramientas diseñadas para seguimiento de instalaciones, mantenimientos y cotizaciones.
-- Incluye un sistema que replica funcionalidades esenciales de herramientas organizativas como Airtable o Notion, agregando valor al permitir la centralización y administración avanzada de datos y proyectos.
+## 🧩 2. La Estrategia de Fusión: El Modelo "Tesla + HP"
 
-### 1.3 Automatización con Agentes IA
-- Sistema interno y confidencial de agentes de IA basados en LangGraph y Pydantic.
-- Automatizan validaciones, recordatorios, reportes financieros, seguimientos de proyectos y más.
-- Nota: Esta característica es principalmente de uso interno, no se expone públicamente a los clientes.
+Tu negocio de muebles y tu hardware no son cosas distintas de tu SaaS. Funcionan bajo un ecosistema integrado de tres capas:
 
-La plataforma integra múltiples servicios externos para ofrecer una experiencia completa en términos de gestión de proyectos, facturación, almacenamiento seguro y análisis inteligente.
+| Capa | Producto | Función en el Ecosistema | Ingreso Asociado |
+|:---|:---|:---|:---|
+| **Capa 1 – Hardware** | Mini impresoras 3D preconfiguradas | Genera leads B2B masivos. Instaladores que compran la impresora necesitan el software para digitalizar sus diseños. | Venta única de hardware (₡300,000 - ₡800,000) |
+| **Capa 2 – SaaS de Configuración** | Fluidity CAD (Plan Taller / Pro) | Es el motor de ingresos recurrentes. Sin el software, la impresora es una caja. | Suscripción mensual ($29 - $79) |
+| **Capa 3 – Marketplace Digital** | Directorio de Muebles + Marketplace de Planos | Escala el negocio: vendedores de planos 3D y carpinteros externalizan su inventario a tu plataforma. | Comisión por venta + Suscripción de vendedor |
 
-## 2. Arquitectura Tecnológica
+> ⚠️ **ADVERTENCIA ESTRATÉGICA – ORDEN DE OPERACIONES CRÍTICO:**
+> 
+> El modelo "Tesla + HP" es poderoso, pero construir tres negocios a la vez es una receta segura para la parálisis. NO intentes lanzar las 3 capas simultáneamente.
+>
+> **El orden correcto es:**
+> 1. **Fase 1 (Ahora):** Lanza el SaaS de configuración (Fluidity CAD) con tu propia tienda de muebles como caso de estudio. Sin hardware, sin marketplace.
+> 2. **Fase 2 (Mes 6):** Introduce las mini impresoras 3D como upsell para clientes del SaaS que quieran fabricar sus diseños.
+> 3. **Fase 3 (Mes 12):** Abre el marketplace para que terceros vendan planos o muebles digitalizados.
+> 
+> Si saltas directo al ecosistema completo, terminarás con 3 MVPs inconclusos en lugar de 1 negocio funcionando.
 
-### 2.1 Visión General del Stack
+---
 
-- **Frontend**:
-  - Framework: React 18
-  - Lenguaje: TypeScript
-  - Bundler: Vite
-  - Estilos: Tailwind CSS
-  - Animaciones e Interacción: Framer Motion
-  - Autenticación y Base de Datos: Supabase
-  - Hospedaje recomendado: Netlify, Vercel o S3+CloudFront
-  
-- **Backend y Orquestación de Microservicios**:
-  - Contenedores Docker orquestados mediante docker-compose.yml
-  - API Principal (Node.js + Express): Manejo de endpoints para facturación, validaciones y pagos (PayPal).
-  - Agentes IA (Python + FastAPI): Servicios internos de automatización.
-    - Basados en LangGraph + Pydantic.
-    - Expuestos en contenedores separados.
-    - Uso interno, no público.
-    
-- **Base de Datos**:
-  - Supabase (PostgreSQL manejado en la nube).
-  - Opción de integración con DB propia en PostgreSQL vía Docker en entornos locales.
-  
-- **Almacenamiento de Archivos**:
-  - AWS S3 para los documentos XML/PDF generados en facturación.
-  
-- **Integraciones y Servicios Adicionales**:
-  - Gmail (con alias): Envío de correos, notificaciones y documentación.
-  - PayPal: Procesamiento de pagos y suscripciones.
-  - API Gateway / Reverse Proxy (opcional en producción): Traefik o similar.
-  - Supabase: Alojamiento principal de la base de datos + autenticación (RLS).
-  
-- **Plataformas de Despliegue**:
-  - Netlify / Vercel: Para hosting del frontend (sitio estático).
-  - AWS (Elastic Beanstalk, ECS, EC2 o Lightsail, según el caso): Para contenedores Docker de la API, Agentes IA, etc.
-  - Supabase: Base de datos PostgreSQL + servicios serverless integrados.
+## 🏗️ 3. Arquitectura Técnica "Antigravedad" + R3F
 
-## 3. Estructura del Proyecto
+Esta arquitectura garantiza **mantenimiento bajo y escalabilidad masiva** sin costos fijos altos.
 
-La estructura propuesta facilita la organización del código, la extensibilidad y la implementación de buenas prácticas de DevOps. A continuación, una vista general (simplificada) de los directorios:
+### 3.1. El Stack de Desarrollo
+
+| Componente | Tecnología | Propósito | Costo |
+|:---|:---|:---|:---|
+| **Entorno & Deploy** | Project IDX (Google Cloud) + Vercel | Desarrollo en la nube, despliegue global instantáneo | $0 (IDX) + $0-20 (Vercel) |
+| **Motor Gráfico** | React Three Fiber (R3F) + Drei | El corazón del configurador 3D | $0 |
+| **Optimización de Assets** | gltfjsx (npx gltfjsx model.glb --transform) | Reduce modelos 3D entre 70% y 90% | $0 |
+| **Estado Global** | Zustand | Maneja cambios de color/tamaño sin re-renderizar todo el canvas | $0 |
+| **Backend & DB** | Supabase (PostgreSQL) | Guarda configuraciones de usuarios y gestiona autenticación | $0-25 |
+| **Automatización** | n8n | Orquestador de pedidos, facturación y notificaciones | $0-20 |
+| **Servicio de Impresión** | Moonraken API + OctoPrint | Control remoto de las mini impresoras 3D | $0 |
+
+> 🔥 **CONSEJO PARA UN MANTENIMIENTO CERo:** La mejor manera de no tener que mantener algo es que otros lo mantengan por ti. Siempre que sea posible, usa herramientas serverless: Supabase (base de datos administrada), n8n en la nube, Vercel (frontend administrado). Tu código se reduce a la lógica de negocio y el motor 3D.
+
+### 3.2. Flujo de Datos Técnico (End-to-End)
 
 ```
-proyectosolar/
-├── docker-compose.yml       # Orquestación de contenedores en desarrollo/producción
-├── .env.example             # Variables de entorno de ejemplo
-├── src/
-│   ├── components/          # Componentes React reutilizables
-│   ├── pages/               # Rutas principales (React Router)
-│   │   ├── auth/            # Login, registro y recuperación de cuentas
-│   │   ├── dashboard/       # Panel principal
-│   │   ├── projects/        # Gestión de proyectos
-│   │   ├── invoices/        # Facturación electrónica
-│   │   ├── reports/         # Reportes financieros
-│   │   └── settings/        # Configuración del usuario
-│   ├── services/            # Conexiones con APIs (supabase, paypal, etc.)
-│   ├── hooks/               # Custom hooks de React
-│   ├── context/             # Contextos React
-│   ├── utils/               # Helpers y funciones auxiliares
-│   ├── styles/              # Configuración de Tailwind y estilos globales
-│   └── integrations/        # Código adicional de integración
-│       └── mcp/             # MCP (Model Context Protocol) - opcional
-├── ai_agents/               # Código Python para Agentes IA (internos)
-│   ├── agents/              # Lógica de agentes especializados
-│   ├── main.py              # Servidor FastAPI
-│   ├── graph.py             # Definición de LangGraph
-│   └── requirements.txt     # Dependencias Python
-├── scripts/                 # Scripts de automatización (ej. migraciones, backups, etc.)
-├── docs/                    # Documentación detallada (guías, manuales, políticas)
-└── ...
+Cliente (Carpintero/Instalador) ──► Sube foto de su madera/tela
+                                          │
+                                          ▼
+                              ┌─────────────────────────┐
+                              │ Servidor de Texturizado │
+                              │ (Node.js + Sharp)       │
+                              │ • Convierte imagen a    │
+                              │   textura repetible     │
+                              │ • Optimiza tamaño       │
+                              └───────────┬─────────────┘
+                                          │
+                                          ▼
+                              ┌─────────────────────────┐
+                              │ React Three Fiber       │
+                              │ (Cliente Web)           │
+                              │ • Aplica textura al     │
+                              │   modelo 3D             │
+                              │ • Renderiza en tiempo   │
+                              │   real con luces/sombras│
+                              └───────────┬─────────────┘
+                                          │
+                                          ▼
+                              ┌─────────────────────────┐
+                              │ Zustand (Estado Global) │
+                              │ • Guarda configuración  │
+                              │   del usuario           │
+                              │ • Sincroniza con UI     │
+                              └───────────┬─────────────┘
+                                          │
+              ┌───────────────────────────┼───────────────────────────┐
+              │                           │                           │
+              ▼                           ▼                           ▼
+    ┌─────────────────┐         ┌─────────────────┐       ┌─────────────────────┐
+    │ Botón "Pedir"   │         │ Botón "Exportar"│       │ Botón "Compartir"   │
+    │ → n8n genera    │         │ → Descarga      │       │ → Genera video      │
+    │   cotización    │         │   plano PDF     │       │   MP4 del mueble    │
+    │   + factura     │         │   con medidas   │       │   para Instagram    │
+    └─────────────────┘         └─────────────────┘       └─────────────────────┘
 ```
 
-## 4. Contenedores Docker Principales
+### 3.3. El Secreto del Rendimiento: Instancing + GLTFJSX
 
-Para orquestar los diferentes servicios, se sugiere un docker-compose.yml con varios contenedores. A continuación, una lista de contenedores principales:
+Dos técnicas son críticas para que la experiencia 3D no sea lenta:
 
-1. **frontend**
-   - Build de la aplicación React con Vite.
-   - Sirve contenido estático.
+**A. Instancing (Drei/Instances):** Cuando tienes múltiples objetos iguales (ej. múltiples sillas en una mesa), cada `<mesh>` genera una "draw call" al GPU. Con `<Instances>`, reduces 50 draw calls a 1 sola, pasando de 8 FPS a 60 FPS fluidos.
 
-2. **backend-api**
-   - Contiene la lógica Node.js (Express) para la API principal.
-   - Expone los endpoints de facturación, pagos, etc.
+**B. GLTFJSX con transformación:** El comando `npx gltfjsx model.glb --transform` comprime, optimiza y convierte tu modelo en un componente React reutilizable, reduciendo el tamaño del archivo hasta en un 90%.
 
-3. **ai-agents**
-   - Servidor FastAPI que maneja los agentes IA.
-   - Uso interno. No se expone públicamente.
+### 3.4. La "Plataforma Beta": Código Cero, Ingresos Ahora
 
-4. **db** (opcional en entornos locales)
-   - Contenedor de PostgreSQL para pruebas locales (en producción se usa Supabase).
+Olvida el desarrollo complejo. El objetivo es vender una solución que ya es funcional.
 
-5. **adminer / pgAdmin** (opcional)
-   - Herramienta de administración de base de datos.
+| Componente | Función en el MVP | Costo Mensual |
+|:---|:---|:---|
+| **Tally.so** | Formulario de captura de clientes potenciales (leads) | $0 |
+| **n8n** (Render Starter) | Orquestador de pedidos y facturación | $7 |
+| **Google Sheets** | Base de datos de clientes (simple) | $0 |
+| **Gemini API** | Asistente de soporte automatizado | ≈$5 |
+| **Resend** | Envío de correos de confirmación | $0 (3,000 emails/mes) |
+| **Vercel** | Landing page y directorio público | $0 |
 
-6. **support-dashboard** (opcional)
-   - Interfaz interna para soporte y monitoreo.
-   - Nota: En producción, evitar exponer sockets del host.
+**Total fijo mensual para operar el MVP:** ≈$12.
 
-En producción, cada uno puede ser desplegado en infraestructura distinta (por ejemplo, ECS para backend-api y ai-agents, Netlify para el frontend estático, y Supabase como DB).
+---
 
-## 5. Despliegue
+## 👑 4. El "Super Usuario" y la Arquitectura de Autogestión
 
-### 5.1 Despliegue del Frontend en Netlify
+El objetivo es que el código **no se toque** para el mantenimiento diario. Todo lo que un cliente necesita cambiar debe ser autogestionable desde un panel. Para ello, implementamos tres portales diferenciados:
 
-1. Compilar el proyecto:
-```bash
-npm install
-npm run build
+### 4.1. Portal del Administrador (Tú – Super Usuario)
+
+Tu herramienta de control central, construida con **Retool** (plan gratuito suficiente para empezar), te permite:
+
+| Funcionalidad | Descripción | Frecuencia de Uso |
+|:---|:---|:---|
+| **Gestión de Prompts de IA** | Editar el comportamiento del asistente Gemini de TODOS los clientes desde un solo lugar | Semanal (mejoras) |
+| **Monitoreo de Uso de API** | Ver cuántas consultas procesó cada cliente este mes | Diario (5 min) |
+| **Logs de Errores** | Revisar qué webhooks fallaron y por qué | Diario (10 min) |
+| **Gestión de Planes** | Activar/desactivar clientes, cambiar suscripciones | Semanal |
+| **Dashboard de Ingresos** | Ver MRR, clientes nuevos, churn | Diario |
+
+**Ventaja:** Nunca tocas el código de producción para cambios de contenido o configuración. Todo se maneja desde Retool + variables de entorno.
+
+### 4.2. Portal del Cliente (El Instalador/Carpintero)
+
+El instalador accede a su propio panel donde gestiona autónomamente su negocio:
+
+| Módulo | Funcionalidad | Cómo se Implementa sin Tocar Código |
+|:---|:---|:---|
+| **Perfil de Anuncio** | Subir logo, descripción, enlace web | Formulario → guarda en Supabase → se muestra en el directorio automáticamente |
+| **Base de Datos de Clientes** | Añadir, editar o eliminar clientes | Interfaz visual en Retool embebida o Supabase Table Editor |
+| **Banner Publicitario** | Subir imagen para pie de correo | Subida a Supabase Storage → n8n actualiza el prompt de Gemini |
+| **Estadísticas** | Ver cuántas consultas procesó el bot este mes | Dashboard simple con datos de Supabase |
+
+**Tecnología:** Supabase (PostgreSQL) + Retool embebido (gratis). El cliente nunca ve el código.
+
+### 4.3. Marketplace de Planos 3D (Expansión futura)
+
+Vendedores externos (diseñadores 3D freelance) pueden subir sus modelos y recibir comisiones automáticas.
+
+| Funcionalidad | Automatización |
+|:---|:---|
+| **Subida de modelo GLB** | El vendedor sube archivo → Supabase Storage |
+| **Conversión automática** | n8n ejecuta `npx gltfjsx model.glb --transform` para optimizar |
+| **Precio y venta** | Stripe Connect → comisión automática para SolarFluidity |
+| **Notificación al comprador** | Resend envía enlace de descarga |
+
+---
+
+## 💰 5. Modelo de Negocio Simplificado (2 Planes + Hardware)
+
+Para Costa Rica, la simplicidad es clave. Eliminamos el plan intermedio. O eres un artesano individual o eres un negocio establecido.
+
+### 5.1. Planes de Software
+
+| Plan | Precio Mensual USD | Precio Mensual CRC (aprox) | Incluye | Objetivo |
+|:---|:---|:---|:---|:---|
+| **Taller Maker** | $29 | ₡15,500 | 1 producto configurable, carga de texturas propias, botón "Pedido por WhatsApp" | Artesanos individuales, emprendedores de Instagram |
+| **Industrial Pro** | $79 | ₡42,000 | Hasta 10 productos, exportación de planos PDF, generación automática de videos 360°, embed sin marca | Mueblerías establecidas, talleres de soldadura, empresas de exhibición |
+
+**Validación de ingresos:** Con solo 20 clientes en el plan `Taller Maker`, cubres todos tus costos operativos y generas ≈$580 USD/mes pasivos. Con 10 clientes en `Industrial Pro`, generas ≈$790 USD/mes adicionales.
+
+### 5.2. Hardware: Mini Impresora 3D "Fluidity Forge"
+
+No vendes impresoras genéricas. Vendes una **herramienta llave en mano** para que el carpintero fabrique sus diseños.
+
+| Especificación | Detalle |
+|:---|:---|
+| **Base** | Impresora 3D estilo Prusa Mini (open source) |
+| **Firmware** | Marlin (open source, compatible con Klipper)|
+| **Software de Control** | OctoPrint + Moonraken API (para control remoto desde el SaaS) |
+| **Precio de Venta al Cliente** | $350 - $500 (instalada, calibrada, con garantía de 6 meses) |
+| **Margen por Unidad** | ≈$150 - $250 |
+
+**Cómo se vende:** Como upsell dentro del plan `Industrial Pro`. "¿Ya digitalizaste tu inventario? Ahora fábrica tus piezas personalizadas con nuestra impresora preconfigurada."
+
+### 5.3. El Caso de Éxito "Baika" (Prueba de Concepto Validada)
+
+La empresa costarricense **Baika** ha validado que el mercado de muebles personalizados en Costa Rica es real y rentable. Sus piezas (como el sillón Baika de 3 plazas revestido en madera de castaño oscuro) demuestran que:
+
+- Los clientes costarricenses **están dispuestos a pagar precios premium** por muebles únicos y personalizados.
+- Ofrecen explícitamente la opción de personalización: *"Podemos personalizar el tamaño, color, altura, medidas y materiales"*.
+- Utilizan **plataformas digitales (1stdibs, Lagu.shop)** para vender internacionalmente, demostrando que el canal online funciona para este nicho.
+
+**Lección para SolarFluidity:** Si Baika puede vender muebles personalizados de alta gama sin un configurador 3D, imagina lo que podrás lograr *con* uno. Tu tecnología es el multiplicador de su modelo de negocio.
+
+---
+
+## 📈 6. Validación de Mercado y Tamaño de Oportunidad
+
+### 6.1. TAM (Mercado Total Abordable)
+
+El mercado de muebles en Costa Rica proyecta un crecimiento anual superior al 9% hasta 2026. Solo en la provincia de San José, existen **195 fabricantes de muebles** registrados. Si consideramos que al menos el 20% de estos fabricantes podrían beneficiarse de un configurador 3D:
+
+- **Clientes potenciales SaaS:** ≈40 empresas solo en San José.
+- **Clientes adicionales en otras provincias:** ≈30 empresas adicionales.
+- **TAM inicial:** ≈70 empresas de muebles en Costa Rica.
+
+### 6.2. SAM (Mercado Potencial Atendible)
+
+No todos los fabricantes tienen el perfil para pagar un SaaS. Segmentamos por:
+
+| Categoría | Cantidad Estimada | Perfil | Potencial de Conversión |
+|:---|:---|:---|:---|
+| **Mueblerías de alta gama** (Escazú, Santa Ana, Zona Sur) | 15-20 | Presencia digital activa, venden en línea, precios premium | Alta (30-40%) |
+| **Talleres con redes sociales activas** | 20-30 | Venden por Instagram, necesitan destacar visualmente | Media (15-25%) |
+| **Mueblerías tradicionales** (sin presencia digital) | 20-30 | Venden por referencia y catálogo físico | Baja (5-10%) |
+
+**SAM realista:** ≈30-40 empresas con alto potencial de conversión.
+
+### 6.3. Proyección de Ingresos Realista (Año 1)
+
+| Métrica | Mes 1 | Mes 3 | Mes 6 | Mes 12 |
+|:---|:---|:---|:---|:---|
+| Clientes `Taller Maker` ($29) | 3 | 8 | 15 | 25 |
+| Clientes `Industrial Pro` ($79) | 0 | 2 | 5 | 10 |
+| Unidades de hardware vendidas | 0 | 0 | 2 | 5 |
+| **MRR (SaaS)** | $87 | $390 | $830 | $1,515 |
+| **Ingreso por hardware (único)** | $0 | $0 | $500 | $1,250 |
+| **Total Acumulado Año 1** | $87 | $1,224 | $4,980 | ≈$19,500 |
+
+**Objetivo para Año 2:** 60 clientes SaaS + 20 unidades de hardware → MRR ≈$2,500 + ingreso hardware ≈$5,000 → Total ≈$35,000 anuales.
+
+---
+
+## 🚀 7. Plan de Ejecución por Fases (6 Meses)
+
+### Fase 1 – "Patient Zero" (Semanas 1-2)
+
+Tu primer cliente eres tú mismo. Digitaliza UNO de tus muebles como prueba de concepto.
+
+| Día | Actividad | Herramientas | Tiempo |
+|:---|:---|:---|:---|
+| 1 | Modelar UN mueble en Blender (optimizado, bajo poligonaje) | Blender | 4h |
+| 2-3 | Configurar proyecto en Project IDX, instalar React Three Fiber | IDX, npm | 2h |
+| 3-4 | Crear escena R3F (luces, sombras, OrbitControls) | R3F, Drei | 4h |
+| 4-5 | Implementar cambio de textura con clic (Zustand para estado) | Zustand | 2h |
+| 6 | Ejecutar `npx gltfjsx model.glb --transform` para optimizar | gltfjsx | 1h |
+| 7 | Integrar en landing page de Next.js y desplegar en Vercel | Vercel | 2h |
+
+### Fase 2 – Abstracción SaaS (Semanas 3-4)
+
+Convertir tu código personalizado en una plataforma multiusuario.
+
+| Actividad | Detalle | Tiempo |
+|:---|:---|:---|
+| Configurar Supabase (auth, base de datos) | Tablas: users, products, textures, subscriptions | 2h |
+| Hacer el configurador multi-tenant | Cargar texturas desde Supabase según usuario | 3h |
+| Crear panel de administración en Retool | Gestión de clientes, texturas, logs | 2h |
+| Conectar n8n para automatizar bienvenidas y facturación | Webhooks + Stripe | 2h |
+
+### Fase 3 – Hardware como Upsell (Semanas 5-8)
+
+Introducir las mini impresoras 3D como oferta complementaria.
+
+| Actividad | Detalle | Tiempo |
+|:---|:---|:---|
+| Configurar impresora de prueba | Compra una mini impresora (ej. Kingroon KLP1) | 1h |
+| Instalar OctoPrint en Raspberry Pi | Control remoto de la impresora | 2h |
+| Integrar API Moonraken con n8n | Para iniciar impresiones desde el SaaS | 3h |
+| Crear oferta de hardware en la landing page | "Lleva tu diseño al mundo físico" | 1h |
+
+### Fase 4 – Directorio y Marketplace de Planos (Semanas 9-12)
+
+Escalar el negocio con contenido generado por usuarios.
+
+| Actividad | Detalle | Tiempo |
+|:---|:---|:---|
+| Crear tabla `marketplace_products` en Supabase | Modelos 3D de terceros | 1h |
+| Construir página pública del directorio | Lista de carpinteros destacados | 2h |
+| Implementar subida de planos para vendedores externos | Panel en Retool | 2h |
+| Configurar Stripe Connect para comisiones | Pagos automáticos a vendedores | 2h |
+
+---
+
+## 📊 8. Análisis de Riesgos y Mitigaciones
+
+| Riesgo | Impacto | Probabilidad | Mitigación |
+|:---|:---|:---|:---|
+| **Curva de aprendizaje R3F** | Alto (proyecto se retrasa 2-3 semanas) | Media | No intentes hacer fotorrealismo nivel cine al inicio. Usa materiales PBR estándar y buena iluminación HDRI. |
+| **Rendimiento en celulares** | Medio (usuarios frustrados) | Alta | Usa `drei/PerformanceMonitor` para bajar calidad gráfica automáticamente si detecta un celular lento. |
+| **Creación de modelos 3D** | Alto (cuello de botella) | Alta | Ofrece el servicio de modelado como pago único extra ($50-$100 por modelo). Externaliza a freelancers. |
+| **Adopción lenta del hardware** | Medio (inventario parado) | Media | Empieza con pedidos bajo demanda (preventa con depósito). No mantengas inventario grande. |
+| **Competencia de Zakeke/Configurators** | Medio (alternativas más baratas) | Media | Zakeke cobra $69-149/mes por su 3D configurator, pero su calidad de render no es premium. Tu ventaja es la fidelidad visual + hardware integrado. |
+| **Costo oculto de Render gratis** | Bajo (servicio se duerme) | Baja | Usa Render Starter ($7/mes) para evitar suspensiones y cold starts. No dependas de UptimeRobot (Render penaliza esta práctica). |
+
+---
+
+## 💎 9. Conclusión: Por Qué Este Es el Mejor Enfoque Estratégico
+
+**Has pasado de tener una idea difusa a tener un Plan Maestro de Ejecución.** Este documento no es teoría; es un plano de construcción.
+
+**Las 5 ventajas competitivas que construyes:**
+1. **Margen infinito en software:** El SaaS escala sin costo marginal.
+2. **Control total de la tecnología:** Nadie te puede cambiar las reglas de precio como Zakeke.
+3. **Hardware como barrera de entrada:** Un cliente con tu impresora no se cambia a otro software.
+4. **Marketplace como efecto de red:** Más vendedores atraen más compradores, más compradores atraen más vendedores.
+5. **Propiedad intelectual vendible:** Este código vale dinero. Es un activo patrimonial.
+
+**El orden de ejecución es la clave del éxito:**
+1. **Ahora:** Lanza el SaaS de configuración con tu propio mueble como caso de estudio.
+2. **En 3 meses:** Añade mini impresoras 3D como upsell para tus clientes SaaS.
+3. **En 6 meses:** Abre el directorio y marketplace para que terceros aporten contenido.
+
+> 📞 **Próximo Paso Inmediato:** Abre Blender. Necesitas el modelo 3D (archivo `.glb`) de TU mueble más vendido. Ese es el inicio de todo.
+
+---
+
+## 📁 10. Estructura del Proyecto
+
+```text
+.env
+.env.example
+.env.production
+.github/workflows/aws.yml
+.gitignore
+.gitignore.bak
+Dockerfile.frontend
+README.md
+cleanup.sh
+components.json
+docker-compose.full.yml
+docs/ESTRUCTURA_PROYECTO.md
+docs/GUIA_DESPLIEGUE_VERCEL.md
+eslint.config.js
+index.html
+netlify.toml
+nginx.conf
+package-lock.json
+package.json
+postcss.config.js
+public/favicon.ico
+public/images/solar-products-banner.jpg
+public/og-image.png
+public/placeholder.svg
+scripts/check_solar_fluidity.py
+scripts/config_status.json
+scripts/final-test.cjs
+scripts/start_mcp_server.sh
+scripts/test-both-environments.cjs
+scripts/test-paypal.cjs
+scripts/test-paypal.js
+scripts/test-service.cjs
+scripts/test_integration.py
+scripts/verify-paypal-oauth.cjs
+scripts/verify-paypal-oauth.js
+scripts/verify-paypal.js
+scripts/verify-paypal.mjs
+scripts/verify-sandbox.cjs
+src/App.css
+src/App.tsx
+src/components/AffiliateAdvisorSection.tsx
+src/components/AmazonAffiliateSection.tsx
+src/components/AutomationSection.tsx
+src/components/Blog.tsx
+src/components/Contact.tsx
+src/components/Features.tsx
+src/components/GoogleAuthButton.tsx
+src/components/Hero.tsx
+src/components/Logo.tsx
+src/components/OptimizedBackground.tsx
+src/components/ParticleBackground.tsx
+src/components/PaymentButton/PayPalButton.tsx
+src/components/PaymentWidget/InvoicePaymentWidget.tsx
+src/components/Pricing.tsx
+src/components/amazon-affiliate/AmazonBanner.tsx
+src/components/amazon-affiliate/ShopPromotion.tsx
+src/components/lazy-section.tsx
+src/components/ui/accordion.tsx
+src/components/ui/alert-dialog.tsx
+src/components/ui/alert.tsx
+src/components/ui/aspect-ratio.tsx
+src/components/ui/avatar.tsx
+src/components/ui/badge.tsx
+src/components/ui/breadcrumb.tsx
+src/components/ui/button.tsx
+src/components/ui/calendar.tsx
+src/components/ui/card.tsx
+src/components/ui/carousel.tsx
+src/components/ui/chart.tsx
+src/components/ui/checkbox.tsx
+src/components/ui/collapsible.tsx
+src/components/ui/command.tsx
+src/components/ui/context-menu.tsx
+src/components/ui/dialog.tsx
+src/components/ui/drawer.tsx
+src/components/ui/dropdown-menu.tsx
+src/components/ui/form.tsx
+src/components/ui/hover-card.tsx
+src/components/ui/input-otp.tsx
+src/components/ui/input.tsx
+src/components/ui/label.tsx
+src/components/ui/menubar.tsx
+src/components/ui/navigation-menu.tsx
+src/components/ui/optimized-image-fallback.tsx
+src/components/ui/optimized-image.tsx
+src/components/ui/pagination.tsx
+src/components/ui/popover.tsx
+src/components/ui/progress.tsx
+src/components/ui/radio-group.tsx
+src/components/ui/resizable.tsx
+src/components/ui/scroll-area.tsx
+src/components/ui/select.tsx
+src/components/ui/separator.tsx
+src/components/ui/sheet.tsx
+src/components/ui/sidebar.tsx
+src/components/ui/skeleton.tsx
+src/components/ui/slider.tsx
+src/components/ui/sonner.tsx
+src/components/ui/switch.tsx
+src/components/ui/table.tsx
+src/components/ui/tabs.tsx
+src/components/ui/textarea.tsx
+src/components/ui/toast.tsx
+src/components/ui/toaster.tsx
+src/components/ui/toggle-group.tsx
+src/components/ui/toggle.tsx
+src/components/ui/tooltip.tsx
+src/components/ui/use-toast.ts
+src/config/constants.ts
+src/config/environment.ts
+src/config/integrations.ts
+src/context/AuthContext.tsx
+src/hooks/use-mobile.tsx
+src/hooks/use-toast.ts
+src/i18n/config.ts
+src/index.css
+src/integrations/mcp-python-sdk/mcp/__init__.py
+src/integrations/mcp/.env
+src/integrations/mcp/check_supabase_connection.py
+src/integrations/mcp/create_supabase_tables.py
+src/integrations/mcp/install_and_test_mcp.py
+src/integrations/mcp/setup_supabase_db.py
+src/integrations/mcp/solar_fluidity_mcp_server.py
+src/integrations/mcp/supabase_config.example.env
+src/integrations/mcp/test_mcp_server.py
+src/integrations/mcp/verify_tables_and_test_connection.py
+src/layouts/MainLayout.tsx
+src/lib/utils.ts
+src/main.tsx
+src/pages/Dashboard.tsx
+src/pages/Index.tsx
+src/pages/NotFound.tsx
+src/pages/Profile.tsx
+src/pages/Settings.tsx
+src/pages/articles/ApiIntegrationGuide.tsx
+src/pages/auth/Login.tsx
+src/pages/auth/Register.tsx
+src/pages/inventory/Inventory.tsx
+src/pages/invoices/InvoiceDetail.tsx
+src/pages/invoices/Invoices.tsx
+src/pages/invoicing/InvoiceDetailPage.tsx
+src/pages/payment/CheckoutPage.tsx
+src/pages/payment/PaymentCancelPage.tsx
+src/pages/payment/PaymentSuccessPage.tsx
+src/pages/projects/ProjectDetail.tsx
+src/pages/projects/Projects.tsx
+src/pages/quotations/QuotationDetail.tsx
+src/pages/quotations/Quotations.tsx
+src/pages/shop/index.tsx
+src/routes/paymentRoutes.tsx
+src/services/api.ts
+src/services/convex/convexService.ts
+src/services/payment/paypal.ts
+src/services/payment/subscriptionPlans.ts
+src/services/payment/subscriptionService.ts
+src/services/payment/test-paypal-connection.ts
+src/types/index.ts
+src/utils/googleAuth.ts
+src/utils/withLazyLoading.tsx
+src/vite-env.d.ts
+tailwind.config.ts
+tsconfig.app.json
+tsconfig.json
+tsconfig.node.json
+vercel.json
+vite.config.ts
+webapp/css/styles.css
+webapp/index.html
+webapp/js/main.js
+windsurf_deployment.yaml
 ```
-
-2. Subir la carpeta dist/ (generada por Vite) a Netlify o configurarlo para ejecutar los comandos de build automáticamente desde el repo.
-3. Configurar variables de entorno en Netlify para conectarse con la API (VITE_API_URL, VITE_SUPABASE_URL, etc.).
-
-### 5.2 Despliegue de la API Principal y Agentes IA
-
-- **Opción A: AWS ECS o Elastic Beanstalk**
-  - Definir tareas ECS para cada contenedor (backend-api, ai-agents).
-  - Almacenar imágenes en ECR (Elastic Container Registry).
-  - Configurar seguridad (VPC, SG, etc.).
-
-- **Opción B: Docker en EC2 o Lightsail**
-  - Subir el repositorio al servidor.
-  - Configurar .env de producción con secretos.
-  - Ejecutar docker-compose up -d --build.
-
-- **Opción C: Otros PaaS (Heroku, Fly.io, etc.)**
-  - Ajustar la configuración del Dockerfile.
-  - Subir la imagen en contenedor según los lineamientos del proveedor.
-
-### 5.3 Base de Datos con Supabase
-
-- Crear proyecto en Supabase y obtener:
-  - SUPABASE_URL
-  - SUPABASE_ANON_KEY
-  - SUPABASE_SERVICE_ROLE_KEY
-- Configurar reglas RLS para limitar el acceso a cada usuario/organización.
-- Ejecutar migraciones (si las hubiera) o scripts de creación de tablas.
-
-### 5.4 Almacenamiento de Documentos (AWS S3)
-
-1. Crear un bucket S3.
-2. Configurar políticas de acceso (lectura/escritura limitada).
-3. Agregar las credenciales (AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY) en el archivo .env.
-4. Verificar que la ruta de subida de archivos PDF/XML sea la correcta (VITE_AWS_BUCKET_NAME).
-
-## 6. Funcionalidades Clave
-
-### 6.1 Facturación Electrónica Offline
-- Generación de XML/PDF según la normativa fiscal de Costa Rica (UBL 2.1).
-- Operación Offline: No requiere comunicación directa con Hacienda para la emisión.
-- Firma Digital (opcional) para validación con BCCR.
-- Download Inmediato: El usuario puede descargar la factura al momento.
-- Historial de facturas emitidas, con estados ("Pendiente de firma", "Emitida", etc.).
-- Seguridad: Almacenamiento cifrado de documentos en S3.
-
-### 6.2 Gestión de Proyectos Especializada
-- Planificación y Seguimiento de instalaciones, mantenimientos y cotizaciones.
-- Calendarios y Hitos para proyectos de tipo solar, electromecánico o híbrido.
-- Reposición de Funcionalidades de Airtable o Notion:
-  - Tablas personalizadas, enlaces entre registros, control de versiones básico.
-  - Paneles con vistas personalizadas para cada rol (administración, técnicos, etc.).
-- Documentación Técnica centralizada (subida de planos, manuales).
-- Notificaciones vía correo electrónico (Gmail alias) o a través del panel interno.
-
-### 6.3 Automatización Interna con Agentes IA
-- Sistema Interno y Confidencial (no se expone al usuario final).
-- Basado en LangGraph + Pydantic:
-  - Flujos cognitivos configurables y validación estricta de datos.
-  - Manejo de tareas repetitivas, validaciones, recordatorios y reportes.
-- Orquestación: Los agentes pueden trabajar en paralelo, utilizando un grafo para procesar datos de facturación, calendario, etc.
-- Desencadenantes: Generación de recordatorios de pago, alertas de mantenimiento, reportes de desempeño, etc.
-- Registro de Actividad: Logs detallados para control interno.
-
-## 7. Integraciones y Aliases
-
-### 7.1 Integración con Gmail (Aliases)
-- Permite el envío de correos automatizados desde diferentes alias (ej. facturacion@tudominio.com, soporte@tudominio.com).
-- Se configuran credenciales IMAP/SMTP o se utiliza la API de Gmail.
-- Permite notificaciones y envío de documentos a clientes finales.
-
-### 7.2 PayPal
-- Procesamiento de pagos recurrentes (suscripciones mensuales/anuales) o pagos únicos.
-- Webhooks configurados para registrar el estado de cada transacción.
-
-### 7.3 Otras Integraciones
-- Model Context Protocol (MCP): Potencia la conexión con servicios de terceros (Gmail, Google Calendar, Airtable, etc.), si se desea.
-- Herramientas Organizativas (replicadas internamente) para proyectos.
-
-## 🛠 Configuración e Instalación
-
-Sigue estos pasos para configurar y poner en marcha el proyecto Solar Fluidity en tu entorno local.
-
-### 1. Requisitos Previos
-
-Asegúrate de tener instalado lo siguiente:
-
--   **Git:** Para clonar el repositorio.
--   **Node.js:** Versión 16 o superior (incluye npm).
--   **Python:** Versión 3.8 o superior (incluye pip/pip3).
--   **Cuentas de Servicios Externos:**
-    -   Google Cloud (para OAuth de Gmail/Calendar)
-    -   Supabase (para base de datos principal)
-    -   PayPal Developer (para credenciales de API de pagos Sandbox y Live)
-    -   (Opcional) OpenAI (para los Agentes IA)
-    -   (Opcional) GitHub (si usas ese MCP)
-    -   (Opcional) AWS (para S3)
-    -   **Docker y Docker Compose:** Para ejecutar servicios contenerizados (ver <a href="#ejecución-con-docker-compose">Ejecución con Docker Compose</a>).
-
-### 2. Clonar el Repositorio
-
-```bash
-git clone https://github.com/KevinCElizondo/proyectosolar.git
-cd proyectosolar
-```
-
-### 3. Configurar Variables de Entorno (`.env`)
-
-Existen varios archivos `.env` para los diferentes componentes. Necesitarás crearlos y llenarlos con tus credenciales. **Nunca compartas estos archivos con información sensible.**
-
-**a) Archivo Principal (`./.env`)**
-
-Copia el archivo de ejemplo y edítalo:
-
-```bash
-cp .env.example .env
-nano .env # o usa tu editor preferido
-```
-
-Configura las siguientes variables (como mínimo):
-
-```dotenv
-# URL del Backend API (creado en backend-api/)
-VITE_API_URL=http://localhost:4000 
-
-# Credenciales Convex (si las usas directamente en frontend)
-VITE_CONVEX_DEPLOY_KEY=your-convex-deploy-key 
-
-# Credenciales PayPal (SOLO Client ID para el frontend)
-VITE_PAYPAL_SANDBOX_CLIENT_ID=YOUR_PAYPAL_SANDBOX_CLIENT_ID 
-VITE_PAYPAL_LIVE_CLIENT_ID=YOUR_PAYPAL_LIVE_CLIENT_ID 
-
-# Credenciales Supabase (para frontend y servidor MCP)
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
-SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your-supabase-service-role-key # ¡SECRETO!
-
-# N8N (si aplica)
-VITE_N8N_WEBHOOK_URL=your-n8n-webhook-url
-
-# OpenAI (para Agentes IA)
-OPENAI_API_KEY=your_openai_api_key # ¡SECRETO!
-
-# Otras variables según .env.example...
-```
-
-**b) Backend API (`./backend-api/.env`)**
-
-Crea este archivo dentro de `backend-api/`:
-
-```bash
-nano backend-api/.env
-```
-
-Añade el siguiente contenido, reemplazando los placeholders:
-
-```dotenv
-# Entorno (development para local, production para despliegue)
-NODE_ENV=development
-
-# Credenciales PayPal (¡SECRETO!) - Usa Sandbox para local
-PAYPAL_CLIENT_ID=YOUR_PAYPAL_SANDBOX_CLIENT_ID
-PAYPAL_SECRET=YOUR_PAYPAL_SANDBOX_SECRET
-
-# Credenciales PayPal Live (para producción)
-PAYPAL_LIVE_CLIENT_ID=YOUR_PAYPAL_LIVE_CLIENT_ID
-PAYPAL_LIVE_SECRET=YOUR_PAYPAL_LIVE_SECRET
-
-# Configuración del Servidor API
-PORT=4000
-FRONTEND_URL=http://localhost:5173 # URL del frontend local (para CORS)
-```
-
-**c) Notificador Slack (`./readme_notifier/.env`)**
-
-Crea este archivo dentro de `readme_notifier/`:
-
-```bash
-nano readme_notifier/.env
-```
-
-Añade el siguiente contenido, reemplazando los placeholders:
-
-```dotenv
-# Token de Bot de Slack (¡SECRETO! - debe empezar con xoxb-)
-SLACK_BOT_TOKEN=xoxb-your-slack-bot-token 
-
-# Canal o ID de usuario de Slack para enviar notificaciones
-SLACK_CHANNEL=#developers 
-
-# Directorio a observar (relativo a la raíz del proyecto)
-WATCHED_DIR=backend-api 
-```
-
-**d) Agentes IA (`./ai_agents/.env`)**
-
-Si existe un `.env.example` en `ai_agents/`, cópialo y edítalo:
-
-```bash
-cp ai_agents/.env.example ai_agents/.env
-nano ai_agents/.env 
-```
-Asegúrate de que contenga la `OPENAI_API_KEY` si no está en el `.env` principal.
-
-### 4. Instalar Dependencias
-
-Puedes instalar todas las dependencias usando el script principal o manualmente:
-
-**Opción A: Usando el Script (Recomendado)**
-
-```bash
-./start_solar_fluidity.sh --install-deps 
-```
-*(Nota: Este comando puede necesitar ajustes para incluir la instalación de dependencias de `readme_notifier` si no lo hace ya).*
-
-**Opción B: Manualmente**
-
-```bash
-# Dependencias del Frontend (root)
-npm install
-
-# Dependencias del Backend API
-cd backend-api
-npm install
-cd ..
-
-# Dependencias de Agentes IA
-cd ai_agents
-pip install -r requirements.txt # o pip3
-cd ..
-
-# Dependencias del Notificador Slack
-cd readme_notifier
-pip install -r requirements.txt # o pip3
-cd ..
-```
-
-### 5. Configurar Base de Datos (Supabase)
-
-**Opción A: Usando el Script**
-
-```bash
-./start_solar_fluidity.sh --setup
-```
-
-**Opción B: Manualmente**
-
-Si el script falla, ejecuta el SQL proporcionado en la sección "Configuración de Supabase" del README anterior (líneas 248-284) directamente en el editor SQL de tu proyecto Supabase.
-
-### 6. Configurar MCPs (Opcional)
-
-Si planeas usar las integraciones MCP (Gmail, Calendar, Airtable, GitHub):
-
-1.  Asegúrate de tener `npx` (viene con Node.js).
-2.  Sigue las instrucciones específicas para cada MCP listadas en la sección "Configuración de MCPs" del README anterior (líneas 292-357). Esto puede implicar crear archivos de credenciales y ejecutar comandos `npx`.
-3.  Crea o actualiza el archivo de configuración de MCPs (por ejemplo, `.roo/mcp.json` o similar, dependiendo de cómo los inicies) con tus tokens y configuraciones.
-
-## 🚀 Ejecución
-
-Puedes iniciar los diferentes componentes del proyecto de forma individual, usando el script `start_solar_fluidity.sh`, o utilizando Docker Compose para los servicios soportados.
-
-### Ejecución con Docker Compose (Recomendado para Agentes IA y Dashboard)
-
-Docker Compose gestiona los servicios `ai-agents` y `support-dashboard`. Asegúrate de haber configurado los archivos `.env` correspondientes como se indica en la [Guía de Despliegue](docs/GUIA_DESPLIEGUE.md).
-
-```bash
-# Construir (si es necesario) e iniciar los servicios en segundo plano
-docker-compose up --build -d
-
-# Ver logs
-docker-compose logs -f
-
-# Detener los servicios
-docker-compose down
-```
-
-Servicios disponibles:
--   **AI Agents API:** `http://localhost:8001`
--   **Support Dashboard:** `http://localhost:9999`
-
-Consulta la [Guía de Despliegue](docs/GUIA_DESPLIEGUE.md) para más detalles.
-
-### Iniciar Todos los Servicios (Script)
-
-El script `start_solar_fluidity.sh` puede intentar iniciar varios componentes (puede requerir ajustes).
-
-```bash
-./start_solar_fluidity.sh --full
-```
-
-### Iniciar Componentes Individualmente (Manual)
-
-Si no usas Docker Compose para los agentes o necesitas iniciar otros componentes manualmente:
-
--   **Frontend:**
-    ```bash
-    npm run dev
-    ```
-    (Accede en `http://localhost:5173`)
-
--   **Backend API:**
-    ```bash
-    cd backend-api
-    npm start
-    ```
-    (API disponible en `http://localhost:4000`)
-
--   **Agentes IA (si no usas Docker):**
-    ```bash
-    # Asegúrate de tener las dependencias: pip install -r ai_agents/requirements.txt
-    # Asegúrate de que ai_agents/.env esté configurado
-    python ai_agents/main.py
-    ```
-    (API disponible en `http://localhost:8000`)
-
--   **Servidor MCP (Facturas/Proyectos):**
-    ```bash
-    # Asegúrate de tener las dependencias y variables de entorno (SUPABASE_URL, SUPABASE_KEY)
-    python src/integrations/mcp/solar_fluidity_mcp_server.py
-    ```
-
--   **Notificador Slack:**
-    ```bash
-    # Asegúrate de tener las dependencias y readme_notifier/.env configurado
-    python readme_notifier/main.py
-    ```
-
--   **MCPs Externos (Gmail, Calendar, etc.):**
-    Inícialos según la configuración de tu hub MCP.
-
-## 🤖 Agentes IA y Automatizaciones
-
-*(Sección omitida por brevedad - mantener la existente)*
-
-## 📘 Guías de Uso y Despliegue
-
--   **Guía de Usuario:** [docs/GUIA_USUARIO.md](docs/GUIA_USUARIO.md)
--   **Guía de Despliegue (Docker):** [docs/GUIA_DESPLIEGUE.md](docs/GUIA_DESPLIEGUE.md)
--   **Guía de Despliegue (Vercel):** [docs/GUIA_DESPLIEGUE_VERCEL.md](docs/GUIA_DESPLIEGUE_VERCEL.md)
--   **Documentación de Arquitectura:** [docs/DOCUMENTO_MAESTRO_ARQUITECTURA.md](docs/DOCUMENTO_MAESTRO_ARQUITECTURA.md)
--   **Estructura del Proyecto:** [docs/ESTRUCTURA_PROYECTO.md](docs/ESTRUCTURA_PROYECTO.md)
-
-## 🚀 Despliegue en Vercel
-
-Solar Fluidity está optimizado para ser desplegado fácilmente en Vercel. Para realizar el despliegue:
-
-1. **Crea una cuenta en Vercel** si aún no tienes una.
-2. **Importa tu repositorio de GitHub** desde el panel de Vercel.
-3. **Configura las Variables de Entorno** en Vercel según lo definido en `.env.production`.
-4. **Despliega** la aplicación con la configuración por defecto.
-
-Para más detalles, consulta la [Guía de Despliegue en Vercel](docs/GUIA_DESPLIEGUE_VERCEL.md).
-
-## 📄 Licencia
-
-*(Sección omitida por brevedad - mantener la existente)*
-
-## 📞 Contacto
-
-*(Sección omitida por brevedad - mantener la existente)*
