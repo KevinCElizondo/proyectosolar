@@ -1,274 +1,121 @@
-# Estructura del Proyecto Solar Fluidity
+# Estado y Estructura del Proyecto: Solar Fluidity 3D (Versión 5.0)
 
-Este documento detalla la organización y estructura del código fuente de la plataforma Solar Fluidity, enfocada en generación de estructura de facturación electrónica (XML para Hacienda CR) para empresas costarricenses, gestión de proyectos solares/electromecánicos y automatizaciones con Agentes IA / Python.
+Este documento centraliza el estado actual, la estructura del código y el mapa de ruta de las integraciones para **Solar Fluidity 3D (Modelo Freemium + Pro)**, enfocado en ser la plataforma definitiva de configuración 3D multi-tienda para fabricantes de muebles.
 
-## Estructura de Directorios Principal
+> **Última Actualización:** Finalización del MVP de la Semana 1.
 
-```
+---
+
+## 🏗️ 1. Arquitectura y Stack Actual
+
+El proyecto ha pivotado hacia un modelo SaaS puro (sin hardware físico de impresión 3D a cargo de nosotros) que aprovecha renderizado 3D en el cliente y backend serverless.
+
+### Tecnologías Core
+- **Frontend:** React 18, Vite, TypeScript, Tailwind CSS, shadcn/ui.
+- **Motor 3D:** `@react-three/fiber` (R3F), `@react-three/drei`, `three.js`.
+- **Estado Global:** `zustand`.
+- **Backend y Autenticación:** Supabase (PostgreSQL, Magic Links, Storage).
+- **Integraciones Críticas (En progreso / Planeadas):**
+  - **Suscripciones B2B:** PayPal Server SDK (Facturación mensual recurrente).
+  - **Facturación Electrónica:** Sistema estructurado para generar archivos XML compatibles con el Ministerio de Hacienda de Costa Rica.
+  - **Orquestación:** n8n (o scripts internos MCP) para webhooks, automatización de recibos y notificaciones.
+- **Optimización de Assets (Próximamente):** Cloudflare R2 + Draco (`gltf-transform`).
+
+---
+
+## 📂 2. Estructura Maestra de Archivos
+
+A continuación, la estructura lógica de los módulos más importantes del sistema actual:
+
+```text
 proyectosolar/
-├── ai_agents/              # Módulo de agentes IA para automatización de tareas
-├── docs/                   # Documentación del proyecto
-│   ├── screenshots/        # Capturas de pantalla organizadas por sección
-│   ├── Afiliados/          # Documentación del programa de afiliados
-│   ├── Artículos/          # Artículos de recursos sobre facturación y proyectos solares
-│   ├── Automatizacion/     # Guías sobre flujos de automatización con Agentes IA / Python
-│   └── Integraciones/      # Documentación de integraciones con servicios externos
-├── mcp-python-sdk/         # SDK para Model Context Protocol (MCP)
-├── public/                 # Archivos estáticos públicos
-├── scripts/                # Scripts de utilidad y automatización
-├── src/                    # Código fuente principal
-│   ├── assets/             # Recursos estáticos (imágenes, fuentes, etc.)
-│   ├── components/         # Componentes React reutilizables
-│   │   ├── amazon-affiliate/ # Componentes para integración con Amazon Affiliates
-│   │   └── ui/             # Componentes UI básicos
-│   ├── config/             # Archivos de configuración
-│   ├── context/            # Contextos de React para gestión de estado
-│   ├── hooks/              # Custom hooks de React
-│   ├── integrations/       # Integraciones con servicios externos y MCP
-│   ├── layouts/            # Componentes de layout
-│   ├── pages/              # Páginas de la aplicación
-│   ├── services/           # Servicios y lógica de negocio
-│   ├── styles/             # Estilos globales y utilidades CSS
-│   ├── types/              # Definiciones de tipos TypeScript
-│   └── utils/              # Funciones de utilidad
-└── webapp/                 # Versión estática/alternativa de la web
+├── .env                        # Variables de entorno (VITE_SUPABASE_URL, PAYPAL_LIVE, etc.)
+├── schema.sql                  # Script SQL maestro para la creación de tablas y políticas RLS
+├── public/
+│   ├── embed.js                # [NUEVO] Script vital que los clientes incrustan en sus webs
+│   └── favicon.ico, images...  # Assets estáticos públicos
+├── docs/
+│   ├── ESTRUCTURA_PROYECTO.md  # Este documento de referencia
+│   ├── GUIA_DESPLIEGUE_VERCEL.md 
+│   └── ...                     # Subcarpetas con documentación técnica e integraciones
+├── scripts/                    # Scripts de integración y validación (PayPal, MCP)
+│   ├── verify-paypal.js
+│   ├── start_mcp_server.sh
+│   └── ...
+└── src/                        # Código Fuente Frontend
+    ├── components/             # UI Reutilizable (shadcn) e integraciones visuales
+    │   ├── ui/
+    │   ├── PaymentButton/      # Botones de suscripción de PayPal
+    │   └── ...
+    ├── config/                 # Configuración de constantes y entornos
+    ├── context/
+    │   └── AuthContext.tsx     # [ACTUALIZADO] Gestiona sesión mediante Supabase Auth (Magic Links)
+    ├── lib/
+    │   └── supabase.ts         # [NUEVO] Inicialización del cliente Supabase
+    ├── pages/
+    │   ├── auth/
+    │   │   └── MagicLinkAuth.tsx # [NUEVO] Interfaz de inicio de sesión sin contraseña
+    │   ├── Dashboard.tsx       # [ACTUALIZADO] Panel Multi-Tienda (crear y gestionar subdominios)
+    │   ├── embed/
+    │   │   └── EmbedViewer.tsx # [NUEVO] Visor 3D incrustable (iframe target)
+    │   ├── invoices/           # Módulo base para facturación y generación de XML (Hacienda CR)
+    │   ├── projects/           # Módulo para gestión de proyectos
+    │   └── payment/            # Vistas de checkout y redirecciones de pago
+    ├── services/               # Lógica de negocio (Convex, PayPal API, etc.)
+    └── App.tsx                 # Enrutador principal de la aplicación
 ```
 
-## Detalles por Directorio
+---
 
-### `/ai_agents`
+## 🔗 3. Integraciones Estratégicas y Estado
 
-Contiene la implementación de los agentes IA basados en LangGraph y Pydantic que automatizan tareas específicas.
+El proyecto se diseñó para automatizar el 100% de la facturación y la entrega del servicio.
 
-```
-ai_agents/
-├── agents/                 # Implementación de agentes especializados
-│   ├── facturacion.py      # Agente de facturación electrónica
-│   ├── proyectos.py        # Agente de gestión de proyectos
-│   ├── comunicacion.py     # Agente de comunicación con clientes
-│   ├── automatizacion.py   # Agente de automatización con Agentes IA / Python
-│   ├── prompts.py          # Definiciones de prompts para agentes
-│   └── utils.py            # Funciones de utilidad para agentes
-├── graph.py                # Implementación del grafo de agentes paralelos
-├── main.py                 # Punto de entrada y servidor FastAPI
-├── requirements.txt        # Dependencias de Python
-├── demo.py                 # Demo para probar la funcionalidad de agentes
-└── ui.py                   # Interfaz simple para demostración
-```
+### A. Autenticación y Base de Datos (Supabase) - **✅ COMPLETADO (Semana 1)**
+- **Auth:** Migrado a Supabase Magic Links (`MagicLinkAuth.tsx`). El cliente no necesita recordar contraseñas.
+- **Tablas Creadas (`schema.sql`):** 
+  - `stores`: Almacena subdominios, nombres, plan activo y variables de iluminación.
+  - `products`: Almacena URLs a los `.glb`, texturas base y vinculación a una tienda.
+  - `banners` y `coupons`: Para el plan Pro.
+- **Próximo Paso:** Ejecutar el `schema.sql` en el panel de Supabase.
 
-### `/src`
+### B. Módulo de Renderizado 3D (React Three Fiber) - **⏳ EN CURSO (Semana 2)**
+- **Estado Actual:** El archivo `EmbedViewer.tsx` carga de forma dinámica el nombre de la tienda y expone un Canvas 3D básico (cubo de prueba) que las empresas pueden incrustar con `embed.js`.
+- **Próximo Paso:** Sustituir el cubo por el motor de carga de archivos `.glb` con Draco, implementar cambio dinámico de texturas a través de Zustand y enlazar las luces dinámicas a los parámetros de la tabla `stores`.
 
-El código fuente principal de la aplicación web React.
+### C. Suscripciones y Pagos (PayPal) - **📅 PLANIFICADO (Semana 3)**
+- **Visión:** Integración del SDK de PayPal (ya en `package.json`) para gestionar el modelo Freemium y Pro ($49/mes).
+- **Flujo:** 
+  1. El usuario hace clic en "Hacer Upgrade" en el Dashboard.
+  2. PayPal procesa el cobro y dispara un webhook a nuestro backend (vía n8n o Edge Function).
+  3. Se actualiza el campo `plan` a `'pro'` en la tabla `stores`.
+- **Archivos Base:** Ya existen en `src/services/payment/` y `scripts/test-paypal.js`. Deben auditarse para alinear con el costo de $49/mes.
 
-#### Componentes (`/src/components`)
+### D. Facturación Electrónica (Hacienda CR) - **📅 PLANIFICADO (Semana 3-4)**
+- **Visión:** Cada vez que un usuario paga su suscripción Pro ($49), se debe emitir automáticamente una factura electrónica (XML) válida para el Ministerio de Hacienda.
+- **Flujo:**
+  1. Pago confirmado por PayPal.
+  2. El módulo de facturación (ya estructurado en `src/pages/invoices` y servicios subyacentes) compila el XML UBL 2.1 con los datos tributarios del cliente.
+  3. Supabase Storage guarda el PDF y el XML de respuesta de Hacienda.
+  4. Resend (o el servicio SMTP configurado) envía la factura automáticamente al correo del usuario.
 
-```
-components/
-├── ui/                     # Componentes UI básicos (botones, inputs, etc.)
-├── InvoiceForm/            # Formulario de creación de facturas
-├── InvoiceViewer/          # Visor de facturas generadas (XML/PDF)
-├── ProjectDashboard/       # Dashboard de proyectos
-├── ProjectTimeline/        # Línea de tiempo de proyectos
-├── AutomationBuilder/      # Constructor visual de flujos de automatización
-├── CalendarView/           # Vista de calendario integrado
-├── PaymentButton/          # Integración de botones de pago
-└── charts/                 # Componentes de visualización de datos
-```
+### E. Módulo de Afiliados y Upsell - **📅 PLANIFICADO (Semana 4)**
+- Al eliminar el hardware propio, el plan de negocio escala usando recomendaciones de impresoras 3D (ej. Bambu Lab).
+- **Archivos Base:** Los componentes `AmazonAffiliateSection.tsx` y `AmazonBanner.tsx` se reciclarán para inyectarse de forma no intrusiva en el panel gratuito.
 
-#### Páginas (`/src/pages`)
+---
 
-```
-pages/
-├── auth/                   # Páginas de autenticación
-│   ├── Login.tsx
-│   └── Register.tsx
-├── Dashboard.tsx           # Panel principal
-├── invoices/               # Páginas de facturación
-│   ├── InvoiceList.tsx     # Lista de facturas
-│   └── InvoiceCreate.tsx   # Creación de facturas
-├── projects/               # Páginas de proyectos
-│   ├── ProjectList.tsx     # Lista de proyectos
-│   └── ProjectDetail.tsx   # Detalle de proyecto
-├── payment/                # Páginas de pago
-│   ├── Checkout.tsx        # Proceso de pago
-│   ├── Plans.tsx           # Planes de suscripción
-│   └── Success.tsx         # Confirmación de pago
-└── settings/               # Páginas de configuración
-    ├── Profile.tsx         # Perfil de usuario
-    ├── Company.tsx         # Información de empresa
-    └── Billing.tsx         # Gestión de facturación
-```
+## 📝 4. Checklist para "Continuar Otro Día"
 
-#### Integraciones (`/src/integrations`)
+Para retomar el proyecto exactamente donde lo dejamos con la mayor productividad posible, sigue estos pasos:
 
-```
-integrations/
-├── mcp/                    # Integración con Model Context Protocol
-│   ├── solar_fluidity_mcp_server.py   # Servidor MCP personalizado
-│   ├── create_supabase_tables.py      # Script para creación de tablas
-│   └── install_and_test_mcp.py        # Utilidad de instalación y prueba
-├── supabase/               # Integraciones con Supabase
-│   ├── auth.ts             # Autenticación
-│   ├── db.ts               # Operaciones de base de datos
-│   └── storage.ts          # Gestión de almacenamiento
-├── Agentes IA / Python/                    # Integraciones con Agentes IA / Python
-│   ├── api.ts              # Cliente de API para Agentes IA / Python
-│   └── templates.ts        # Plantillas de flujos predefinidos
-└── payment/                # Integraciones de pago
-    ├── paypal.ts           # Integración con PayPal
-    └── stripe.ts           # Integración con Stripe
-```
+1. [ ] **Validar Base de Datos:** Entrar a Supabase (proyecto `rlqvkqaownzqelvxnhzd`) > SQL Editor y ejecutar el archivo `schema.sql` que se encuentra en la raíz del proyecto.
+2. [ ] **Probar Flujo de Login:** 
+   - Ejecutar `npm run dev`.
+   - Navegar a `http://localhost:5173/auth/login`.
+   - Ingresar correo y abrir el Magic Link desde tu bandeja (o desde los Inbucket/Logs de Supabase).
+3. [ ] **Validar Creación de Tienda:** Dentro del Dashboard, crear una tienda llamada "Mi Pruebas 3D" y verificar que el subdominio se guarde en Supabase.
+4. [ ] **Testear Iframe (Embed):** Copiar el snippet de "Código de Incrustación", pegarlo en un `.html` vacío en tu escritorio y confirmar que carga el visualizador 3D básico con el nombre de tu tienda.
+5. [ ] **Iniciar Desarrollo 3D (Semana 2):** Solicitar al asistente que comience a estructurar el componente de carga GLB optimizado con Draco en `EmbedViewer.tsx`.
 
-### `/docs`
-
-Documentación detallada del proyecto, incluyendo capturas de pantalla organizadas por sección.
-
-```
-docs/
-├── screenshots/            # Capturas de pantalla organizadas por sección
-│   ├── hero_section/       # Sección principal del sitio
-│   ├── facturacion/        # Funcionalidad de facturación electrónica
-│   ├── proyectos/          # Gestión de proyectos
-│   ├── automatizaciones/   # Flujos de automatización con Agentes IA / Python
-│   ├── integraciones/      # Integraciones con servicios externos
-│   ├── reportes/           # Dashboards y reportes
-│   └── ui_components/      # Componentes de interfaz de usuario
-### Amazon Affiliates Integration
-
-La integración con Amazon Affiliates se implementa principalmente en:
-
-```
-src/
-├── components/amazon-affiliate/  # Componentes específicos para afiliados de Amazon
-│   ├── AmazonBanner.tsx          # Banner promocional de productos Amazon
-│   └── ShopPromotion.tsx         # Componente de promoción para la tienda
-├── components/AmazonAffiliateSection.tsx  # Sección principal de afiliados
-└── pages/shop/                   # Página de redirección a solarfluidity.shop
-    └── index.tsx                 # Página de redirección con contador
-```
-
-Esta implementación permite:
-1. Mostrar productos recomendados de Amazon en la plataforma
-2. Redirigir a los usuarios a solarfluidity.shop para compras
-3. Generar ingresos por comisiones de afiliados
-4. Promocionar equipamiento solar especializado
-
-The Amazon Affiliates program is integrated to provide additional revenue streams through affiliate marketing. This integration is managed within the `/src/components/AmazonAffiliateSection.tsx` and is documented in the `/docs/Afiliados/SECCION_AFILIADOS_AMAZON.md` file.
-├── Afiliados/              # Documentación del programa de afiliados
-├── Artículos/              # Artículos de recursos
-│   ├── facturacion_electronica.md     # Guía sobre facturación electrónica en Costa Rica
-│   ├── proyectos_solares.md           # Guía sobre proyectos solares
-│   └── automatizacion_Agentes IA / Python.md          # Guía sobre automatización con Agentes IA / Python
-├── Automatizacion/         # Guías detalladas sobre flujos de automatización
-├── Funcionalidad/          # Documentación de características principales
-├── Integraciones/          # Documentación de integraciones
-│   └── INTEGRACION_MCP_API.md         # Guía de integración con MCP y APIs
-├── Integraciones_IA/       # Documentación de integraciones con IA
-├── Optimizacion/           # Guías de optimización de rendimiento
-├── Precios/                # Información sobre planes y precios
-├── GUIA_USUARIO.md         # Guía completa para usuarios finales
-├── ESTRUCTURA_PROYECTO.md  # Este documento
-└── README.md               # Resumen general y enlaces a documentación detallada
-```
-
-## Funcionalidades Principales y su Implementación
-
-### 1. Amazon Affiliates e Integración de Tienda
-
-La integración con Amazon Affiliates se encuentra principalmente en:
-
-- **Frontend**: `/src/components/amazon-affiliate/` y `/src/components/AmazonAffiliateSection.tsx`
-- **Redirección**: `/src/pages/shop/index.tsx` para redirección a solarfluidity.shop
-- **Configuración**: `/src/config/constants.ts` con rutas y configuraciones para la tienda
-
-Esta funcionalidad permite:
-1. Mostrar productos solares recomendados de Amazon
-2. Redirigir usuarios a una tienda especializada (solarfluidity.shop)
-3. Generar ingresos pasivos a través del programa de afiliados
-4. Categorizar productos según necesidades de proyectos solares
-
-### 2. Generación de Estructura de Factura Electrónica (XML)
-
-La implementación de facturación electrónica se encuentra principalmente en:
-
-- **Frontend**: `/src/pages/invoices/` y `/src/components/InvoiceForm/`
-- **Backend**: `/src/integrations/supabase/db.ts` (almacenamiento) y `/src/services/facturacion/`
-- **Lógica de negocio**: `/src/services/facturacion/xmlGenerator.ts` para generación de XML
-- **Agentes IA**: `/ai_agents/agents/facturacion.py` para asistencia en facturación
-
-La generación de la estructura de factura electrónica sigue estos pasos:
-1. Captura de datos a través de formularios React
-2. Validación en frontend y backend
-3. Generación de estructura XML según estándar UBL 2.1
-4. Creación de representación PDF
-5. Almacenamiento en Supabase
-6. (Futuro) Opción de firma digital
-7. Gestión de estado (pendiente, generado, descargado)
-
-### 2. Gestión de Proyectos Solares/Electromecánicos
-
-La gestión de proyectos se implementa en:
-
-- **Frontend**: `/src/pages/projects/` y `/src/components/ProjectDashboard/`
-- **Backend**: `/src/integrations/supabase/db.ts` y `/src/services/proyectos/`
-- **Calendario**: `/src/components/CalendarView/` para programación de actividades
-- **Agentes IA**: `/ai_agents/agents/proyectos.py` para asistencia en gestión
-
-La implementación incluye:
-1. Creación y configuración de proyectos
-2. Seguimiento de avance en etapas
-3. Gestión de recursos (personal, equipamiento)
-4. Calendario de actividades integrado
-5. Notificaciones y recordatorios automáticos
-6. Generación de reportes de avance
-
-### 3. Automatización con Agentes IA / Python
-
-La integración con Agentes IA / Python se implementa en:
-
-- **Frontend**: `/src/pages/automations/` y `/src/components/AutomationBuilder/`
-- **API Client**: `/src/integrations/Agentes IA / Python/api.ts` para comunicación con Agentes IA / Python
-- **Plantillas**: `/src/integrations/Agentes IA / Python/templates.ts` con flujos predefinidos
-- **Agentes IA**: `/ai_agents/agents/automatizacion.py` para asistencia en automatización
-
-Características principales:
-1. Constructor visual de flujos
-2. Plantillas predefinidas para casos de uso comunes
-3. Integración con servicios externos (Gmail, Google Calendar, etc.)
-4. Automatización de recordatorios, notificaciones y reportes
-5. Sincronización bidireccional con la base de datos principal
-
-## Integración MCP (Model Context Protocol)
-
-La integración con MCP permite conectar con servicios externos de manera estandarizada:
-
-- **Servidor MCP**: `/src/integrations/mcp/solar_fluidity_mcp_server.py`
-- **SDK**: `/mcp-python-sdk/` (biblioteca completa para interacción con MCP)
-- **Configuración**: `/src/config/mcp.ts` para la configuración de conexiones
-
-Los principales servidores MCP utilizados son:
-1. Gmail MCP - Para comunicaciones automáticas
-2. Google Calendar MCP - Para gestión de agenda
-3. GitHub MCP - Para seguimiento de proyectos
-4. Browser Tools MCP - Para automatización web
-
-## Tecnologías Utilizadas
-
-- **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui, Framer Motion
-- **Backend**: Supabase (PostgreSQL, Autenticación, Storage), Express.js
-- **IA**: OpenAI API, LangGraph, Pydantic, FastAPI
-- **Automatización**: n8n, Agentes IA con LangGraph
-- **Integración**: Amazon Associates, PayPal Checkout
-- **Despliegue**: Vercel (frontend), Render/Digital Ocean (backend API), Docker (contenedores)
-
-## Flujo de Datos
-
-1. El cliente interactúa con la interfaz React
-2. Las operaciones CRUD se realizan a través de la API de Supabase
-3. Los documentos XML/PDF se almacenan en Supabase Storage
-4. Los agentes IA procesan solicitudes complejas a través de un servidor FastAPI
-5. Las automatizaciones con n8n se activan por eventos o programación (webhooks)
-6. La integración con Amazon Affiliates redirecciona a los usuarios a solarfluidity.shop
-7. Las transacciones de pago se procesan a través de la API de PayPal
-
-Este enfoque garantiza una arquitectura desacoplada, mantenible y escalable que puede adaptarse a las necesidades cambiantes de los usuarios.
+> *"La arquitectura base es sólida, escalable y serverless. El ecosistema está listo para recibir el núcleo gráfico 3D y las pasarelas de pago."*
