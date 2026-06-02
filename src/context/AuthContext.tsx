@@ -1,112 +1,72 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-// import { ConvexClient } from 'convex/browser'; // Type might be inferred
-import { getConvexClient, setupConvexAuth, executeConvexFunction } from '../services/convex/convexService';
-import type { User } from '@/types'; // Assuming User type includes necessary fields
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
+import type { User as SupabaseUser, Session } from '@supabase/supabase-js';
 
+// We map Supabase user to our internal User type for compatibility, or just use SupabaseUser directly.
+// For the MVP, we will expose the Supabase session and user.
 interface AuthContextType {
-    user: User | null;
+    user: SupabaseUser | null;
+    session: Session | null;
     loading: boolean;
-    loginWithGoogleToken: (googleToken: string) => Promise<void>;
-    logout: () => Promise<void>; // Make logout async if needed
-    convexClient: ReturnType<typeof getConvexClient> | null; // Use inferred type
+    signInWithMagicLink: (email: string) => Promise<{ error: Error | null }>;
+    logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType>({
     user: null,
+    session: null,
     loading: true,
-    loginWithGoogleToken: async () => {},
+    signInWithMagicLink: async () => ({ error: null }),
     logout: async () => {},
-    convexClient: null, // Initial value
 });
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<SupabaseUser | null>(null);
+    const [session, setSession] = useState<Session | null>(null);
     const [loading, setLoading] = useState(true);
-    const [convexClientInstance, setConvexClientInstance] = useState<ReturnType<typeof getConvexClient> | null>(null);
 
-    // Function to fetch user data from Convex after authentication
-    const fetchAndSetUser = useCallback(async (client: ReturnType<typeof getConvexClient>) => {
-        if (!client) return; // Add null check for client
-        try {
-            // TODO: Replace 'users:getCurrent' with the actual Convex query name
-            const currentUser = await executeConvexFunction('users:getCurrent'); 
-            if (currentUser) {
-                 // TODO: Adapt mapping based on actual User type and Convex response
-                setUser({
-                    id: currentUser._id, 
-                    email: currentUser.email,
-                    fullName: currentUser.name,
-                    // Add other fields as defined in your User type
-                } as User); // Cast might be needed depending on types
-            } else {
-                setUser(null); // No user found or error
-            }
-        } catch (error) {
-            console.error("Error fetching user data from Convex:", error);
-            setUser(null); // Clear user on error
-        }
+    useEffect(() => {
+        // Get initial session
+        supabase.auth.getSession().then(({ data: { session } }) => {
+            setSession(session);
+            setUser(session?.user ?? null);
+            setLoading(false);
+        });
+
+        // Listen for auth changes
+        const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+            setSession(session);
+            setUser(session?.user ?? null);
+            setLoading(false);
+        });
+
+        return () => subscription.unsubscribe();
     }, []);
 
-    // Check authentication status on initial load
-    useEffect(() => {
-        const initializeAuth = async () => {
-            setLoading(true);
-            const client = getConvexClient();
-            setConvexClientInstance(client);
-            const googleToken = localStorage.getItem('googleToken');
-
-            if (googleToken) {
-                try {
-                    // Attempt to authenticate Convex client with stored token
-                    await client.setAuth(JSON.parse(googleToken).access_token); 
-                    await fetchAndSetUser(client); // Fetch user data if auth succeeds
-                } catch (error) {
-                    console.warn("Failed to authenticate with stored Google token:", error);
-                    localStorage.removeItem('googleToken'); // Clear invalid token
-                    setUser(null);
-                }
-            } else {
-                setUser(null); // No token found
-            }
-            setLoading(false);
-        };
-        initializeAuth();
-    }, [fetchAndSetUser]);
-
-    // Login function using Google Token
-    const loginWithGoogleToken = async (googleToken: string) => {
+    const signInWithMagicLink = async (email: string) => {
         setLoading(true);
-        const client = getConvexClient();
         try {
-            // Authenticate Convex client
-            await client.setAuth(googleToken); 
-            // Fetch user data
-            await fetchAndSetUser(client);
-            // Store token (already done by GoogleAuthButton, but ensure consistency)
-            // localStorage.setItem('googleToken', JSON.stringify({ access_token: googleToken })); // Adjust if needed
-        } catch (error) {
-            console.error('Google Token Login error:', error);
-            setUser(null);
-            localStorage.removeItem('googleToken'); // Clear token on error
-            throw error; // Re-throw for handling in UI
+            const { error } = await supabase.auth.signInWithOtp({
+                email,
+                options: {
+                    emailRedirectTo: window.location.origin + '/dashboard',
+                }
+            });
+            return { error };
+        } catch (error: any) {
+            console.error('Error sending magic link:', error);
+            return { error };
         } finally {
             setLoading(false);
         }
     };
 
-    // Logout function
     const logout = async () => {
         setLoading(true);
-        const client = getConvexClient();
         try {
-            // TODO: Call Convex logout function if available (e.g., client.logout())
-            // Or simply clear local state and token
-            setUser(null);
-            localStorage.removeItem('googleToken');
-            // Potentially clear Convex auth state if library provides a method
-            // client.clearAuth(); // Example, check Convex docs
+            await supabase.auth.signOut();
         } catch (error) {
             console.error("Logout error:", error);
         } finally {
@@ -115,7 +75,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ user, loading, loginWithGoogleToken, logout, convexClient: convexClientInstance }}>
+        <AuthContext.Provider value={{ user, session, loading, signInWithMagicLink, logout }}>
             {children}
         </AuthContext.Provider>
     );

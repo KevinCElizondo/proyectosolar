@@ -6,7 +6,7 @@ import MainLayout from './layouts/MainLayout';
 
 // Pages
 import Index from './pages/Index';
-import Login from './pages/auth/Login';
+import MagicLinkAuth from './pages/auth/MagicLinkAuth';
 import Register from './pages/auth/Register';
 import Dashboard from './pages/Dashboard';
 import Projects from './pages/projects/Projects';
@@ -19,6 +19,7 @@ import InvoiceDetail from './pages/invoices/InvoiceDetail';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import ShopRedirectPage from './pages/shop';
+import EmbedViewer from './pages/embed/EmbedViewer';
 
 const queryClient = new QueryClient();
 
@@ -61,7 +62,7 @@ function App() {
                             path={ROUTES.LOGIN}
                             element={
                                 <PublicRoute>
-                                    <Login />
+                                    <MagicLinkAuth />
                                 </PublicRoute>
                             }
                         />
@@ -161,6 +162,9 @@ function App() {
                         
                         {/* Shop redirect page - Public */}
                         <Route path={ROUTES.SHOP} element={<ShopRedirectPage />} />
+
+                        {/* Embed 3D Viewer Route */}
+                        <Route path="/embed/:storeId" element={<EmbedViewer />} />
                         
                         {/* Redirect any unknown routes to home */}
                         <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
