@@ -1,148 +1,168 @@
-# 🔥 SOLAR FLUIDITY 3D – PLATAFORMA DEFINITIVA DE CONFIGURACIÓN 3D MULTI-TIENDA
+# 🔥 SOLAR FLUIDITY – VERSIÓN DEFINITIVA REFINADA
 
-## Versión Final 5.0 – Modelo Freemium + Pro (Sin Hardware, Sin Comisiones Publicitarias)
+## SaaS de Modelado CAD Web + Tienda de Hardware (Dogfooding) + Portal de Anuncios con Aprobación Manual
 
-> *Documento maestro validado y ajustado para implementación inmediata*
-
----
-
-## 📌 1. Resumen Ejecutivo
-
-**SolarFluidity 3D** es un SaaS que permite a fabricantes de muebles, diseñadores y carpinteros crear **múltiples tiendas virtuales con configuradores 3D fotorrealistas**, incrustables en cualquier sitio web mediante un simple script (`embed.js`). El modelo es **Freemium**: plan gratis básico y plan Pro a $49/mes (o $490/año) sin comisiones ocultas.
-
-**Cambios estratégicos clave (post-validación):**
-- ✅ **Eliminado el hardware** (mini impresoras). En su lugar, se ofrece exportación de archivos `.stl` y alianzas de afiliación.
-- ✅ **Publicidad simplificada:** El Plan Pro incluye un panel de banners. El cliente negocia y cobra a sus patrocinadores por fuera; SolarFluidity no interviene en pagos.
-- ✅ **CDN + compresión Draco** para modelos 3D, garantizando rendimiento sin costos explosivos.
-- ✅ **Iluminación personalizable** en el Plan Pro (HDRI, intensidad, dirección) para que cada marca tenga su estética única.
-
-**Proyección año 1:** 80 usuarios Pro → MRR $3,920 + ingresos afiliación ≈ $45,000 ARR, con margen >90%.
+> **Documento final para implementación – Basado en análisis de viabilidad y estrategia de early adopters**  
+> *Stack: Next.js + Supabase + OpenCascade.js (Wasm) + Three.js + n8n*
 
 ---
 
-## 🧭 2. Filosofía y Público Objetivo
+## 📌 1. Resumen Ejecutivo (Refinado)
 
-| **Cliente ideal** | Carpinterías, mueblerías, diseñadores industriales, tiendas Print-on-Demand, talleres de muebles modulares. |
-|-------------------|-------------------------------------------------------------------------------------------------------------|
-| **Dolor que resuelve** | Un configurador 3D profesional cuesta $5,000-$20,000 de desarrollo. SolarFluidity lo ofrece por $49/mes. |
-| **Propuesta de valor** | “Muestra tus productos en 3D realista, permite personalizar colores/texturas, y aumenta tus ventas online sin invertir en software caro.” |
+**SolarFluidity** es un ecosistema compuesto por:
 
-**Sobre el nombre «SolarFluidity»:** Si bien el dominio principal mantiene su branding tecnológico, se recomienda adquirir un dominio secundario como `3dconfig.co.cr` o `muebles3d.app` para campañas específicas al nicho de mueblerías, evitando confusiones con energía solar.
+1. **SaaS (solarfluidity.com):** Herramienta CAD web que permite crear, visualizar y exportar modelos 3D paramétricos. Ofrece **dos planes**:
+   - **Plan Normal (gratuito):** 1 modelo simple, sin exportación `.step`, ideal para pruebas.
+   - **Plan Pro ($99/mes o $990/año):** Modelos ilimitados, generación desde imagen, subida/exportación STEP, y **portal de anuncios** (directorio con aprobación manual del administrador).
 
----
+2. **Tienda de hardware (solarfluiditystudio.store):** Vende parrillas híbridas y camas de cultivo. **Usa el propio SaaS** como configurador (Dogfooding), generando flujo de caja que financia el desarrollo del SaaS.
 
-## 💰 3. Modelo de Monetización (Solo 2 Planes)
+3. **Portal de anuncios:** Directorio público donde los clientes Pro aprobados por el administrador muestran su negocio, incentivando la suscripción.
 
-| Característica | Plan Gratis | Plan Pro |
-|:---|:---|:---|
-| **Precio** | $0 / mes | **$49 / mes** o **$490 / año** (2 meses gratis) |
-| **Tiendas (dominios/subdominios)** | 1 (subdominio `.solarfluidity.app`) | **Ilimitadas** (dominios personalizados) |
-| **Productos por tienda** | Hasta 3 | Ilimitados |
-| **Configurador 3D** | Básico (1 textura fija, sin sombras dinámicas) | Avanzado (texturas intercambiables, luces, sombras, HDRI) |
-| **Iluminación personalizable** | No (iluminación estándar) | **Sí** (ajuste de HDRI, intensidad, dirección, temperatura de color) |
-| **Marca SolarFluidity visible** | Sí (footer “Powered by”) | No (white‑label opcional) |
-| **Panel de banners publicitarios** | No | **Sí** (el cliente sube imágenes y enlaces; negocia pagos por fuera) |
-| **Exportar videos 360°** | No | Sí |
-| **Estadísticas (visitas, conversiones)** | No | Sí (por tienda y producto) |
-| **Exportación de archivos `.stl`** | No | Sí (para impresión 3D) |
-| **Soporte** | Comunidad (foro) | Prioritario (email + chat) |
-| **Cupones de descuento** | No | Sí (hasta 20 códigos activos por tienda) |
+**Corrección estratégica clave (post-análisis):**
+- El **valle de la muerte** (primeros 3 meses sin ingresos) se cubre con la tienda de hardware, no con el SaaS. La prioridad de desarrollo es el **Core Engine** (renderizado y manipulación de modelos 3D), no el portal de anuncios.
+- Los **20 cupones** no son para el propietario (que ya tiene acceso de administrador), sino para **20 early adopters** seleccionados estratégicamente, quienes recibirán un **descuento del 70% durante 3 meses** a cambio de feedback y testimonio. Estos early adopters tendrán un "Badge de Miembro Fundador" en el directorio.
 
-**¿Por qué $49?** Es el punto dulce B2B: no requiere aprobación gerencial, pero filtra a usuarios no serios. Un fabricante que venda una sola silla de $200 adicional gracias al configurador ya recupera la inversión del año.
+**Proyección anual:** SaaS ≈ $20,000 – $25,000 + hardware ≈ $48,000 → **Total ≈ $70,000 – $80,000** (realista).
 
 ---
 
-## 🏗️ 4. Arquitectura Técnica (Ajustada y Escalable)
+## 🧭 2. Filosofía y Propuesta de Valor (Refinada)
 
-### 4.1. Stack Definitivo
+### 2.1. Nicho vertical: Fabricantes de productos físicos (muebles, parrillas, piezas personalizadas)
 
-| Capa | Tecnología | Costo mensual (inicial) |
-|:---|:---|:---|
-| Frontend | Next.js + React Three Fiber (R3F) + Drei + Zustand | $0 (Vercel Hobby) |
-| Backend / DB | Supabase (PostgreSQL) | $0-25 (Pro cuando escale) |
-| Orquestación | n8n (Render Starter) | $7 |
-| Email | Resend | $0 |
-| Almacenamiento de modelos | Supabase Storage + **Cloudflare R2 (CDN)** | $0 (10GB gratis + tráfico CDN incluido) |
-| Compresión 3D | **Draco** (gltf-transform) | $0 |
-| **Total fijo** | | **≈$7-10/mes** |
+- **Dolor:** Necesitan mostrar y vender productos personalizables, pero no tienen presupuesto para SolidWorks o configuradores a medida.
+- **Solución:** SaaS CAD web con generación rápida desde imagen, edición paramétrica y exportación para impresión 3D/CNC.
 
-### 4.2. Modelo de Datos (Corregido)
+### 2.2. Diferenciadores clave
+
+| Característica | Plan Normal (gratis) | Plan Pro ($99/mes) |
+|----------------|----------------------|--------------------|
+| Número de modelos activos | 1 | Ilimitados |
+| Generar 3D desde imagen | No | Sí (texturizado sobre cubo) |
+| Subir archivos STEP/STL | No | Sí (hasta 50 MB) |
+| Edición paramétrica (dimensiones) | No | Sí (básica) |
+| Exportar a `.step` para impresión 3D | No | Sí |
+| Incrustación web (embed.js) | Vista previa con marca | Sin marca + scripts personalizables |
+| Portal de anuncios (directorio) | No | Sí (aprobación manual requerida) |
+| Soporte | Comunidad | Email prioritario |
+
+### 2.3. El rol del Súper Usuario (Administrador)
+
+- **Tú** tienes acceso al panel de administración (Supabase Studio + Retool opcional) para:
+  - Aprobar o rechazar solicitudes de clientes Pro para el directorio (verificando que tengan al menos un modelo activo y el configurador incrustado en su sitio).
+  - Gestionar los 20 cupones de early adopters (asignarlos, monitorizar su uso).
+  - Ver métricas de uso (almacenamiento, modelos creados, etc.).
+  - Resolver incidencias técnicas.
+
+**No necesitas cupones para ti mismo:** como administrador, puedes crear tiendas de demostración directamente asignándote el plan Pro sin costo.
+
+---
+
+## 🎫 3. Estrategia de Early Adopters (20 cupones estratégicos)
+
+En lugar de regalar cupones sin control, los **20 espacios** se asignan a segmentos específicos que aporten valor de validación y marketing.
+
+### 3.1. Distribución de los 20 cupones
+
+| Segmento | Cupones | Perfil | Objetivo |
+|----------|---------|--------|-----------|
+| **Talleres de fabricación digital / FabLabs** | 8 | Usuarios que necesitan exportar `.step` para CNC/impresoras 3D. Serán beta testers exigentes. | Detectar errores en la cadena de exportación y optimizar rendimiento. |
+| **Diseñadores de interiores / Carpinteros** | 7 | Profesionales que requieren configuradores para clientes finales. | Validar la facilidad de incrustación web y la utilidad del configurador paramétrico. |
+| **Instituciones educativas / Estudiantes** | 5 | Generan ruido en redes y pueden viralizar la herramienta. | Crear marca y contenido educativo (tutoriales). |
+
+### 3.2. Condiciones del cupón (descuento, no gratis total)
+
+- **Descuento del 70%** durante los primeros 3 meses (pagan ~$30/mes en lugar de $99).
+- **Compromiso:** Una entrevista de feedback de 30 minutos antes del tercer mes y un testimonio en video (o escrito) que SolarFluidity puede usar en su web.
+- **Beneficio adicional:** Obtienen un **"Badge de Miembro Fundador"** en su ficha del directorio, con prioridad visual sobre futuros clientes Pro.
+
+### 3.3. Implementación técnica de los cupones
 
 ```sql
--- Creación segura de tablas (sintaxis corregida)
-CREATE TABLE IF NOT EXISTS stores (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES auth.users NOT NULL,
-  subdomain TEXT UNIQUE NOT NULL,
-  custom_domain TEXT UNIQUE,
-  name TEXT NOT NULL,
-  logo_url TEXT,
-  primary_color TEXT DEFAULT '#2C3E50',
-  plan TEXT DEFAULT 'free' CHECK (plan IN ('free', 'pro')),
-  stripe_customer_id TEXT,
-  -- Campos de iluminación personalizable (solo relevantes en pro)
-  hdri_url TEXT,
-  light_intensity DECIMAL DEFAULT 1.0,
-  light_direction JSONB,  -- {x, y, z}
-  color_temperature INTEGER DEFAULT 5500,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE TABLE IF NOT EXISTS products (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  store_id UUID REFERENCES stores(id) ON DELETE CASCADE,
-  name TEXT NOT NULL,
-  model_url TEXT NOT NULL,          -- GLB optimizado con Draco
-  thumbnail_url TEXT,
-  base_price DECIMAL(10,2),
-  textures JSONB,                   -- { "madera": ["url1", "url2"], "metal": [...] }
-  is_active BOOLEAN DEFAULT TRUE,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Panel de banners (sin comisiones, solo almacenamiento)
-CREATE TABLE IF NOT EXISTS banners (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  store_id UUID REFERENCES stores(id) ON DELETE CASCADE,
-  image_url TEXT NOT NULL,
-  link_url TEXT NOT NULL,
-  position TEXT CHECK (position IN ('sidebar', 'banner_top', 'popup')),
-  is_active BOOLEAN DEFAULT TRUE,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Cupones (descuentos aplicables a suscripción Pro)
-CREATE TABLE IF NOT EXISTS coupons (
+-- Tabla de cupones (descuento porcentual, meses de validez)
+CREATE TABLE coupons (
   code TEXT PRIMARY KEY,
-  discount_percent INT DEFAULT 0,
-  free_months INT DEFAULT 0,
-  max_uses INT,
+  discount_percent INT DEFAULT 70,
+  duration_months INT DEFAULT 3,
+  max_uses INT DEFAULT 1,
   used_count INT DEFAULT 0,
-  expires_at TIMESTAMPTZ
+  segment TEXT CHECK (segment IN ('fablab', 'designer', 'education', 'other')),
+  expires_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Insertar 20 cupones (ejemplo)
+INSERT INTO coupons (code, discount_percent, duration_months, max_uses, segment)
+SELECT 
+  'EARLY-' || generate_series(1,8),
+  70, 3, 1, 'fablab'
+FROM generate_series(1,8);
+-- Repetir para los otros segmentos...
 ```
 
-### 4.3. Optimización de Modelos 3D (Compresión Draco)
+**Flujo de canje:**
+1. El usuario se registra en el SaaS (plan Normal).
+2. En la pantalla de upgrade a Pro, ingresa el código.
+3. La Edge Function valida el cupón y crea una suscripción en Stripe con un precio reducido (usando `coupon` de Stripe o aplicando un descuento manual).
+4. Se registra el canje en `coupon_redemptions`.
 
-Para evitar costos de ancho de banda, todos los archivos `.glb` se procesan automáticamente al subirlos:
+---
 
-```bash
-# Usando gltf-transform (CLI)
-npx gltf-transform draco model_raw.glb model_optimized.glb --compression-level 10
+## ⚙️ 4. Arquitectura Técnica (Core Engine prioritario)
+
+### 4.1. Stack definitivo (sin cambios)
+
+| Capa | Tecnología | Costo mensual |
+|------|------------|----------------|
+| Frontend | Next.js 14 + React + Three.js (o Babylon.js) | $0 |
+| CAD kernel | **OpenCascade.js** (Wasm) + CascadeStudio como referencia | $0 |
+| Backend | Supabase (PostgreSQL + Storage) | $0-25 |
+| Orquestación | n8n (Render Starter) – solo para flujos de email y notificaciones de hardware | $7 |
+| Conversión imagen→3D | Edge Function + `@gltf-transform/core` | ≈$5 |
+| Email | Resend | $0 |
+| Pagos | Stripe | 2.9% + $0.30 |
+| **Total fijo** | | **≈$15-20/mes** |
+
+### 4.2. El Core Engine (prioridad #1)
+
+**Riesgo principal:** La manipulación de geometría CAD en el navegador puede congelar la interfaz si no se usa **Web Workers** y se optimiza la teselación.
+
+**Implementación recomendada:**
+- Usar OpenCascade.js dentro de un **Web Worker** para que los cálculos pesados no bloqueen el hilo principal.
+- Para la renderización (Three.js), solo transferir la malla generada (buffer de vértices) al hilo principal.
+- Seguir la arquitectura de **CascadeStudio** (código abierto) como referencia.
+
+**Flujo mínimo funcional (semana 1-2):**
+1. El usuario ve un cubo paramétrico con sliders (largo, ancho, alto).
+2. Al mover un slider, se actualiza el modelo en tiempo real (Web Worker recalcula la geometría, Three.js la renderiza).
+3. Botón "Exportar STEP" (solo visible para plan Pro) – descarga el archivo `.step` generado por OpenCascade.
+
+**No priorizar en el MVP:**
+- Portal de anuncios (se añade después, cuando el core engine esté estable).
+- Generación avanzada desde imagen (se puede lanzar como feature v1.1).
+
+### 4.3. Modelo de datos simplificado (para el core)
+
+```sql
+-- Usuarios
+CREATE TABLE users ( id UUID PRIMARY KEY, email TEXT UNIQUE, role TEXT DEFAULT 'client' );
+
+-- Suscripciones (plan normal o pro)
+CREATE TABLE subscriptions ( user_id UUID REFERENCES users(id), plan TEXT, stripe_subscription_id TEXT, current_period_end TIMESTAMPTZ );
+
+-- Modelos 3D
+CREATE TABLE models ( id UUID, user_id UUID, name TEXT, parameters JSONB, model_url TEXT, created_at TIMESTAMPTZ );
 ```
 
-Además, se sirven a través de **Cloudflare R2** con caché CDN. Los modelos de 15 MB se reducen a 2-3 MB.
-
-### 4.4. Script de Inserción Multi-Tienda (`embed.js`)
+### 4.4. Incrustación web (embed.js) – igual que antes
 
 ```javascript
 (function() {
   const storeId = document.currentScript.getAttribute('data-store');
   if (!storeId) return;
-
   const container = document.querySelector('.solar-fluidity-configurator');
   if (!container) return;
-
   const iframe = document.createElement('iframe');
   iframe.src = `https://app.solarfluidity.com/embed/${storeId}`;
   iframe.style.width = '100%';
@@ -152,261 +172,77 @@ Además, se sirven a través de **Cloudflare R2** con caché CDN. Los modelos de
 })();
 ```
 
-**Uso en la tienda del cliente:**
-```html
-<script src="https://cdn.solarfluidity.com/embed.js" data-store="mi-tienda"></script>
-<div class="solar-fluidity-configurator" data-product="silla-123"></div>
-```
+---
+
+## 💰 5. Modelo de Negocio y Proyección Financiera (Refinada)
+
+### 5.1. Planes (solo dos)
+
+| Plan | Precio mensual | Precio anual (2 meses gratis) | Características clave |
+|------|----------------|-------------------------------|----------------------|
+| **Normal** | $0 | – | 1 modelo, sin exportación STEP, vista previa con marca |
+| **Pro** | $99 | $990 | Modelos ilimitados, exportación STEP, generación desde imagen, portal de anuncios (aprobación manual) |
+
+### 5.2. Proyección de ingresos del SaaS (realista con early adopters)
+
+| Mes | Clientes Pro (pago completo) | Early adopters (70% descuento) | MRR (aprox) |
+|-----|------------------------------|--------------------------------|-------------|
+| 1 | 0 | 0 (aún no activan) | $0 |
+| 3 | 2 | 5 (pagando ~$30) | $198 + $150 = $348 |
+| 6 | 6 | 12 (algunos se convierten a tarifa completa) | $594 + $360 = $954 |
+| 9 | 12 | 15 (suponiendo que 5 renuevan con descuento o se convierten) | $1,188 + $450 = $1,638 |
+| 12 | 20 | 18 | $1,980 + $540 = $2,520 |
+
+**Ingresos anuales SaaS:** ≈ $22,000 (considerando renovaciones y conversiones).
+
+### 5.3. Tienda de hardware (cubre el valle de la muerte)
+
+Misma proyección que antes: utilidad neta ≈ $4,000/mes al final del año → ≈ $48,000 anuales.
+
+**Total ecosistema año 1:** ≈ $70,000 – $80,000, suficiente para sostener el desarrollo y generar ganancias.
 
 ---
 
-## 🎨 5. Iluminación Personalizable (Ventaja Competitiva del Plan Pro)
+## 🗓️ 6. Plan de Implementación (12 semanas) – Priorizando el Core Engine
 
-Uno de los diferenciadores más poderosos frente a Zakeke o configuradores genéricos es que el Plan Pro permite **ajustar la iluminación 3D** para que coincida con la estética de la marca.
+### Semana 1-2 – Core Engine CAD (Worker + OpenCascade.js)
+- [ ] Configurar proyecto Next.js + Supabase (tablas básicas: users, subscriptions, models).
+- [ ] Integrar OpenCascade.js en un Web Worker (tomar ejemplo de CascadeStudio).
+- [ ] Crear componente React que controle sliders (largo, ancho, alto) y envíe parámetros al Worker.
+- [ ] Renderizar el modelo actualizado con Three.js (transferir malla).
+- [ ] Implementar botón de exportación STEP (solo para plan Pro).
 
-**Parámetros configurables desde el panel:**
-- **HDRI (mapa de entorno):** El cliente puede subir su propio archivo `.hdr` o elegir entre 5 preajustes (estudio, exterior nublado, atardecer, interior cálido, luz de día).
-- **Intensidad de la luz principal:** De 0.5 a 2.0.
-- **Dirección:** Ángulos en X, Y, Z.
-- **Temperatura de color:** 3000K (cálido) a 6500K (frío).
+### Semana 3-4 – Autenticación, planes y pagos
+- [ ] Autenticación Magic Links (Supabase Auth).
+- [ ] Integración con Stripe (producto Pro a $99/mes y $990/año). Webhook para actualizar subscriptions.
+- [ ] Middleware que proteja la exportación STEP (solo usuarios con plan Pro activo).
 
-**Impacto comercial:** Una mueblería de alta gama puede mostrar sus sillas de teca con una iluminación cálida y sombras suaves, transmitiendo lujo. Una tienda de muebles industriales puede usar luz fría y contrastes marcados. La personalización de la iluminación es un argumento de venta directo para justificar el upgrade a Pro.
+### Semana 5-6 – Generación desde imagen (básica) y almacenamiento
+- [ ] Edge Function `upload-to-3d` que toma una imagen, crea un cubo texturizado GLB, lo guarda en Storage y asocia a un modelo.
+- [ ] Panel de usuario donde pueda ver sus modelos, subir nuevos, editar parámetros.
 
----
+### Semana 7-8 – Incrustación web y documentación inicial
+- [ ] Endpoint `/embed/[storeId]` que carga el configurador del usuario (según su plan).
+- [ ] Script `embed.js`.
+- [ ] PDF sencillo "Cómo incrustar tu configurador en WordPress/Shopify".
 
-## 🚀 6. Plan de Implementación (4 Semanas)
+### Semana 9-10 – Lanzamiento de early adopters y tienda de hardware
+- [ ] Generar 20 cupones con descuento del 70% y asignarlos a los segmentos definidos.
+- [ ] Construir `solarfluiditystudio.store` (usando el propio SaaS con un storeId propio, plan Pro pagado por el dueño).
+- [ ] Configurar n8n para flujo de cotización de parrillas/camas.
 
-### Semana 1 – Base Multi-Tienda (MVP funcional)
-- [ ] Configurar Supabase con las tablas `stores`, `products`.
-- [ ] Autenticación con Magic Links.
-- [ ] Panel simple para crear una tienda (nombre, subdominio).
-- [ ] Script `embed.js` básico que carga un iframe con el storeId.
-
-### Semana 2 – Configurador 3D Genérico
-- [ ] Componente R3F que recibe `productId` y carga modelo GLB (con Draco ya aplicado).
-- [ ] Implementar cambio de texturas (mockup con 2 opciones).
-- [ ] Soportar parámetros de iluminación desde la tabla `stores`.
-
-### Semana 3 – Plan Pro, Banners y Exportación
-- [ ] Integrar Stripe (suscripción $49/mes o $490/año).
-- [ ] Middleware que protege rutas Pro (panel de banners, exportación .stl).
-- [ ] Panel de banners: subir imagen, enlace, posición. Sin lógica de pagos.
-- [ ] Botón “Exportar .stl” (usa `gltf-transform` para extraer la geometría).
-
-### Semana 4 – Cupones, Landing Page y Lanzamiento
-- [ ] Tabla `coupons` y validación en checkout.
-- [ ] Landing page pública (`solarfluidity.com`) con demo en vivo.
-- [ ] Generar 20 cupones VIP (50% descuento primeros 3 meses) y contactar prospectos.
+### Semana 11-12 – Portal de anuncios (aprobación manual) y pulido
+- [ ] Tabla `directory_requests` y panel de administración para aprobar/rechazar.
+- [ ] Página pública `/directory` con listings aprobados (incluyendo badge "Miembro Fundador" para early adopters).
+- [ ] Finalizar documentación y lanzar marketing dirigido a early adopters.
 
 ---
 
-## 📈 7. Proyección Financiera (Año 1)
+## ✅ 7. Conclusión y Siguiente Paso
 
-| Mes | Usuarios Gratis | Usuarios Pro | MRR Pro ($49) | Ingresos Afiliación* | Total Mes | Acumulado |
-|:---|:---|:---|:---|:---|:---|:---|
-| 1 | 30 | 2 | $98 | $0 | $98 | $98 |
-| 2 | 60 | 5 | $245 | $20 | $265 | $363 |
-| 3 | 100 | 12 | $588 | $50 | $638 | $1,001 |
-| 4 | 150 | 20 | $980 | $80 | $1,060 | $2,061 |
-| 5 | 180 | 30 | $1,470 | $120 | $1,590 | $3,651 |
-| 6 | 200 | 40 | $1,960 | $200 | $2,160 | $5,811 |
-| 9 | 250 | 60 | $2,940 | $400 | $3,340 | $15,000 |
-| 12 | 300 | 80 | $3,920 | $600 | $4,520 | $45,000 |
+**El proyecto es técnicamente viable y el modelo de negocio es sólido.** Los ajustes realizados (priorizar el core engine, definir early adopters con descuento y compromiso, y usar la tienda de hardware como financiador inicial) eliminan las principales inconsistencias y aumentan las probabilidades de éxito.
 
-*Ingresos por afiliación (ej. comisiones por referir a Bambu Lab o vender planos `.stl` en un marketplace futuro). Sin hardware, sin complicaciones logísticas.
-
-**Margen operativo:** >90% (costos fijos ~$50/mes).  
-**Punto de equilibrio:** Mes 4.
-
----
-
-## ✅ 8. Conclusión y Llamada a la Acción
-
-**SolarFluidity 3D versión 5.0** es el resultado de un proceso de validación riguroso:
-
-- **Modelo Freemium** que atrae usuarios, **Pro** que genera ingresos recurrentes.
-- **Sin hardware, sin comisiones publicitarias** → cero fricción operativa.
-- **Iluminación personalizable** como ventaja competitiva frente a alternativas genéricas.
-- **Script `embed.js`** que permite a cualquier negocio integrar el configurador en minutos.
-
-**Próximo paso inmediato:**  
-Configura tu primera tienda gratuita en `prueba.solarfluidity.app` con 2-3 modelos 3D descargados de Sketchfab (licencia creative commons). Luego, contacta a 5 carpinteros locales y ofréceles el plan Pro con los primeros cupones VIP.
-
----
-
-## 📁 9. Estructura y Arquitectura de Archivos Actual
-
-Esta es la organización maestra de archivos de Solar Fluidity, diseñada para escalar eficientemente como plataforma SaaS Multi-Tenant.
-
-```text
-.env
-.env.example
-.env.production
-.github/workflows/aws.yml
-.gitignore
-.gitignore.bak
-Dockerfile.frontend
-README.md
-cleanup.sh
-components.json
-docker-compose.full.yml
-docs/ESTRUCTURA_PROYECTO.md
-docs/GUIA_DESPLIEGUE_VERCEL.md
-eslint.config.js
-index.html
-netlify.toml
-nginx.conf
-package-lock.json
-package.json
-postcss.config.js
-public/favicon.ico
-public/images/solar-products-banner.jpg
-public/og-image.png
-public/placeholder.svg
-scripts/check_solar_fluidity.py
-scripts/config_status.json
-scripts/final-test.cjs
-scripts/start_mcp_server.sh
-scripts/test-both-environments.cjs
-scripts/test-paypal.cjs
-scripts/test-paypal.js
-scripts/test-service.cjs
-scripts/test_integration.py
-scripts/verify-paypal-oauth.cjs
-scripts/verify-paypal-oauth.js
-scripts/verify-paypal.js
-scripts/verify-paypal.mjs
-scripts/verify-sandbox.cjs
-src/App.css
-src/App.tsx
-src/components/AffiliateAdvisorSection.tsx
-src/components/AmazonAffiliateSection.tsx
-src/components/AutomationSection.tsx
-src/components/Blog.tsx
-src/components/Contact.tsx
-src/components/Features.tsx
-src/components/GoogleAuthButton.tsx
-src/components/Hero.tsx
-src/components/Logo.tsx
-src/components/OptimizedBackground.tsx
-src/components/ParticleBackground.tsx
-src/components/PaymentButton/PayPalButton.tsx
-src/components/PaymentWidget/InvoicePaymentWidget.tsx
-src/components/Pricing.tsx
-src/components/amazon-affiliate/AmazonBanner.tsx
-src/components/amazon-affiliate/ShopPromotion.tsx
-src/components/lazy-section.tsx
-src/components/ui/accordion.tsx
-src/components/ui/alert-dialog.tsx
-src/components/ui/alert.tsx
-src/components/ui/aspect-ratio.tsx
-src/components/ui/avatar.tsx
-src/components/ui/badge.tsx
-src/components/ui/breadcrumb.tsx
-src/components/ui/button.tsx
-src/components/ui/calendar.tsx
-src/components/ui/card.tsx
-src/components/ui/carousel.tsx
-src/components/ui/chart.tsx
-src/components/ui/checkbox.tsx
-src/components/ui/collapsible.tsx
-src/components/ui/command.tsx
-src/components/ui/context-menu.tsx
-src/components/ui/dialog.tsx
-src/components/ui/drawer.tsx
-src/components/ui/dropdown-menu.tsx
-src/components/ui/form.tsx
-src/components/ui/hover-card.tsx
-src/components/ui/input-otp.tsx
-src/components/ui/input.tsx
-src/components/ui/label.tsx
-src/components/ui/menubar.tsx
-src/components/ui/navigation-menu.tsx
-src/components/ui/optimized-image-fallback.tsx
-src/components/ui/optimized-image.tsx
-src/components/ui/pagination.tsx
-src/components/ui/popover.tsx
-src/components/ui/progress.tsx
-src/components/ui/radio-group.tsx
-src/components/ui/resizable.tsx
-src/components/ui/scroll-area.tsx
-src/components/ui/select.tsx
-src/components/ui/separator.tsx
-src/components/ui/sheet.tsx
-src/components/ui/sidebar.tsx
-src/components/ui/skeleton.tsx
-src/components/ui/slider.tsx
-src/components/ui/sonner.tsx
-src/components/ui/switch.tsx
-src/components/ui/table.tsx
-src/components/ui/tabs.tsx
-src/components/ui/textarea.tsx
-src/components/ui/toast.tsx
-src/components/ui/toaster.tsx
-src/components/ui/toggle-group.tsx
-src/components/ui/toggle.tsx
-src/components/ui/tooltip.tsx
-src/components/ui/use-toast.ts
-src/config/constants.ts
-src/config/environment.ts
-src/config/integrations.ts
-src/context/AuthContext.tsx
-src/hooks/use-mobile.tsx
-src/hooks/use-toast.ts
-src/i18n/config.ts
-src/index.css
-src/integrations/mcp-python-sdk/mcp/__init__.py
-src/integrations/mcp/.env
-src/integrations/mcp/check_supabase_connection.py
-src/integrations/mcp/create_supabase_tables.py
-src/integrations/mcp/install_and_test_mcp.py
-src/integrations/mcp/setup_supabase_db.py
-src/integrations/mcp/solar_fluidity_mcp_server.py
-src/integrations/mcp/supabase_config.example.env
-src/integrations/mcp/test_mcp_server.py
-src/integrations/mcp/verify_tables_and_test_connection.py
-src/layouts/MainLayout.tsx
-src/lib/utils.ts
-src/main.tsx
-src/pages/Dashboard.tsx
-src/pages/Index.tsx
-src/pages/NotFound.tsx
-src/pages/Profile.tsx
-src/pages/Settings.tsx
-src/pages/articles/ApiIntegrationGuide.tsx
-src/pages/auth/Login.tsx
-src/pages/auth/Register.tsx
-src/pages/inventory/Inventory.tsx
-src/pages/invoices/InvoiceDetail.tsx
-src/pages/invoices/Invoices.tsx
-src/pages/invoicing/InvoiceDetailPage.tsx
-src/pages/payment/CheckoutPage.tsx
-src/pages/payment/PaymentCancelPage.tsx
-src/pages/payment/PaymentSuccessPage.tsx
-src/pages/projects/ProjectDetail.tsx
-src/pages/projects/Projects.tsx
-src/pages/quotations/QuotationDetail.tsx
-src/pages/quotations/Quotations.tsx
-src/pages/shop/index.tsx
-src/routes/paymentRoutes.tsx
-src/services/api.ts
-src/services/convex/convexService.ts
-src/services/payment/paypal.ts
-src/services/payment/subscriptionPlans.ts
-src/services/payment/subscriptionService.ts
-src/services/payment/test-paypal-connection.ts
-src/types/index.ts
-src/utils/googleAuth.ts
-src/utils/withLazyLoading.tsx
-src/vite-env.d.ts
-tailwind.config.ts
-tsconfig.app.json
-tsconfig.json
-tsconfig.node.json
-vercel.json
-vite.config.ts
-webapp/css/styles.css
-webapp/index.html
-webapp/js/main.js
-windsurf_deployment.yaml
-```
+**Tu siguiente acción concreta (hoy):**
+1. Clona el repositorio de CascadeStudio y ejecuta su demo localmente. Comprende la integración de OpenCascade.js con Web Workers.
+2. Crea un proyecto Supabase gratuito y ejecuta el SQL mínimo (usuarios y modelos).
+3. Construye el esqueleto de Next.js con un componente simple que llame a un Worker y renderice un cubo con Three.js.
