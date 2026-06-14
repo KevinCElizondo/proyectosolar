@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ☀️ Solar Fluidity Pro - v5.1.1
 
-## Getting Started
+Bienvenido al repositorio definitivo de **Solar Fluidity 3D**. Este proyecto ha sido estructurado en Next.js 14 (App Router), con un modelo Serverless y renderizado 3D integrado de fábrica para operar con un costo de infraestructura de **$0/mes**.
 
-First, run the development server:
+## 🚀 Cómo Iniciar el Desarrollo Local
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Sigue estos pasos para arrancar el entorno en tu máquina:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. **Abre tu terminal en la carpeta del proyecto** (`proyectosolar`).
+2. **Instala las dependencias** (solo si no lo has hecho):
+   ```bash
+   npm install
+   ```
+3. **Inicia el servidor de desarrollo:**
+   ```bash
+   npm run dev
+   ```
+4. Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la interfaz 3D Premium.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📝 Próximos Pasos de Implementación (Para continuar mañana)
 
-## Learn More
+Aquí tienes la hoja de ruta exacta de lo que debes hacer/configurar a continuación (referencia al archivo `docs/CHECKLIST_IMPLEMENTACION.md`):
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Configurar Supabase (Base de Datos)
+1. Entra a tu cuenta en [Supabase](https://supabase.com).
+2. Ve a la sección **SQL Editor**.
+3. Copia el contenido completo del archivo `docs/IMPLEMENTACION_DEFINTIVA_v5.1.1.md` (la sección 4 de SQL) y ejecútalo para crear las tablas `profiles`, `models` y `paypal_events` con sus políticas de seguridad (RLS).
+4. Copia tus llaves de Supabase (`URL`, `anon_key` y `service_role_key`) y pégalas en el archivo `.env.local` en la raíz de este proyecto.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 2. Configurar PayPal Subscriptions
+1. Inicia sesión en [PayPal Developer](https://developer.paypal.com/).
+2. Crea los planes de suscripción (ej. uno Estándar y uno Early Bird).
+3. Obtén el `Client ID` y colócalo en el archivo `.env.local`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3. Preparar los Modelos 3D Reales
+1. Exporta tus modelos de FreeCAD a formato `.glb`.
+2. Ubícalos dentro de la carpeta `public/models/` (ej. `public/models/grill/grill-separated.glb`).
+3. Modificaremos el `src/app/page.tsx` para cargar este archivo real en lugar del cubo de demostración paramétrico.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📂 Documentos Importantes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `docs/IMPLEMENTACION_DEFINTIVA_v5.1.1.md`: Toda la lógica de negocio, arquitectura y tablas.
+- `docs/CHECKLIST_IMPLEMENTACION.md`: Mapa de tareas técnico semana a semana.
+- `docs/REVISIONES.md`: Historial de versiones y cambios aplicados (Changelog).
+
+> **Nota:** El proyecto actual utiliza Tailwind CSS, framer-motion (para micro-animaciones en el UI) y `@react-three/fiber` para el 3D en el cliente. Todo está compilando y configurado sin errores.
