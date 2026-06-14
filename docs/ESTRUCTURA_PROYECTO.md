@@ -1,121 +1,80 @@
-# Estado y Estructura del Proyecto: Solar Fluidity 3D (Versión 5.0)
+# Estado y Estructura del Proyecto: Solar Fluidity 3D (Versión 5.1.1 - Production Ready)
 
-Este documento centraliza el estado actual, la estructura del código y el mapa de ruta de las integraciones para **Solar Fluidity 3D (Modelo Freemium + Pro)**, enfocado en ser la plataforma definitiva de configuración 3D multi-tienda para fabricantes de muebles.
-
-> **Última Actualización:** Finalización del MVP de la Semana 1.
+Este documento centraliza la nueva arquitectura para **Solar Fluidity 3D**, basada en Next.js (App Router), con un enfoque en coste de infraestructura $0/mes, renderizado paramétrico sin dependencias de terceros y escalabilidad modular.
 
 ---
 
 ## 🏗️ 1. Arquitectura y Stack Actual
 
-El proyecto ha pivotado hacia un modelo SaaS puro (sin hardware físico de impresión 3D a cargo de nosotros) que aprovecha renderizado 3D en el cliente y backend serverless.
+El proyecto ha sido rediseñado como un ecosistema de dos frentes (SaaS de configurador 3D y tienda propia de hardware) bajo la siguiente pila tecnológica de última generación:
 
 ### Tecnologías Core
-- **Frontend:** React 18, Vite, TypeScript, Tailwind CSS, shadcn/ui.
+- **Frontend y API:** Next.js 14 (App Router) + TypeScript + Tailwind CSS.
 - **Motor 3D:** `@react-three/fiber` (R3F), `@react-three/drei`, `three.js`.
-- **Estado Global:** `zustand`.
-- **Backend y Autenticación:** Supabase (PostgreSQL, Magic Links, Storage).
-- **Integraciones Críticas (En progreso / Planeadas):**
-  - **Suscripciones B2B:** PayPal Server SDK (Facturación mensual recurrente).
-  - **Facturación Electrónica:** Sistema estructurado para generar archivos XML compatibles con el Ministerio de Hacienda de Costa Rica.
-  - **Orquestación:** n8n (o scripts internos MCP) para webhooks, automatización de recibos y notificaciones.
-- **Optimización de Assets (Próximamente):** Cloudflare R2 + Draco (`gltf-transform`).
+- **Backend, Base de Datos y Auth:** Supabase (Plan Gratuito) - PostgreSQL y Row Level Security (RLS).
+- **Correos Transaccionales:** Resend (Hasta 3,000 correos/mes gratuitos).
+- **Pagos Recurrentes:** PayPal Subscriptions con Webhooks e integrados vía `custom_id` para saltar políticas RLS con seguridad.
+- **Modelado 3D:** FreeCAD (Exportación a `.glb` por piezas) + Escalado dinámico modular.
 
 ---
 
 ## 📂 2. Estructura Maestra de Archivos
 
-A continuación, la estructura lógica de los módulos más importantes del sistema actual:
+A continuación, la estructura lógica para la versión Next.js:
 
 ```text
 proyectosolar/
-├── .env                        # Variables de entorno (VITE_SUPABASE_URL, PAYPAL_LIVE, etc.)
-├── schema.sql                  # Script SQL maestro para la creación de tablas y políticas RLS
+├── .env.local                  # Variables de entorno (Supabase, PayPal, Resend)
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx          # Root layout
+│   │   ├── page.tsx            # Landing y Demo 3D
+│   │   ├── upgrade/
+│   │   │   └── page.tsx        # Integración con Botones de Suscripción PayPal
+│   │   └── api/
+│   │       └── paypal-webhook/
+│   │           └── route.ts    # Webhook seguro de PayPal (Usa Service Role Key)
+│   ├── components/
+│   │   ├── 3d/                 # Componentes de React Three Fiber (GrillAssembly, etc.)
+│   │   └── ui/                 # Componentes visuales genéricos
+│   ├── lib/
+│   │   ├── supabase.ts         # Cliente Supabase
+│   │   └── resend.ts           # Cliente Resend
+│   ├── context/
+│   │   └── UserContext.tsx     # Contexto de Usuario / Autenticación
+│   └── global.d.ts             # Declaración de variables globales (Window.paypal)
 ├── public/
-│   ├── embed.js                # [NUEVO] Script vital que los clientes incrustan en sus webs
-│   └── favicon.ico, images...  # Assets estáticos públicos
-├── docs/
-│   ├── ESTRUCTURA_PROYECTO.md  # Este documento de referencia
-│   ├── GUIA_DESPLIEGUE_VERCEL.md 
-│   └── ...                     # Subcarpetas con documentación técnica e integraciones
-├── scripts/                    # Scripts de integración y validación (PayPal, MCP)
-│   ├── verify-paypal.js
-│   ├── start_mcp_server.sh
-│   └── ...
-└── src/                        # Código Fuente Frontend
-    ├── components/             # UI Reutilizable (shadcn) e integraciones visuales
-    │   ├── ui/
-    │   ├── PaymentButton/      # Botones de suscripción de PayPal
-    │   └── ...
-    ├── config/                 # Configuración de constantes y entornos
-    ├── context/
-    │   └── AuthContext.tsx     # [ACTUALIZADO] Gestiona sesión mediante Supabase Auth (Magic Links)
-    ├── lib/
-    │   └── supabase.ts         # [NUEVO] Inicialización del cliente Supabase
-    ├── pages/
-    │   ├── auth/
-    │   │   └── MagicLinkAuth.tsx # [NUEVO] Interfaz de inicio de sesión sin contraseña
-    │   ├── Dashboard.tsx       # [ACTUALIZADO] Panel Multi-Tienda (crear y gestionar subdominios)
-    │   ├── embed/
-    │   │   └── EmbedViewer.tsx # [NUEVO] Visor 3D incrustable (iframe target)
-    │   ├── invoices/           # Módulo base para facturación y generación de XML (Hacienda CR)
-    │   ├── projects/           # Módulo para gestión de proyectos
-    │   └── payment/            # Vistas de checkout y redirecciones de pago
-    ├── services/               # Lógica de negocio (Convex, PayPal API, etc.)
-    └── App.tsx                 # Enrutador principal de la aplicación
+│   └── models/                 # Modelos 3D (.glb, .gltf)
+└── docs/
+    ├── ESTRUCTURA_PROYECTO.md               # Este documento
+    └── IMPLEMENTACION_DEFINTIVA_v5.1.1.md   # Documento técnico detallado y esquema SQL
 ```
 
 ---
 
 ## 🔗 3. Integraciones Estratégicas y Estado
 
-El proyecto se diseñó para automatizar el 100% de la facturación y la entrega del servicio.
+### A. Autenticación y Base de Datos (Supabase)
+- **Estado:** Migrado a arquitectura robusta con perfiles unificados (`profiles`) y almacenamiento de modelos paramétricos (`models`).
+- **Seguridad:** Uso de Row Level Security (RLS) combinado con `SUPABASE_SERVICE_ROLE_KEY` en webhooks para actualizaciones de sistema.
 
-### A. Autenticación y Base de Datos (Supabase) - **✅ COMPLETADO (Semana 1)**
-- **Auth:** Migrado a Supabase Magic Links (`MagicLinkAuth.tsx`). El cliente no necesita recordar contraseñas.
-- **Tablas Creadas (`schema.sql`):** 
-  - `stores`: Almacena subdominios, nombres, plan activo y variables de iluminación.
-  - `products`: Almacena URLs a los `.glb`, texturas base y vinculación a una tienda.
-  - `banners` y `coupons`: Para el plan Pro.
-- **Próximo Paso:** Ejecutar el `schema.sql` en el panel de Supabase.
+### B. Módulo de Renderizado 3D Modular (React Three Fiber)
+- **Estado:** Se implementa un escalado 3D sin huecos. Se escalan los cuerpos centrales en el eje X mientras los rieles laterales y accesorios se desplazan según parámetros ingresados, sin deformarse.
 
-### B. Módulo de Renderizado 3D (React Three Fiber) - **⏳ EN CURSO (Semana 2)**
-- **Estado Actual:** El archivo `EmbedViewer.tsx` carga de forma dinámica el nombre de la tienda y expone un Canvas 3D básico (cubo de prueba) que las empresas pueden incrustar con `embed.js`.
-- **Próximo Paso:** Sustituir el cubo por el motor de carga de archivos `.glb` con Draco, implementar cambio dinámico de texturas a través de Zustand y enlazar las luces dinámicas a los parámetros de la tabla `stores`.
+### C. Suscripciones y Pagos (PayPal)
+- **Estado:** Componente de Upgrade utilizando `<Script>` de Next.js para asegurar que `window.paypal` cargue sin condiciones de carrera. 
+- **Flujo Webhook:** El sistema captura eventos `BILLING.SUBSCRIPTION.ACTIVATED` y enlaza de forma segura usando el `custom_id` proveniente de Supabase.
 
-### C. Suscripciones y Pagos (PayPal) - **📅 PLANIFICADO (Semana 3)**
-- **Visión:** Integración del SDK de PayPal (ya en `package.json`) para gestionar el modelo Freemium y Pro ($49/mes).
-- **Flujo:** 
-  1. El usuario hace clic en "Hacer Upgrade" en el Dashboard.
-  2. PayPal procesa el cobro y dispara un webhook a nuestro backend (vía n8n o Edge Function).
-  3. Se actualiza el campo `plan` a `'pro'` en la tabla `stores`.
-- **Archivos Base:** Ya existen en `src/services/payment/` y `scripts/test-paypal.js`. Deben auditarse para alinear con el costo de $49/mes.
-
-### D. Facturación Electrónica (Hacienda CR) - **📅 PLANIFICADO (Semana 3-4)**
-- **Visión:** Cada vez que un usuario paga su suscripción Pro ($49), se debe emitir automáticamente una factura electrónica (XML) válida para el Ministerio de Hacienda.
-- **Flujo:**
-  1. Pago confirmado por PayPal.
-  2. El módulo de facturación (ya estructurado en `src/pages/invoices` y servicios subyacentes) compila el XML UBL 2.1 con los datos tributarios del cliente.
-  3. Supabase Storage guarda el PDF y el XML de respuesta de Hacienda.
-  4. Resend (o el servicio SMTP configurado) envía la factura automáticamente al correo del usuario.
-
-### E. Módulo de Afiliados y Upsell - **📅 PLANIFICADO (Semana 4)**
-- Al eliminar el hardware propio, el plan de negocio escala usando recomendaciones de impresoras 3D (ej. Bambu Lab).
-- **Archivos Base:** Los componentes `AmazonAffiliateSection.tsx` y `AmazonBanner.tsx` se reciclarán para inyectarse de forma no intrusiva en el panel gratuito.
+### D. Correos Transaccionales (Resend)
+- **Estado:** Integrado directamente en las rutas de la API de Next.js. Se envían notificaciones transaccionales (ej. Bienvenida a plan Pro, Cancelaciones) inmediatamente tras confirmar el webhook.
 
 ---
 
 ## 📝 4. Checklist para "Continuar Otro Día"
 
-Para retomar el proyecto exactamente donde lo dejamos con la mayor productividad posible, sigue estos pasos:
+Para asegurar que todo funcione como se espera:
 
-1. [ ] **Validar Base de Datos:** Entrar a Supabase (proyecto `rlqvkqaownzqelvxnhzd`) > SQL Editor y ejecutar el archivo `schema.sql` que se encuentra en la raíz del proyecto.
-2. [ ] **Probar Flujo de Login:** 
-   - Ejecutar `npm run dev`.
-   - Navegar a `http://localhost:5173/auth/login`.
-   - Ingresar correo y abrir el Magic Link desde tu bandeja (o desde los Inbucket/Logs de Supabase).
-3. [ ] **Validar Creación de Tienda:** Dentro del Dashboard, crear una tienda llamada "Mi Pruebas 3D" y verificar que el subdominio se guarde en Supabase.
-4. [ ] **Testear Iframe (Embed):** Copiar el snippet de "Código de Incrustación", pegarlo en un `.html` vacío en tu escritorio y confirmar que carga el visualizador 3D básico con el nombre de tu tienda.
-5. [ ] **Iniciar Desarrollo 3D (Semana 2):** Solicitar al asistente que comience a estructurar el componente de carga GLB optimizado con Draco en `EmbedViewer.tsx`.
-
-> *"La arquitectura base es sólida, escalable y serverless. El ecosistema está listo para recibir el núcleo gráfico 3D y las pasarelas de pago."*
+1. [ ] **Verificar Base de Datos:** Entrar a Supabase y aplicar el esquema SQL documentado en `IMPLEMENTACION_DEFINTIVA_v5.1.1.md`.
+2. [ ] **Variables de Entorno:** Configurar correctamente `.env.local` con las llaves de Supabase, PayPal y Resend.
+3. [ ] **Levantar Entorno Dev:** Ejecutar `npm run dev` y validar que el Canvas 3D renderice sin errores de importación.
+4. [ ] **Testear Pago Local (Sandbox):** Usar ngrok (o herramientas similares) para exponer `http://localhost:3000/api/paypal-webhook` a PayPal Developer y simular una suscripción exitosa.
