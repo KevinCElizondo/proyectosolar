@@ -1,134 +1,117 @@
-'use client';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment } from '@react-three/drei';
-import { useState, Suspense } from 'react';
-import { motion } from 'framer-motion';
-import { Settings2, Zap, ShieldCheck, Sun, Layers } from 'lucide-react';
+import Link from "next/link";
+import { ArrowRight, Box, Settings, Smartphone } from "lucide-react";
+import GrillConfigurator from "@/components/GrillConfigurator";
 
-function ParametricCube({ width }: { width: number }) {
+export default function Home() {
   return (
-    <mesh scale={[width, 1, 1]}>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial 
-        color="#FF5A1F" 
-        roughness={0.2}
-        metalness={0.8}
-      />
-    </mesh>
-  );
-}
-
-export default function GrillConfigurator() {
-  const [width, setWidth] = useState(0.8);
-
-  return (
-    <div className="flex flex-col lg:flex-row min-h-screen bg-[#0B0F19] text-slate-200 overflow-hidden">
-      
-      {/* 3D Canvas Area */}
-      <div className="h-[50vh] lg:h-screen lg:w-2/3 relative">
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#121A2F]/50 to-[#0B0F19] pointer-events-none z-0" />
-        
-        {/* Top Badges */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="absolute top-6 left-6 z-10 flex gap-3"
-        >
-          <div className="glass-panel px-4 py-2 rounded-full flex items-center gap-2">
-            <Sun className="w-4 h-4 text-[#FF5A1F]" />
-            <span className="text-sm font-semibold tracking-wide">SolarFluidity Pro</span>
+    <div className="min-h-screen bg-[#0B0F19] text-slate-200">
+      {/* Navigation */}
+      <nav className="border-b border-white/10 bg-[#0B0F19]/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-[#FF5A1F] to-orange-400 rounded-lg flex items-center justify-center">
+                <Box className="w-5 h-5 text-white" />
+              </div>
+              <span className="text-xl font-bold text-white tracking-tight">SolarFluidity</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <Link href="/login" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
+                Iniciar Sesión
+              </Link>
+              <Link href="/upgrade" className="text-sm font-bold bg-white text-black hover:bg-slate-200 px-4 py-2 rounded-full transition-colors">
+                Probar Pro
+              </Link>
+            </div>
           </div>
-          <div className="glass-panel px-3 py-2 rounded-full flex items-center">
-            <span className="text-xs text-slate-400 font-mono">v5.1.1</span>
-          </div>
-        </motion.div>
-
-        {/* 3D Scene */}
-        <div className="w-full h-full relative z-10">
-          <Canvas camera={{ position: [2.5, 2, 2.5], fov: 45 }}>
-            <Suspense fallback={null}>
-              <ambientLight intensity={0.5} />
-              <directionalLight position={[10, 10, 5]} intensity={1.5} />
-              <pointLight position={[-10, -10, -10]} intensity={0.5} color="#0B0F19" />
-              <Environment preset="city" />
-              <ParametricCube width={width} />
-              <OrbitControls enableDamping autoRotate autoRotateSpeed={0.8} />
-            </Suspense>
-          </Canvas>
         </div>
-      </div>
+      </nav>
 
-      {/* Sidebar Controls */}
-      <motion.div 
-        initial={{ x: '100%' }}
-        animate={{ x: 0 }}
-        transition={{ type: "spring", stiffness: 70, damping: 20 }}
-        className="glass-panel p-8 lg:w-1/3 flex flex-col justify-between z-20 border-l border-white/5 shadow-2xl relative"
-      >
-        <div className="space-y-8">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden pt-20 pb-16 md:pt-32 md:pb-24">
+        {/* Background Gradients */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] h-[500px] bg-[#FF5A1F]/20 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-8">
+            Diseño 3D <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF5A1F] to-orange-400">Paramétrico</span> para Fabricantes
+          </h1>
+          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-12">
+            Aumenta tus conversiones permitiendo a tus clientes configurar y visualizar tus productos en 3D interactivo. Cero código. Cero plugins.
+          </p>
           
-          <div>
-            <motion.div 
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
-              className="inline-flex items-center justify-center p-2 bg-[#FF5A1F]/10 rounded-xl mb-4 text-[#FF5A1F] border border-[#FF5A1F]/20"
-            >
-              <Settings2 className="w-6 h-6" />
-            </motion.div>
-            <h1 className="text-3xl font-bold text-white tracking-tight">Configurador 3D</h1>
-            <p className="text-slate-400 mt-2 text-sm leading-relaxed">
-              Ajusta las proporciones de tu modelo paramétrico en tiempo real. Renderizado acelerado por hardware sin plugins.
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/dashboard" className="w-full sm:w-auto px-8 py-4 bg-[#FF5A1F] hover:bg-[#E04A15] text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(255,90,31,0.3)]">
+              Comenzar Gratis
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link href="/upgrade" className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-medium rounded-xl transition-colors border border-white/10">
+              Ver Planes
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Configurator Showcase Section */}
+      <section className="py-12 bg-black/30 border-y border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">Prueba el Configurador en Vivo</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto">
+              Este es el modelo "Parrilla Híbrida" (Dogfooding). Observa cómo se escala paramétricamente de forma inteligente sin distorsionar los accesorios.
             </p>
           </div>
 
-          <div className="p-5 bg-white/5 rounded-2xl border border-white/10 space-y-5">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-sm font-medium text-slate-300">
-                <Layers className="w-4 h-4 text-[#FF5A1F]" />
-                <span>Ancho Total (Eje X)</span>
-              </div>
-              <span className="text-lg font-mono text-[#FF5A1F]">{width.toFixed(2)} m</span>
-            </div>
-            
-            <div className="relative pt-2">
-              <input
-                type="range"
-                min={0.6}
-                max={1.5}
-                step={0.01}
-                value={width}
-                onChange={(e) => setWidth(Number(e.target.value))}
-                className="w-full"
-              />
-              <div className="flex justify-between text-xs text-slate-500 mt-2 font-mono">
-                <span>0.6m</span>
-                <span>1.5m</span>
-              </div>
-            </div>
-          </div>
+          {/* Renderizamos el componente 3D creado en v5.1.1 */}
+          <GrillConfigurator />
 
-          <div className="space-y-3">
-            <div className="flex items-center gap-3 text-sm text-slate-400">
-              <Zap className="w-4 h-4 text-yellow-500" />
-              <span>Exportación instantánea a STEP y GLB</span>
-            </div>
-            <div className="flex items-center gap-3 text-sm text-slate-400">
-              <ShieldCheck className="w-4 h-4 text-emerald-500" />
-              <span>Cálculo de despiece automático</span>
-            </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="glass-panel p-8 rounded-3xl border border-white/5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-[50px] group-hover:bg-blue-500/20 transition-colors" />
+            <Box className="w-10 h-10 text-blue-400 mb-6 relative z-10" />
+            <h3 className="text-xl font-bold text-white mb-3 relative z-10">Exportación a FreeCAD</h3>
+            <p className="text-slate-400 relative z-10">
+              Usa tus modelos `.glb` base. La plataforma gestiona las reglas paramétricas sin necesidad de reescribir software.
+            </p>
+          </div>
+          
+          <div className="glass-panel p-8 rounded-3xl border border-white/5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF5A1F]/10 blur-[50px] group-hover:bg-[#FF5A1F]/20 transition-colors" />
+            <Smartphone className="w-10 h-10 text-[#FF5A1F] mb-6 relative z-10" />
+            <h3 className="text-xl font-bold text-white mb-3 relative z-10">Embed Universal</h3>
+            <p className="text-slate-400 relative z-10">
+              Copia y pega un script en tu e-commerce (Shopify, WordPress, etc) para incrustar el visor al instante.
+            </p>
+          </div>
+          
+          <div className="glass-panel p-8 rounded-3xl border border-white/5 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-[50px] group-hover:bg-emerald-500/20 transition-colors" />
+            <Settings className="w-10 h-10 text-emerald-400 mb-6 relative z-10" />
+            <h3 className="text-xl font-bold text-white mb-3 relative z-10">Restricciones Físicas</h3>
+            <p className="text-slate-400 relative z-10">
+              Establece límites máximos y mínimos para evitar que los clientes configuren productos imposibles de fabricar.
+            </p>
           </div>
         </div>
+      </section>
 
-        <motion.div 
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="mt-10"
-        >
-          <button className="w-full bg-gradient-to-r from-[#FF5A1F] to-[#E04A15] hover:from-[#E04A15] hover:to-[#C23F10] text-white font-semibold py-4 px-6 rounded-xl shadow-[0_0_20px_rgba(255,90,31,0.3)] transition-all flex items-center justify-center gap-2">
-            Hacer Upgrade a Pro <span className="opacity-80 font-normal">($99/mes)</span>
-          </button>
-        </motion.div>
-      </motion.div>
+      {/* Footer */}
+      <footer className="border-t border-white/10 py-12 bg-black">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-2">
+            <Box className="w-6 h-6 text-[#FF5A1F]" />
+            <span className="text-lg font-bold text-white tracking-tight">SolarFluidity</span>
+          </div>
+          <p className="text-sm text-slate-500">
+            © {new Date().getFullYear()} SolarFluidity Studio. Todos los derechos reservados.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
