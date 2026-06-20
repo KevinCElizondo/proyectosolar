@@ -3,6 +3,7 @@
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import { useState, Suspense } from 'react';
+import { useRouter } from 'next/navigation';
 
 function GrillAssembly({ width }: { width: number }) {
   // Nota: Si el archivo /models/grill/grill-separated.glb no existe, 
@@ -61,8 +62,19 @@ function ConfiguratorContent({ width }: { width: number }) {
   );
 }
 
-export default function GrillConfigurator() {
-  const [width, setWidth] = useState(0.8);
+interface GrillConfiguratorProps {
+  isEmbed?: boolean;
+  hideCart?: boolean;
+  initialWidth?: number;
+}
+
+export default function GrillConfigurator({
+  isEmbed = false,
+  hideCart = false,
+  initialWidth = 0.8,
+}: GrillConfiguratorProps = {}) {
+  const [width, setWidth] = useState(initialWidth);
+  const router = useRouter();
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 p-4 bg-[#121A2F] rounded-3xl border border-white/5 shadow-2xl overflow-hidden">
@@ -108,11 +120,22 @@ export default function GrillConfigurator() {
           </div>
         </div>
 
-        <div className="pt-4 border-t border-white/10">
-          <button className="w-full py-3 px-4 rounded-xl bg-[#FF5A1F] hover:bg-[#E04A15] text-white font-bold transition-colors shadow-[0_0_15px_rgba(255,90,31,0.2)]">
-            Añadir al Carrito - $1,199
-          </button>
-        </div>
+        {!hideCart && (
+          <div className="pt-4 border-t border-white/10">
+            <button 
+              onClick={() => {
+                if (isEmbed) {
+                  window.parent.postMessage({ type: 'ADD_TO_CART', product: 'grill', width }, '*');
+                } else {
+                  router.push(`/checkout?product=grill&width=${width}`);
+                }
+              }}
+              className="w-full py-3 px-4 rounded-xl bg-[#FF5A1F] hover:bg-[#E04A15] text-white font-bold transition-colors shadow-[0_0_15px_rgba(255,90,31,0.2)]"
+            >
+              Añadir al Carrito - $1,199
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

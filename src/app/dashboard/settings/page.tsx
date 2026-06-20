@@ -6,7 +6,7 @@ export default function SettingsPage() {
   const [copied, setCopied] = useState(false);
   const storeId = "store_ex123xyz";
   
-  const embedCode = `<script src="https://solarfluidity.com/embed.js" data-store-id="${storeId}"></script>\n<div id="solarfluidity-viewer" style="width: 100%; height: 500px;"></div>`;
+  const embedCode = `<iframe src="https://solarfluidity.com/embed/grill?hideCart=true" width="100%" height="500px" frameborder="0" style="border:none; border-radius:12px; overflow:hidden;" allow="fullscreen"></iframe>`;
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(embedCode);

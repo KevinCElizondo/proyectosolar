@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { LayoutDashboard, Settings, CreditCard, LogOut, Sun } from 'lucide-react';
+import { LayoutDashboard, Settings, CreditCard, LogOut, Sun, Users } from 'lucide-react';
 
 export default function DashboardLayout({
   children,
@@ -29,6 +29,10 @@ export default function DashboardLayout({
           <Link href="/dashboard/billing" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-slate-300 hover:text-white">
             <CreditCard className="w-5 h-5 text-slate-400" />
             <span className="font-medium">Facturación</span>
+          </Link>
+          <Link href="/dashboard/affiliates" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-slate-300 hover:text-white">
+            <Users className="w-5 h-5 text-slate-400" />
+            <span className="font-medium">Programa Afiliados</span>
           </Link>
         </nav>
 

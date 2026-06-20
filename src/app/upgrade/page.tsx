@@ -6,7 +6,13 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useState, useEffect } from 'react';
 import { createClient } from '@/utils/supabase/client';
 
-export default function UpgradePage() {
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+
+function UpgradeContent() {
+  const searchParams = useSearchParams();
+  const affiliateRef = searchParams.get('ref');
+  
   const [code, setCode] = useState('');
   const [userId, setUserId] = useState<string | null>(null);
   const supabase = createClient();
@@ -26,6 +32,8 @@ export default function UpgradePage() {
   const planId = validCode
     ? (process.env.NEXT_PUBLIC_PAYPAL_PLAN_EARLYBIRD || "test_earlybird")
     : (process.env.NEXT_PUBLIC_PAYPAL_PLAN_STANDARD || "test_standard");
+
+  const customIdPayload = affiliateRef ? `${userId}|ref_${affiliateRef}` : userId;
 
   return (
     <div className="min-h-screen bg-[#0B0F19] text-slate-200 py-20 px-4 relative overflow-hidden">
@@ -143,7 +151,7 @@ export default function UpgradePage() {
                   createSubscription={(data, actions) => {
                     return actions.subscription.create({
                       plan_id: planId,
-                      custom_id: userId // Vincula la suscripción al usuario en el webhook
+                      custom_id: customIdPayload || userId // Vincula la suscripción al usuario en el webhook y el afiliado
                     });
                   }}
                   onApprove={async (data) => {
@@ -166,5 +174,13 @@ export default function UpgradePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function UpgradePage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#0B0F19] flex items-center justify-center text-slate-400">Cargando planes...</div>}>
+      <UpgradeContent />
+    </Suspense>
   );
 }
