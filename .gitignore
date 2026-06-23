@@ -46,3 +46,6 @@ supabase-mcp-config.json
 
 # Backup env files
 *.bak
+
+# Private owner documentation
+docs/PROPIETARIO_GUIA_PRIVADA.md
