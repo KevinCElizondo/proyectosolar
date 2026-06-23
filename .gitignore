@@ -40,4 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
+# MCP config files (contain sensitive tokens — do not commit)
+n8n-mcp-config.json
+supabase-mcp-config.json
+
+# Backup env files
+*.bak
