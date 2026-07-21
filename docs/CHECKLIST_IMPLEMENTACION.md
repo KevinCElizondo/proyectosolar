@@ -1,6 +1,6 @@
 # Checklist de Implementación Detallada (12 Semanas)
 
-Este documento desglosa el plan de 12 semanas en tareas técnicas específicas para Solar Fluidity v5.1.1.
+Este documento desglosa el plan de 12 semanas en tareas técnicas específicas para Solar Fluidity 3D v5.1.1.
 
 ## Fase 1: Fundaciones y Visualizador Base (Semanas 1-2)
 - [x] Migración a Next.js (App Router) + TypeScript.

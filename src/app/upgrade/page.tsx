@@ -76,7 +76,7 @@ function UpgradeContent() {
                 'Visualizador 3D básico',
                 'Ajustes paramétricos limitados',
                 'Exportación local',
-                'Marca de agua SolarFluidity'
+                'Marca de agua Solar Fluidity 3D'
               ].map((feature, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-slate-300">
                   <CheckCircle2 className="w-5 h-5 text-slate-500 shrink-0" />
@@ -127,7 +127,7 @@ function UpgradeContent() {
             <ul className="space-y-4 mb-8 flex-1">
               {[
                 'Embed Widget Ilimitado',
-                'Marca blanca (Sin logo de SolarFluidity)',
+                'Marca blanca (Sin logo de Solar Fluidity 3D)',
                 'Modelos paramétricos avanzados',
                 'Cálculo de despiece automático',
                 'Soporte técnico prioritario',

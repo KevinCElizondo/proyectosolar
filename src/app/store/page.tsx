@@ -13,7 +13,7 @@ export default function HardwareStorePage() {
               <div className="w-8 h-8 bg-gradient-to-br from-[#FF5A1F] to-orange-400 rounded-lg flex items-center justify-center">
                 <ShoppingBag className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-white tracking-tight">SolarFluidity Store</span>
+              <span className="text-xl font-bold text-white tracking-tight">Solar Fluidity 3D Store</span>
             </Link>
             <div className="flex items-center gap-4">
               <Link href="/login" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
@@ -40,11 +40,12 @@ export default function HardwareStorePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
             <div className="flex items-center gap-4 mb-4">
-              <h2 className="text-3xl font-bold text-white">Parrilla Híbrida Modular</h2>
-              <span className="px-3 py-1 rounded-full bg-[#FF5A1F]/20 text-[#FF5A1F] text-xs font-bold">BEST SELLER</span>
+              <h2 className="text-3xl font-bold text-white">Cama de Cultivo de Alta Calidad</h2>
+              <p className="text-2xl font-semibold text-[#FF5A1F] mt-2">$299.00 USD <span className="text-sm text-slate-400 font-normal">/ modelo base</span></p>
             </div>
-            <p className="text-slate-400 max-w-2xl">
-              Nuestra parrilla estrella. Configura el ancho total según tu espacio. Se envía en formato flat-pack con instrucciones de ensamblaje.
+
+            <p className="text-slate-400 text-lg leading-relaxed">
+              Nuestra cama de cultivo estrella. Configura el ancho total según tu espacio. Se envía en formato flat-pack con instrucciones de ensamblaje.
             </p>
           </div>
 
@@ -74,7 +75,7 @@ export default function HardwareStorePage() {
       {/* Footer */}
       <footer className="border-t border-white/10 py-12 bg-black">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-sm text-slate-500">
-          <p>© {new Date().getFullYear()} SolarFluidity Store.</p>
+          <p>© {new Date().getFullYear()} Solar Fluidity 3D Store.</p>
           <div className="flex gap-4">
             <Link href="/" className="hover:text-white transition-colors">Volver a SaaS</Link>
           </div>

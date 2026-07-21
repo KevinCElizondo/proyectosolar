@@ -57,7 +57,7 @@ export default function LoginPage() {
           <div className="w-12 h-12 bg-[#FF5A1F]/10 rounded-xl flex items-center justify-center mb-4 border border-[#FF5A1F]/20">
             <Sparkles className="w-6 h-6 text-[#FF5A1F]" />
           </div>
-          <h1 className="text-2xl font-bold text-white mb-2">Bienvenido a SolarFluidity</h1>
+          <h1 className="text-2xl font-bold text-white mb-2">Bienvenido a Solar Fluidity 3D</h1>
           <p className="text-slate-400 text-sm text-center">
             Inicia sesión o crea una cuenta usando tu correo. Te enviaremos un enlace mágico.
           </p>

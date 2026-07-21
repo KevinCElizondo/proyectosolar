@@ -1,6 +1,9 @@
 {
-  "name": "tempapp",
-  "version": "0.1.0",
+  "name": "solar-fluidity-3d",
+  "version": "5.3.0",
+  "description": "SaaS de configurador 3D paramétrico para fabricantes e instaladores — con sistema de automatización de ventas Make.com",
+  "author": "Kevin Cordero <kevincordero@solarfluidity.com>",
+  "license": "UNLICENSED",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -26,7 +26,7 @@ export default function Home() {
               <div className="w-8 h-8 bg-gradient-to-br from-[#FF5A1F] to-orange-400 rounded-lg flex items-center justify-center shadow-[0_0_14px_rgba(255,90,31,0.4)]">
                 <Zap className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-bold text-white tracking-tight">SolarFluidity</span>
+              <span className="text-xl font-bold text-white tracking-tight">Solar Fluidity 3D</span>
             </motion.div>
 
             <motion.div {...fadeUp(0.1)} className="flex items-center gap-4">
@@ -80,8 +80,6 @@ export default function Home() {
 
           {/* Trust signals */}
           <motion.div {...fadeUp(0.3)} className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-xs text-slate-500 mb-10">
-            <span className="flex items-center gap-1.5"><Star className="w-3 h-3 text-amber-400" /> 20 espacios gratis, sin tarjeta</span>
-            <span className="w-px h-4 bg-white/10 hidden sm:block" />
             <span className="flex items-center gap-1.5"><Shield className="w-3 h-3 text-sky-400" /> SSL · Row Level Security</span>
             <span className="w-px h-4 bg-white/10 hidden sm:block" />
             <span className="flex items-center gap-1.5"><TrendingUp className="w-3 h-3 text-emerald-400" /> Escala sin fricción</span>
@@ -93,7 +91,7 @@ export default function Home() {
               href="/dashboard"
               className="w-full sm:w-auto px-8 py-4 bg-[#FF5A1F] hover:bg-[#E04A15] text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 glow-orange"
             >
-              Comenzar Gratis · 20 Espacios
+              Comenzar Gratis
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
@@ -121,7 +119,7 @@ export default function Home() {
               Prueba el Configurador en Vivo
             </h2>
             <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
-              Modelo "Parrilla Híbrida" en tiempo real. Observa cómo escala paramétricamente
+              Modelo "Cama de Cultivo" en tiempo real. Observa cómo escala paramétricamente
               de forma inteligente sin distorsionar los accesorios.
             </p>
           </motion.div>
@@ -138,8 +136,8 @@ export default function Home() {
             {
               icon: <Box className="w-9 h-9 text-sky-400" />,
               glow: "bg-sky-500/8 group-hover:bg-sky-500/16",
-              title: "Exportación a FreeCAD",
-              body: "Usa tus modelos .glb base. La plataforma gestiona las reglas paramétricas sin necesidad de reescribir software.",
+              title: "Integración con SolidWorks (.glb)",
+              body: "Sube tus modelos .glb desde SolidWorks. La plataforma gestiona las reglas paramétricas sin necesidad de reescribir software.",
             },
             {
               icon: <Smartphone className="w-9 h-9 text-[#FF5A1F]" />,
@@ -178,7 +176,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <p className="text-slate-500 text-xs tracking-widest uppercase mb-6">Tecnología que impulsa fabricantes</p>
           <div className="flex flex-wrap justify-center items-center gap-8 text-slate-600 font-semibold text-sm">
-            <span>FreeCAD Compatible</span>
+            <span>SolidWorks Compatible</span>
             <span className="w-px h-4 bg-white/10" />
             <span>Three.js · WebGL</span>
             <span className="w-px h-4 bg-white/10" />
@@ -186,7 +184,7 @@ export default function Home() {
             <span className="w-px h-4 bg-white/10" />
             <span>PayPal Integrado</span>
             <span className="w-px h-4 bg-white/10" />
-            <span>n8n Automations</span>
+            <span>Make.com Automations</span>
           </div>
         </div>
       </section>
@@ -198,10 +196,10 @@ export default function Home() {
             <div className="w-6 h-6 bg-gradient-to-br from-[#FF5A1F] to-orange-400 rounded-md flex items-center justify-center">
               <Zap className="w-4 h-4 text-white" />
             </div>
-            <span className="text-sm font-bold text-white tracking-tight">SolarFluidity</span>
+            <span className="text-sm font-bold text-white tracking-tight">Solar Fluidity 3D</span>
           </div>
           <p className="text-xs text-slate-600">
-            © {new Date().getFullYear()} SolarFluidity Studio. Todos los derechos reservados.
+            © {new Date().getFullYear()} Solar Fluidity 3D Studio. Todos los derechos reservados.
           </p>
           <div className="flex gap-4 text-xs text-slate-500">
             <Link href="/upgrade" className="hover:text-slate-300 transition-colors">Planes</Link>

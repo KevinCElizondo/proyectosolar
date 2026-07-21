@@ -13,7 +13,7 @@ export default function DashboardLayout({
         <div className="p-6 border-b border-white/10">
           <Link href="/" className="flex items-center gap-2">
             <Sun className="w-6 h-6 text-[#FF5A1F]" />
-            <span className="font-bold text-lg tracking-wide text-white">SolarFluidity</span>
+            <span className="font-bold text-lg tracking-wide text-white">Solar Fluidity 3D</span>
           </Link>
         </div>
 

@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 function GrillAssembly({ width }: { width: number }) {
   // Nota: Si el archivo /models/grill/grill-separated.glb no existe, 
   // R3F arrojará un error de carga de red (404). 
-  // Debes exportar tu diseño de FreeCAD y colocarlo en public/models/grill/
+  // Debes exportar tu diseño de SolidWorks a .glb y colocarlo en public/models/grill/
   const { nodes } = useGLTF('/models/grill/grill-separated.glb') as any;
   const baseWidth = 0.8;   // ancho original del diseño
   const scaleX = width / baseWidth;
@@ -94,9 +94,9 @@ export default function GrillConfigurator({
       
       <div className="p-6 lg:p-8 space-y-6 flex-1 flex flex-col justify-center">
         <div>
-          <h3 className="text-2xl font-bold text-white mb-2">Parrilla Híbrida Pro</h3>
+          <h3 className="text-2xl font-bold text-white mb-2">Cama de Cultivo Pro</h3>
           <p className="text-slate-400 text-sm">
-            Configura el tamaño de tu parrilla en tiempo real. La estructura central se escala mientras los rieles y accesorios mantienen sus dimensiones originales sin deformarse.
+            Configura el tamaño de tu cama de cultivo en tiempo real. La estructura central se escala mientras los bordes y accesorios mantienen sus dimensiones originales sin deformarse.
           </p>
         </div>
 

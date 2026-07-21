@@ -1,4 +1,4 @@
-# ☀️ SolarFluidity Pro – Plan Estratégico Definitivo (v5.1.1)
+# ☀️ Solar Fluidity 3D Pro – Plan Estratégico Definitivo (v5.1.1)
 
 **Documento maestro de implementación, negocio y tecnología.**  
 Versión congelada para producción. Infraestructura de costo $0/mes.  
@@ -8,7 +8,7 @@ Cada detalle ha sido analizado y blindado para la ejecución inmediata.
 
 ## 📌 1. Resumen Ejecutivo
 
-SolarFluidity es un ecosistema digital compuesto por:
+Solar Fluidity 3D es un ecosistema digital compuesto por:
 
 1. **SaaS de configurador 3D paramétrico** para pequeños fabricantes (carpinterías, herrerías, diseñadores de mobiliario). Permite crear, editar y embeber modelos 3D interactivos en cualquier sitio web. Plan Normal (gratis) y Plan Pro ($99/mes o $990/año).
 2. **Tienda propia de hardware** (parrillas híbridas y camas de cultivo elevadas flat‑pack) que utiliza el mismo configurador como escaparate vivo (*dogfooding*). Esta tienda genera flujo de caja inmediato y sirve como prueba social irrefutable para los clientes del SaaS.
@@ -232,5 +232,5 @@ Con un costo fijo de $0, el punto de equilibrio se alcanza con el **primer clien
 
 ## 🧠 12. Conclusión
 
-La versión v5.1.1 de SolarFluidity es la culminación de múltiples iteraciones de diseño, donde se han eliminado todos los riesgos técnicos conocidos.
+La versión v5.1.1 de Solar Fluidity 3D es la culminación de múltiples iteraciones de diseño, donde se han eliminado todos los riesgos técnicos conocidos.
 El repositorio ya está preparado para producción. Sigue la checklist de configuración inicial y luego avanza semana a semana según el plan. La primera línea de código ya está escrita; ahora toca ejecutar.

@@ -1,201 +1,71 @@
-# ☀️ SolarFluidity — Plataforma SaaS de Diseño 3D Paramétrico
+# ☀️ SolarFluidity Pro — Validación y Plan de Ejecución
 
-**Versión:** 5.2.0  
-**Framework:** Next.js 16.2.9 (App Router · Turbopack)  
-**Stack:** Next.js · TypeScript · Tailwind CSS v4 · Supabase · PayPal · Three.js · Framer Motion · n8n  
+**Versión:** 6.0.0 (Solopreneur Edition)
+**Framework:** Next.js (App Router)
+**Stack:** Next.js · TypeScript · Tailwind CSS v4 · Supabase · Three.js
 **Propietario:** Kevin Cordero · `kevincordero@solarfluidity.com`
 
 ---
 
-## ¿Qué es SolarFluidity?
+## 🚀 ¿Qué es SolarFluidity Pro?
 
-SolarFluidity es una plataforma SaaS B2B que permite a **fabricantes e instaladores** ofrecer a sus clientes un configurador de productos en **3D interactivo** incrustable en cualquier sitio web. Los clientes finales pueden ajustar dimensiones, ver el producto en tiempo real, y el fabricante recibe pedidos ya configurados.
+SolarFluidity Pro es una plataforma SaaS diseñada para **diseñadores 3D, makers, carpinteros y herreros**. Permite subir archivos (.stl, .glb), visualizarlos en 3D en la web e incrustarlos en tiendas online (iframes). 
 
-**Casos de uso:**
-- Parrillas y estructuras metálicas a medida
-- Paneles solares y sistemas de montaje
-- Muebles y productos paramétricos por catálogo
+**Propuesta de valor:** *"Súbelo, previsualízalo, compártelo. Sin código, sin comisiones."*
 
 ---
 
-## 🚀 Inicio Rápido
+## ✅ 1. Validación Definitiva
+
+| Área | Observación |
+|------|-------------|
+| **Viabilidad técnica** | Subir un archivo, guardarlo en Supabase y mostrarlo con Three.js es un flujo estándar y probado. |
+| **Propuesta de valor** | La previsualización y el embed (iframe) para no programadores es justo lo que los makers necesitan. |
+| **Mercado objetivo** | Millones de diseñadores 3D y makers que ya usan .stl o .glb pero no tienen forma simple de mostrar productos en 3D. |
+| **Modelo de ingresos** | $49/mes. Con solo 30 clientes Pro el SaaS genera $1,470/mes con un margen del 99%. Las ventas de hardware validan la plataforma. |
+| **Riesgo financiero** | Costo operativo fijo: $0 (Vercel Hobby, Supabase gratuito, Resend). Solo dominio (~$10/año). Riesgo cero. |
+| **Velocidad de ejecución** | En menos de una semana se puede tener un producto en 3D y un enlace para compartir. |
+
+---
+
+## 💰 2. Modelo de Ingresos
+
+### Ingresos por Suscripciones (SaaS)
+- **Precio Pro:** $49/mes.
+- **Lanzamiento Early Bird:** $39/mes (primeros 10-15 clientes).
+- **Proyección 12 meses:** 20 clientes Pro = ~$10,000 – $12,000 / año.
+
+### Ingresos por Hardware (Ventas propias)
+- **Cama de cultivo VerDECER:** ~$490 venta (~$230 margen).
+- **Parrilla híbrida:** ~$1,000 venta (~$500 margen).
+- **Proyección 12 meses:** ~$5,500 – $7,000 / año.
+
+**Total Anual Esperado:** $15,500 – $19,000 (Escenario conservador) | Costos: $10 (Dominio).
+
+---
+
+## 🧠 3. Estrategia de Crecimiento (Go-to-Market)
+
+1. **Publicar contenido:** Reel semanal mostrando el configurador con productos reales (ej. camas de cultivo).
+2. **Dogfooding:** Cada cliente de una cama de cultivo recibe un flyer: *"Esta página 3D fue hecha con SolarFluidity. ¿Quieres la tuya? Primer mes 20% descuento."*
+3. **Prospección manual:** Buscar en IG/LinkedIn makers de productos personalizados y contactarlos.
+4. **SEO de embeds:** Los iframes incrustados generan backlinks a solarfluidity.com.
+
+---
+
+## 🛠️ 4. Despliegue Rápido
+
+El proyecto está diseñado para funcionar en un entorno **Vercel Hobby**:
 
 ```bash
-# 1. Instalar dependencias
+# Instalación
 npm install
 
-# 2. Copiar variables de entorno
+# Variables de entorno
 cp .env.example .env.local
-# Llenar los valores reales en .env.local
 
-# 3. Iniciar servidor de desarrollo
+# Despliegue local
 npm run dev
-# → http://localhost:3000
-
-# 4. Build de producción
-npm run build
-npm run start
 ```
 
----
-
-## 📁 Estructura del Proyecto
-
-```
-proyectosolar/
-├── src/
-│   ├── app/                        # Next.js App Router (páginas y rutas)
-│   │   ├── page.tsx                # Landing page principal (B2B)
-│   │   ├── layout.tsx              # Layout raíz
-│   │   ├── globals.css             # Variables CSS + utilidades globales
-│   │   ├── login/                  # Autenticación (Supabase Auth)
-│   │   ├── dashboard/              # Panel de usuario autenticado
-│   │   │   ├── page.tsx            # Resumen / KPIs
-│   │   │   ├── billing/            # Gestión de suscripción PayPal
-│   │   │   ├── settings/           # Código embed + configuraciones
-│   │   │   └── affiliates/         # Programa de referidos
-│   │   ├── upgrade/                # Página de planes (Free → Pro)
-│   │   ├── checkout/               # Flujo de compra
-│   │   ├── store/                  # Tienda pública de modelos
-│   │   ├── embed/grill/            # Visor 3D embebible (iframe)
-│   │   ├── auth/callback/          # Callback OAuth de Supabase
-│   │   └── api/
-│   │       ├── order/              # API de pedidos
-│   │       └── webhooks/paypal/    # Webhooks de PayPal (activar suscripciones)
-│   ├── components/
-│   │   ├── GrillConfigurator.tsx   # Configurador 3D paramétrico (Three.js)
-│   │   └── BackgroundConstellation.tsx  # Fondo animado Canvas
-│   └── utils/
-│       └── supabase/               # Clientes Supabase (server/client/middleware)
-├── scripts/
-│   ├── 01_setup_limits_and_roles.sql   # Roles, trigger de límites, superusuario
-│   └── 02_superuser_private_slots.sql  # Slots privados del propietario (no público)
-├── docs/                           # Documentación técnica
-├── public/                         # Assets estáticos
-├── schema.sql                      # Schema base de datos inicial
-├── .env.example                    # Plantilla de variables de entorno
-├── .env.local                      # Variables locales (NO comitear)
-└── .env                            # Variables globales (NO comitear)
-```
-
----
-
-## 🗄️ Base de Datos (Supabase)
-
-### Tablas Principales
-
-| Tabla | Descripción |
-|-------|-------------|
-| `profiles` | Perfil extendido del usuario (plan, rol, suscripción PayPal) |
-| `models` | Modelos 3D guardados por cada usuario |
-| `paypal_events` | Log de webhooks PayPal (auditoría) |
-| `referrals` | Sistema de referidos |
-| `superuser_slots` | **PRIVADO** — 20 slots personales del propietario |
-
-### Roles del Sistema
-
-| Rol | Límite de Modelos | Descripción |
-|-----|------------------|-------------|
-| `user` + `plan = normal` | **3 modelos** | Plan gratuito |
-| `user` + `plan = pro` | **Ilimitado** | Suscripción Pro activa |
-| `superuser` | **Ilimitado** | Propietario del sistema |
-
-### Ejecutar Scripts SQL (en orden)
-
-```
-1. schema.sql                       → Tablas base + RLS
-2. scripts/01_setup_limits_and_roles.sql → Roles + trigger + superusuario
-3. scripts/02_superuser_private_slots.sql → Slots privados (opcional)
-```
-
----
-
-## 🔑 Variables de Entorno Requeridas
-
-Copia `.env.example` a `.env.local` y completa:
-
-```env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://ypaoqvbjdduumwdhuqjw.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=<tu-anon-key>
-SUPABASE_SERVICE_ROLE_KEY=<tu-service-role-key>
-
-# PayPal (Sandbox para desarrollo, Live para producción)
-NEXT_PUBLIC_PAYPAL_CLIENT_ID=<tu-client-id>
-PAYPAL_CLIENT_SECRET=<tu-secret>
-NEXT_PUBLIC_PAYPAL_PLAN_STANDARD=<plan-id-paypal>
-NEXT_PUBLIC_PAYPAL_PLAN_EARLYBIRD=<plan-id-earlybird>
-
-# Email (Resend)
-RESEND_API_KEY=<tu-resend-key>
-ADMIN_EMAIL=kevincordero@solarfluidity.com
-
-# n8n Automatizaciones
-VITE_N8N_WEBHOOK_URL=https://n8n-production-9ac9.up.railway.app/webhook
-```
-
-> ⚠️ **Nunca** comitees `.env`, `.env.local` ni archivos de configuración MCP. Están en `.gitignore`.
-
----
-
-## 💳 Sistema de Pagos (PayPal)
-
-- **Suscripciones recurrentes** via PayPal Subscriptions API
-- Webhook en `/api/webhooks/paypal` activa automáticamente el plan Pro en Supabase
-- Cupón de descuento `EARLY70` → 70% off por 3 meses
-- Afiliados: se rastrea con `?ref=<codigo>` en la URL
-
----
-
-## 🤖 Automatizaciones (n8n)
-
-La instancia de n8n en Railway (`n8n-production-9ac9.up.railway.app`) gestiona:
-- Emails de bienvenida
-- Notificaciones de suscripción
-- Alertas al propietario
-
-**MCP Server n8n** configurado para integración con el IDE (config local, no en repo).
-
----
-
-## 🎨 Diseño y Estética
-
-- **Fondo:** `#07090F` (espacio negro profundo)
-- **Primario:** `#FF5A1F` (Brand Orange — confianza y energía)
-- **Acento Tecnológico:** `#38BDF8` (Sky Blue)
-- **Premium:** `#F59E0B` (Amber/Dorado)
-- **Animaciones:** Framer Motion con curvas bezier `[0.22, 1, 0.36, 1]`
-- **Fondo interactivo:** Canvas con constelación de partículas sutiles
-
----
-
-## 🛡️ Seguridad
-
-- **Row Level Security (RLS)** activo en todas las tablas de Supabase
-- **Trigger PostgreSQL** que limita modelos según plan (Free: 3, Pro: ilimitado)
-- **Superusuario RLS** protege la tabla `superuser_slots` — solo accesible por `kevincordero@solarfluidity.com`
-- Tokens y secretos excluidos del repositorio via `.gitignore`
-- Webhook de PayPal verifica firma antes de procesar
-
----
-
-## 🔜 Roadmap Próximas Versiones
-
-- [ ] **v5.3** — Panel Admin Superusuario (`/dashboard/admin`)
-- [ ] **v5.3** — Sistema de Showcase con moderación (aprobar/rechazar sitios Pro)
-- [ ] **v5.3** — Galería pública `/showcase` con badge "Hecho con SolarFluidity"
-- [ ] **v5.4** — Modelos 3D reales desde FreeCAD (`.glb` en `public/models/`)
-- [ ] **v5.4** — Contador animado de fabricantes en Hero
-
----
-
-## 📋 Historial de Versiones
-
-| Versión | Descripción |
-|---------|-------------|
-| v5.1.1 | Arquitectura definitiva: Auth, PayPal, Supabase, Embed, Afiliados |
-| v5.2.0 | Rediseño B2B landing, constelación, corrección vercel/netlify, SQL roles |
-
----
-
-*© 2024-2025 SolarFluidity Studio. Todos los derechos reservados.*
+La plata está en la página que aún no se ha publicado. ¡A construir! 🔥

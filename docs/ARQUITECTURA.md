@@ -1,4 +1,4 @@
-# Documentación Técnica — SolarFluidity v5.2.0
+# 🏗️ Solar Fluidity 3D — Arquitectura del Sistema
 
 ## Arquitectura General
 
@@ -16,7 +16,17 @@ Landing Page (Next.js SSR)
     └── /api/*
         ├── /order              → Creación de pedidos
         └── /webhooks/paypal    → Webhook PayPal → activa plan Pro en Supabase
+
+Capa de automatización de ventas (Make.com — externa)
+    │
+    ├── Escenario 1: Captura de lead + entrega lead magnet
+    ├── Escenario 2: Secuencia de emails 7 días
+    ├── Escenario 3: Procesamiento de compra + upsell
+    ├── Escenario 4: Recuperación de carritos abandonados
+    └── Escenario 5: Sistema de referidos automático
 ```
+
+> 📄 Ver documentación completa de Make.com en [MAKE_AUTOMATIZACION.md](./MAKE_AUTOMATIZACION.md)
 
 ---
 
@@ -119,27 +129,39 @@ Ubicado en `src/components/GrillConfigurator.tsx`. Usa:
 - `@react-three/drei` — Helpers (OrbitControls, etc.)
 - `three` — Motor 3D
 
-**Modelo paramétrico:** Escala dinámicamente el cuerpo central mientras los rieles y accesorios mantienen sus dimensiones originales (sin deformarse).
+**Modelo paramétrico:** Escala dinámicamente el cuerpo central mientras los bordes y accesorios mantienen sus dimensiones originales (sin deformarse).
 
 **Embed público:** El visor se puede incrustar en cualquier sitio con:
 ```html
 <iframe src="https://solarfluidity.com/embed/grill?w=0.9&h=1.2" />
 ```
 
----
-
-## Automatizaciones n8n
-
-Instancia: `https://n8n-production-9ac9.up.railway.app`
-
-Webhooks activos (a configurar en n8n):
-- `POST /webhook/welcome-email` → Email de bienvenida al nuevo usuario
-- `POST /webhook/subscription-activated` → Notificación al admin cuando alguien se suscribe
-- `POST /webhook/subscription-cancelled` → Alerta de churn
-
-**MCP Server** de n8n configurado para integración con el IDE de desarrollo (config en `n8n-mcp-config.json`, excluido del repo por seguridad).
+La ruta `/embed/*` tiene cabeceras `X-Frame-Options: ALLOWALL` configuradas en `next.config.ts`.
 
 ---
+
+## Automatizaciones (Make.com)
+
+Make.com es el **orquestador central** de todas las automatizaciones de Solar Fluidity 3D.
+
+Variables de entorno requeridas:
+```env
+MAKE_WEBHOOK_LEAD_CAPTURE=https://hook.eu2.make.com/xxxxxx
+MAKE_WEBHOOK_PURCHASE=https://hook.eu2.make.com/yyyyyy
+```
+
+Escenarios activos:
+
+| # | Escenario | Gatillo | Destino |
+|---|-----------|---------|---------|
+| 1 | Captura de lead + lead magnet | Formulario landing | MailerLite |
+| 2 | Secuencia de venta 7 días | Nuevo suscriptor | MailerLite automation |
+| 3 | Procesamiento de compra + upsell | `checkout.session.completed` (Stripe) | Resend + MailerLite |
+| 4 | Recuperación de carritos | `checkout.session.expired` (Stripe) | Resend |
+| 5 | Sistema de referidos | Lead con `?ref=` | Supabase + Stripe cupones |
+
+> 📄 Ver blueprints completos, plantillas de email y proyección financiera en [MAKE_AUTOMATIZACION.md](./MAKE_AUTOMATIZACION.md)
+
 
 ## Paleta de Colores y Sistema de Diseño
 
@@ -195,4 +217,4 @@ npm run dev   # http://localhost:3000
 
 ---
 
-*Última actualización: Junio 2025 — v5.2.0*
+*Última actualización: Julio 2026 — v5.3.0*

@@ -48,7 +48,7 @@ function CheckoutContent() {
         </div>
         <h2 className="text-3xl font-bold text-white mb-4">¡Pedido Recibido!</h2>
         <p className="text-slate-400 mb-8 max-w-md mx-auto">
-          Hemos recibido tu solicitud para la Parrilla Híbrida ({width}m). Te contactaremos en las próximas 24 horas con las instrucciones para el pago del anticipo (50%).
+          Hemos recibido tu solicitud para la Cama de Cultivo ({width}m). Te contactaremos en las próximas 24 horas con las instrucciones para el pago del anticipo (50%).
         </p>
         <Link href="/store" className="inline-block bg-white/10 hover:bg-white/20 text-white font-medium py-3 px-8 rounded-xl transition-colors">
           Volver a la Tienda
@@ -129,7 +129,7 @@ function CheckoutContent() {
           
           <div className="flex items-start justify-between mb-4 pb-4 border-b border-white/10">
             <div>
-              <p className="font-medium text-white">{product === 'grill' ? 'Parrilla Híbrida Pro' : 'Producto'}</p>
+              <p className="font-medium text-white">{product === 'grill' ? 'Cama de Cultivo Pro' : 'Producto'}</p>
               <p className="text-sm text-slate-400">Ancho parametrizado: {width}m</p>
             </div>
             <span className="font-medium text-white">$1,199</span>

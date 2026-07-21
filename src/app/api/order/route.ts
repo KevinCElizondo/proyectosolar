@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
     // Construir el correo
     const emailHtml = `
-      <h2>Nuevo Pedido de Hardware: ${product === 'grill' ? 'Parrilla Híbrida Pro' : product}</h2>
+      <h2>Nuevo Pedido de Hardware: ${product === 'grill' ? 'Cama de Cultivo Pro' : product}</h2>
       <p><strong>Tamaño Configurado:</strong> ${width}m</p>
       <hr />
       <h3>Datos del Cliente</h3>

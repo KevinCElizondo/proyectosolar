@@ -88,7 +88,9 @@ Añade las siguientes variables de entorno en la sección "Environment Variables
 | CONVEX_DEPLOY_KEY        | Clave de despliegue de Convex                   |
 | SUPABASE_URL             | URL de tu proyecto en Supabase                   |
 | SUPABASE_ANON_KEY        | Clave anónima de Supabase                       |
-| N8N_WEBHOOK_URL          | URL del webhook de N8N para automatizaciones    |
+| MAKE_WEBHOOK_LEAD_CAPTURE | URL del webhook Make.com — Escenario 1 (captura de lead)   |
+| MAKE_WEBHOOK_PURCHASE     | URL del webhook Make.com — Escenario 3 (compra/entrega)    |
+| MAILERLITE_API_KEY        | API Key de MailerLite para email marketing                  |
 
 > **Importante**: Asegúrate de que `VITE_API_URL` en `.env.production` apunte a la URL correcta de tu API backend en producción.
 
