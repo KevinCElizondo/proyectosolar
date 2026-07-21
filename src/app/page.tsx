@@ -213,3 +213,5 @@ export default function Home() {
 }
 
 // Despliegue forzado para Vercel
+
+// Commit verificado para despliegue automático Vercel
