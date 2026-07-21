@@ -1,22 +1,28 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 interface EmailParams {
   to: string;
   subject: string;
   html: string;
 }
 
+let resendClient: Resend | null = null;
+function getResend(): Resend | null {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return null;
+  if (!resendClient) resendClient = new Resend(key);
+  return resendClient;
+}
+
 export async function sendEmail({ to, subject, html }: EmailParams) {
-  if (!process.env.RESEND_API_KEY) {
-    console.warn('RESEND_API_KEY no está configurada, no se enviará el correo a', to);
+  const client = getResend();
+  if (!client) {
+    console.warn('RESEND_API_KEY no configurada; se omite envío a', to);
     return null;
   }
-
   try {
-    const data = await resend.emails.send({
-      from: 'Solar Fluidity <onboarding@resend.dev>', // Usando el dominio de pruebas de Resend por defecto hasta verificar un dominio propio
+    const data = await client.emails.send({
+      from: 'Solar Fluidity <onboarding@resend.dev>',
       to,
       subject,
       html,
