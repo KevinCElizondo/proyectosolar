@@ -211,3 +211,5 @@ export default function Home() {
     </div>
   );
 }
+
+// Despliegue forzado para Vercel
