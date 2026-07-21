@@ -56,7 +56,7 @@ export default async function PublicModelPage({ params }: { params: Promise<{ us
         )}
       </header>
       <div className="flex-1 min-h-[70vh]">
-        <ProductViewer url={model.file_url} format={model.format as 'stl' | 'glb'} />
+        <ViewerClient url={model.file_url} format={model.format as 'stl' | 'glb'} />
       </div>
     </main>
   );
