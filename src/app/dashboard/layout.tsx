@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { LayoutDashboard, Settings, CreditCard, LogOut, Sun, Users } from 'lucide-react';
+import { LayoutDashboard, Settings, CreditCard, LogOut, Sun, Users, UploadCloud } from 'lucide-react';
 
 export default function DashboardLayout({
   children,
@@ -21,6 +21,10 @@ export default function DashboardLayout({
           <Link href="/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-slate-300 hover:text-white">
             <LayoutDashboard className="w-5 h-5 text-[#FF5A1F]" />
             <span className="font-medium">Resumen</span>
+          </Link>
+          <Link href="/dashboard/upload" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-slate-300 hover:text-white">
+            <UploadCloud className="w-5 h-5 text-slate-400" />
+            <span className="font-medium">Subir modelo</span>
           </Link>
           <Link href="/dashboard/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 transition-colors text-slate-300 hover:text-white">
             <Settings className="w-5 h-5 text-slate-400" />
