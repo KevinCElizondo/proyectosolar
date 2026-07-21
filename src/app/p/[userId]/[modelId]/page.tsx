@@ -1,9 +1,7 @@
 import { notFound } from 'next/navigation';
-import dynamic from 'next/dynamic';
+import ViewerClient from '@/components/ViewerClient';
 import { createClient } from '@supabase/supabase-js';
 import type { Metadata } from 'next';
-
-const ProductViewer = dynamic(() => import('@/components/ProductViewer'), { ssr: false });
 
 export const revalidate = 60;
 
