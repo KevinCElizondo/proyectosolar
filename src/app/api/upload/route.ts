@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { v4 as uuidv4 } from 'uuid';
 
 export const runtime = 'nodejs';
 
@@ -17,7 +16,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Supabase no está configurado en el servidor.' }, { status: 500 });
   }
 
-  // Validate session via bearer token
   const authHeader = req.headers.get('authorization') || '';
   const token = authHeader.replace(/^Bearer\s+/i, '');
   if (!token) return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
@@ -47,7 +45,7 @@ export async function POST(req: NextRequest) {
   }
 
   const safe = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-  const path = `${userId}/${uuidv4()}_${safe}`;
+  const path = `${userId}/${crypto.randomUUID()}_${safe}`;
 
   const { error: upErr } = await admin.storage
     .from('models')

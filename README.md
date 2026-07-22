@@ -1,71 +1,94 @@
-# ☀️ SolarFluidity Pro — Validación y Plan de Ejecución
+# 🔥 SOLARFLUIDITY PRO – Propuesta de Valor Definitiva de Alto Calibre
 
-**Versión:** 6.0.0 (Solopreneur Edition)
-**Framework:** Next.js (App Router)
-**Stack:** Next.js · TypeScript · Tailwind CSS v4 · Supabase · Three.js
+**Versión:** 7.0.0 (Élite Edition & Cumplimiento Fiscal Costa Rica)  
+**Framework:** Next.js (App Router)  
+**Stack:** Next.js · TypeScript · Tailwind CSS v4 · Supabase · Three.js · Netlify  
 **Propietario:** Kevin Cordero · `kevincordero@solarfluidity.com`
 
 ---
 
-## 🚀 ¿Qué es SolarFluidity Pro?
+## 🎯 1. Propuesta de Valor de Alto Impacto
 
-SolarFluidity Pro es una plataforma SaaS diseñada para **diseñadores 3D, makers, carpinteros y herreros**. Permite subir archivos (.stl, .glb), visualizarlos en 3D en la web e incrustarlos en tiendas online (iframes). 
+SolarFluidity Pro es la **vitrina 3D de alto calibre** que convierte archivos técnicos (.stl, .glb) en una máquina de ventas sin código, sin comisiones y con facturación integrada.
 
-**Propuesta de valor:** *"Súbelo, previsualízalo, compártelo. Sin código, sin comisiones."*
+> **"Súbelo, previsualízalo, véndelo. Sin comisiones, con factura electrónica y correo corporativo incluido."**
 
----
-
-## ✅ 1. Validación Definitiva
-
-| Área | Observación |
-|------|-------------|
-| **Viabilidad técnica** | Subir un archivo, guardarlo en Supabase y mostrarlo con Three.js es un flujo estándar y probado. |
-| **Propuesta de valor** | La previsualización y el embed (iframe) para no programadores es justo lo que los makers necesitan. |
-| **Mercado objetivo** | Millones de diseñadores 3D y makers que ya usan .stl o .glb pero no tienen forma simple de mostrar productos en 3D. |
-| **Modelo de ingresos** | $49/mes. Con solo 30 clientes Pro el SaaS genera $1,470/mes con un margen del 99%. Las ventas de hardware validan la plataforma. |
-| **Riesgo financiero** | Costo operativo fijo: $0 (Vercel Hobby, Supabase gratuito, Resend). Solo dominio (~$10/año). Riesgo cero. |
-| **Velocidad de ejecución** | En menos de una semana se puede tener un producto en 3D y un enlace para compartir. |
+| Elemento de valor | Cómo se traduce en ingresos |
+|------------------|-----------------------------|
+| **Visor 3D interactivo** | Aumenta la conversión de ventas del cliente final. |
+| **Previsualización sin código** | Reduce la fricción del creador; más conversión a Pro ($49/mes). |
+| **Sin comisiones sobre ventas** | El creador retiene el 100%, justificando la suscripción. |
+| **Facturación electrónica (CR)** | Diferencia regulatoria para clientes costarricenses con Factúrele. |
+| **Correos personalizados** | `solarfluidity.com` transmite imagen corporativa de autoridad. |
+| **Embed en webs externas** | Multiplica la exposición del SaaS mediante backlinks orgánicos. |
 
 ---
 
-## 💰 2. Modelo de Ingresos
+## 💰 2. Análisis de Márgenes de Ingresos de Élite
 
-### Ingresos por Suscripciones (SaaS)
-- **Precio Pro:** $49/mes.
-- **Lanzamiento Early Bird:** $39/mes (primeros 10-15 clientes).
-- **Proyección 12 meses:** 20 clientes Pro = ~$10,000 – $12,000 / año.
+### 2.1. Estructura de costos (operación mensual)
 
-### Ingresos por Hardware (Ventas propias)
-- **Cama de cultivo VerDECER:** ~$490 venta (~$230 margen).
-- **Parrilla híbrida:** ~$1,000 venta (~$500 margen).
-- **Proyección 12 meses:** ~$5,500 – $7,000 / año.
+| Concepto | Costo |
+|----------|-------|
+| Hosting frontend + API (Netlify) | $0 (plan gratuito) |
+| Base de datos, Auth, Storage (Supabase) | $0 (plan gratuito 500 MB) |
+| Correos transaccionales (Resend) | $0 (3,000 correos/mes) |
+| Pasarela de pagos (PayPal) | 2.9% + $0.30 por transacción |
+| Dominio `solarfluidity.com` | ~$10/año |
+| **Total mensual fijo** | **$0 / mes** |
 
-**Total Anual Esperado:** $15,500 – $19,000 (Escenario conservador) | Costos: $10 (Dominio).
+### 2.2. Margen neto del SaaS (>99%)
+
+| Clientes Pro | Ingreso mensual | Margen neto |
+|--------------|-----------------|-------------|
+| 10 | $490 | **100%** |
+| 30 | $1,470 | **100%** |
+| 50 | $2,450 | **100%** |
+
+### 2.3. Ingresos por Productos Propios (Hardware)
+- **Cama VerDECER:** $490 venta | ~$230 margen (47%)
+- **Parrilla Híbrida:** $1,000 venta | ~$500 margen (50%)
+
+**Total proyectado Año 1:** **~$17,800 USD** (SaaS + Hardware) con margen neto >85%.
 
 ---
 
-## 🧠 3. Estrategia de Crecimiento (Go-to-Market)
+## 🏛️ 3. Correos Corporativos y Facturación Electrónica
 
-1. **Publicar contenido:** Reel semanal mostrando el configurador con productos reales (ej. camas de cultivo).
-2. **Dogfooding:** Cada cliente de una cama de cultivo recibe un flyer: *"Esta página 3D fue hecha con SolarFluidity. ¿Quieres la tuya? Primer mes 20% descuento."*
-3. **Prospección manual:** Buscar en IG/LinkedIn makers de productos personalizados y contactarlos.
-4. **SEO de embeds:** Los iframes incrustados generan backlinks a solarfluidity.com.
+### Alias en Google Workspace (`solarfluidity.com`)
+- `kevincordero@solarfluidity.com` – Fundador & Principal
+- `facturacion@solarfluidity.com` – Emisión de facturas electrónicas
+- `ventas@solarfluidity.com` – Atención comercial
+- `soporte@solarfluidity.com` – Soporte técnico
+- `administracion@solarfluidity.com` – Gestión administrativa
+- `no-reply@solarfluidity.com` – Envíos automáticos
+
+### Flujo de Facturación Electrónica (Factúrele + Make)
+1. Cliente adquiere producto o suscripción en la web.
+2. Webhook procesa la venta y envía datos a **Make.com**.
+3. Make genera la factura en **Factúrele** (proveedor autorizado por Ministerio de Hacienda CR).
+4. Se distribuye automáticamente el PDF y XML firmado al cliente con copia a `facturacion@solarfluidity.com`.
 
 ---
 
-## 🛠️ 4. Despliegue Rápido
+## 🌐 4. Guía de Despliegue en Netlify
 
-El proyecto está diseñado para funcionar en un entorno **Vercel Hobby**:
+El proyecto se encuentra 100% optimizado para **Netlify**:
 
 ```bash
-# Instalación
-npm install
+# 1. Probar compilación local
+npm run build
 
-# Variables de entorno
-cp .env.example .env.local
+# 2. Conectar repositorio GitHub en Netlify:
+#    Site Settings -> Import existing project -> GitHub -> proyectosolar
 
-# Despliegue local
-npm run dev
+# 3. Configurar variables de entorno en Netlify:
+#    NEXT_PUBLIC_SUPABASE_URL
+#    NEXT_PUBLIC_SUPABASE_ANON_KEY
+#    SUPABASE_SERVICE_ROLE_KEY
+#    RESEND_API_KEY
+#    NEXT_PUBLIC_PAYPAL_CLIENT_ID
+#    PAYPAL_CLIENT_SECRET
 ```
 
-La plata está en la página que aún no se ha publicado. ¡A construir! 🔥
+Cada push a `main` actualizará tu sitio automáticamente en Netlify en menos de 60 segundos. 🚀
